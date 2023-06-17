@@ -1,0 +1,10 @@
+{
+  "name": "highliter_server",
+  "version": "1.0.0",
+  "description": "Back bone of the highliter app and extension that let's people highlight stuff that they like",
+  "main": "index.js",
+  "repository": "https://github.com/sarojregmi200/Highliter",
+  "author": "Saroj Regmi",
+  "license": "MIT",
+  "private": null
+}
