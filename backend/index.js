@@ -1,10 +1,18 @@
 import Express from "express";
 import env from "dotenv";
 
-const app = Express();
-env.config();
+// establishes the database connection
+import establishDBConnection from "./config/db.config.js";
 
-const PORT = process.env.PORT || 3000;
+const app = Express();
+
+env.config({
+  path: "./config/.env",
+});
+
+establishDBConnection();
+
+const PORT = process.env.PORT || 6000;
 
 app.listen(PORT, () => {
   console.log(`The app is running in the port ${PORT}`);
