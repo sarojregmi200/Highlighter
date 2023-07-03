@@ -1,0 +1,28 @@
+/* stylish cut type cursive font */
+/*font-family:    'Expletus Sans', cursive;  */
+@import url("https://fonts.googleapis.com/css2?family=Expletus+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+
+/* all purpose normal fonts */
+/* font-family: 'Akatab', sans-serif; */
+@import url("https://fonts.googleapis.com/css2?family=Akatab:wght@400;500;600;700;800;900&display=swap");
+
+/* variables */
+:root {
+  --stylish-font: "Expletus Sans", cursive;
+  --normal-font: "Akatab", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.mainContainer {
+  height: 500px;
+  width: 400px;
+  overflow: hidden;
+  padding: 30px;
+}
+.shortcutContainer > .title {
+  font-family: var(--stylish-font);
+}
