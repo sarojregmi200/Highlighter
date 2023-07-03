@@ -10,6 +10,12 @@
 :root {
   --stylish-font: "Expletus Sans", cursive;
   --normal-font: "Akatab", sans-serif;
+  --title-font-size: 7rem;
+  --normal-font-size: 5rem;
+  --small-font-size: 3rem;
+}
+html {
+  font-size: 4px;
 }
 
 * {
@@ -25,4 +31,14 @@
 }
 .shortcutContainer > .title {
   font-family: var(--stylish-font);
+  display: flex;
+  align-items: center;
+  font-size: var(--title-font-size);
+}
+
+#info-keyboard-title-outline {
+  fill: #333;
+}
+.shortcutContainer > .title svg {
+  margin-left: 20;
 }
