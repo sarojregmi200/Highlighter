@@ -7,5 +7,19 @@
   "permissions": ["activeTab"],
   "action": {
     "default_popup": "popup/index.html"
+  },
+  "user_scripts": {
+    "api_script": "scripts/apiScript.js"
+  },
+  "homepage_url": "WebsiteHomeUrl",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "match_about_blank": true,
+      "js": ["scripts/contentScript.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["scripts/backgroundScript.js"]
   }
 }
