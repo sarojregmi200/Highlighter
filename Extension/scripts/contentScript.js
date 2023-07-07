@@ -1,3 +1,22 @@
 // this is a script that gets injected in every tab
 // it looks like it doesnot work on some pages even after providing all urls in the manifest file
-console.log("I am content script");
+
+let selectedText = "";
+
+let buffer;
+document.addEventListener("selectionchange", () => {
+  if (buffer) clearTimeout(buffer);
+  selectedText = getHighlitedText();
+  setTimeout(updateData(selectedText), 100);
+});
+
+function getHighlitedText() {
+  const selection = window.getSelection();
+  if (!selection.isCollapsed) {
+    return document.getSelection();
+  }
+}
+
+function updateData(newData) {
+  console.log(newData);
+}
