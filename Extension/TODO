@@ -2,18 +2,18 @@ todays goal:
   ✔ figuring out the scripts @started(23-07-07 10:22) @done(23-07-07 10:44) @lasted(23m)
   ✔ completing the shortcut UI @started(23-07-07 10:56) @done(23-07-07 11:19) @lasted(23m53s)
   ✔ getting highlighted data @started(23-07-07 11:20) @done(23-07-07 13:21) @lasted(2h1m32s)
-  ☐ making the short cuts @started(23-07-07 12:31)
-  ☐ set cookie method
-  ☐ get cookie method
-  ☐ orama integration
-  ☐ setting highlighted data in orama
-  ☐ search box ui complete
-  ☐ getting stored data method
-  ☐ search result ui complete
-  ☐ integrating orama search with the search
+  ✔ making the short cuts @started(23-07-07 12:31) @done(23-07-07 21:33) @lasted(9h2m4s)
+  ☐ set localstorage method.
+  ☐ get localstorage method.
+  ☐ orama integration.
+  ☐ setting highlighted data in orama.
+  ☐ search box ui complete.
+  ☐ getting stored data method.
+  ☐ search result ui complete.
+  ☐ integrating orama search with the search.
 
 if possible:
-  ☐ tags ui 
+  ☐ tags ui.
   ☐ creating different category for todo.
   ☐ mapping category with different colors.
   ☐ ability to create category.
