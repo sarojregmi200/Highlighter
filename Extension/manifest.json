@@ -24,6 +24,21 @@
       "suggested_key": {
         "default": "Ctrl+Alt+H"
       }
+    },
+    "search": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+K"
+      }
+    },
+    "category": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+C"
+      }
+    }
+    ,"topic": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+T"
+      }
     }
   }
 }

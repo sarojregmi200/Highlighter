@@ -10,6 +10,10 @@ document.addEventListener("selectionchange", () => {
   setTimeout(updateData(selectedText), 100);
 });
 
+// gets the highlited text with it's property. in a format {
+// content: selectedContent
+// location: dom location
+// }
 function getHighlitedText() {
   const selection = window.getSelection();
   if (!selection.isCollapsed) {
