@@ -1,6 +1,6 @@
 todays goal:
   ✔ figuring out the scripts @started(23-07-07 10:22) @done(23-07-07 10:44) @lasted(23m)
-  ☐ completing the shortcut UI
+  ☐ completing the shortcut UI @started(23-07-07 10:56)
   ☐ making the short cuts
   ☐ set cookie method
   ☐ get cookie method
@@ -13,9 +13,10 @@ todays goal:
   ☐ integrating orama search with the search
 
 if possible:
-  ☐ creating different tags for todo.
-  ☐ mapping tags with different colors.
-  ☐ ability to create tags.
-  ☐ manage tags.
-  ☐ tags integration along with the highlited data.
-  ☐ adding way to store tags.
+  ☐ tags ui 
+  ☐ creating different category for todo.
+  ☐ mapping category with different colors.
+  ☐ ability to create category.
+  ☐ manage category.
+  ☐ category integration along with the highlited data.
+  ☐ adding way to store category.
