@@ -89,9 +89,9 @@ function getPreviousState() {
   appState.task = task;
 }
 
-// stores the current state in the local storage
-function saveApplicationState() {
-  // converts into a json string
-  const state = JSON.stringify(appState);
-  localStorage.setItem("state", state);
+// accepts two params one is the name of the  state to save and another is the value of the state to save
+function saveInformation(stateName, value) {
+  // converting the value into a json string
+  const sValue = JSON.stringify(value);
+  localStorage.setItem(stateName, sValue);
 }
