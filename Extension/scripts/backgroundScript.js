@@ -1,16 +1,17 @@
-// non-persistant script are allowed in manifest version 3
-// can send xhr request if host permission is provided
-// can communicate with conten script throught message passing api
-// non resetting context
-// all the global context should be present in this script
-
-// listining to the shortcuts
+// current state of the application
+const appState = {
+  task: "",
+  category: "",
+  searchVisibility: false,
+};
 
 // listening for shortcuts
-browser.commands.onCommand.addListener((command) =>
-  handleShortcutChange(command)
-);
+if (browser.commands.onCommand)
+  browser.commands.onCommand.addListener((command) =>
+    handleShortcutChange(command)
+  );
 
+// handles the different shortcut keypress
 function handleShortcutChange(state) {
   // repeatign shortcut. used during changing between multiple categories or topics
   switch (state) {
