@@ -1,15 +1,15 @@
 // current state of the application
 const appState = {
-  task: "Universal",
-  category: "text",
+  topic: "Universal",
+  Color: "yellow",
   searchVisibility: false,
 };
 // contains the application information
 // this also stores the items that are added by the users
-// such as the tasks and categories and highlits as well.
+// such as the topics and categories and highlits as well.
 const appData = {
-  tasks: ["universal"],
-  categories: ["text", "code"],
+  topics: ["universal"],
+  colors: ["yellow", "green"],
   data: [
     // {
     //   domain: "The url of the highlited data",
@@ -41,25 +41,25 @@ function handleShortcutChange(state) {
       // for the first search shortcut the search box will be visible and if the shortcut is pressed again then it should close
       setSearchVisibility();
       break;
-    case "category":
-      // change the current category
-      changeCategory();
+    case "color":
+      // change the current Color
+      changeColor();
       break;
     case "topic":
       // change the topic
-      changeTasks();
+      changetopics();
       break;
   }
 }
 
 // changing the extension settings using the functions
-function changeCategory() {
-  console.log("Changing the category");
+function changeColor() {
+  console.log("Changing the Color");
 }
 
-// used to switch the task
-function changeTasks() {
-  console.log("changing the tasks");
+// used to switch the topic
+function changetopics() {
+  console.log("changing the topics");
 }
 
 // used to search the item
@@ -83,10 +83,10 @@ function getPreviousState() {
   const state = localStorage.getItem("state");
   if (!state) return;
 
-  const { category, task } = JSON.parse(state);
+  const { Color, topic } = JSON.parse(state);
 
-  appState.category = category;
-  appState.task = task;
+  appState.Color = Color;
+  appState.topic = topic;
 }
 
 // accepts two params one is the name of the  state to save and another is the value of the state to save

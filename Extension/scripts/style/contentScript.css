@@ -1,0 +1,6 @@
+.wrapper-highliter-highlit {
+  text-decoration-line: underline;
+  text-decoration-thickness: 3px;
+  font-style: italic;
+  line-height: 102%;
+}
