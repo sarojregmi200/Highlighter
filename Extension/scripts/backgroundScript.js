@@ -1,9 +1,31 @@
 // current state of the application
 const appState = {
-  task: "",
-  category: "",
+  task: "Universal",
+  category: "text",
   searchVisibility: false,
 };
+// contains the application information
+// this also stores the items that are added by the users
+// such as the tasks and categories and highlits as well.
+const appData = {
+  tasks: ["universal"],
+  categories: ["text", "code"],
+  data: [
+    // {
+    //   domain: "The url of the highlited data",
+    //   highlightedData: [
+    //     {
+    //       data: "highlited data",
+    //       mode: "text",
+    //       time:"new time"
+    //     },
+    //   ],
+    // },
+  ],
+};
+
+// fetches the previous state stored in the local storage.
+getPreviousState();
 
 // listening for shortcuts
 if (browser.commands.onCommand)
@@ -17,7 +39,7 @@ function handleShortcutChange(state) {
   switch (state) {
     case "search":
       // for the first search shortcut the search box will be visible and if the shortcut is pressed again then it should close
-      setSearchVisibility(!recurringShortcut);
+      setSearchVisibility();
       break;
     case "category":
       // change the current category
@@ -53,4 +75,23 @@ function setSearchVisibility(changedState) {
     return;
   }
   //   find the search box and make it invisible
+}
+
+// get the previous state from the local storage
+// and sets to the current state
+function getPreviousState() {
+  const state = localStorage.getItem("state");
+  if (!state) return;
+
+  const { category, task } = JSON.parse(state);
+
+  appState.category = category;
+  appState.task = task;
+}
+
+// stores the current state in the local storage
+function saveApplicationState() {
+  // converts into a json string
+  const state = JSON.stringify(appState);
+  localStorage.setItem("state", state);
 }
