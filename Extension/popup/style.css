@@ -48,6 +48,9 @@ html {
   color: var(--light-black-title);
   padding: var(--standard-m-p);
 }
+.colorsContainer .title {
+  padding-bottom: 0;
+}
 
 #info-keyboard-title-outline {
   fill: var(--light-black-normal);
@@ -102,6 +105,11 @@ html {
   /* color: var(--light-gray); */
 }
 
+/* color circles section */
+.colorsContainer {
+  margin-top: var(--standard-m-p);
+}
+
 .colorsContainer .colors {
   display: flex;
   flex-wrap: wrap;
@@ -112,4 +120,12 @@ html {
   height: 50px;
   width: 50px;
   border-radius: 50%;
+  opacity: 0.7;
+  cursor: pointer;
+}
+.colorsContainer .color + .color {
+  margin-left: 10px;
+}
+.colorsContainer .color:hover {
+  opacity: 1;
 }
