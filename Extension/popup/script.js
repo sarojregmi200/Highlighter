@@ -7,11 +7,11 @@ const colorContainer = document.querySelector(".colors");
 
 if (colorContainer) {
   // updating the ui
-  tiggerUiColorsUpdate();
+  triggerUiColorsUpdate();
 }
 
 // adds the colors in ui by fetching data from the global state
-function tiggerUiColorsUpdate() {
+function triggerUiColorsUpdate() {
   // getting the global state
   getGlobalState().then(
     ({ colors, activeColor }) => {
@@ -71,9 +71,13 @@ function createColor(colorCode, activeStatus) {
 
 // updates the active color to the provided index of the color from the global state color array
 function updateActiveColor(index) {
-  colorState.activeColor = colorState.colors[index];
-  //   updating the ui
-  updateColorUi(colorState);
+  const active = colorState.colors[index];
+
+  //   setting the background state active color
+  browser.runtime.sendMessage({ msg: "changeActive", active });
+
+  //   rerendering the colors ui
+  triggerUiColorsUpdate();
 
   //   updating the css variable
   document

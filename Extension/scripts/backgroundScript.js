@@ -98,13 +98,20 @@ function saveInformation(stateName, value) {
 }
 
 function handleMessage(request, sender, sendResponse) {
-  if (request.msg === "globalState") {
-    sendResponse(appState);
-  }
-  if (request.msg === "getColors") {
-    sendResponse({
-      activeColor: appState.color,
-      colors: appData.colors,
-    });
+  switch (request.msg) {
+    case "globalState":
+      sendResponse(appState);
+      break;
+
+    case "getColors":
+      sendResponse({
+        activeColor: appState.color,
+        colors: appData.colors,
+      });
+      break;
+
+    case "changeActive":
+      appState.color = request.active;
+      break;
   }
 }
