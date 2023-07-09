@@ -34,6 +34,7 @@ function tiggerUiColorsUpdate() {
   );
 }
 
+// receives the color state and renders it to the ui
 function updateColorUi(state) {
   // clearing the previous colors
   colorContainer.innerHTML = "";
@@ -45,12 +46,12 @@ function updateColorUi(state) {
     const newColor = createColor(color, color === state.activeColor);
 
     // adding a event listener to handle updating color on click
-    newColor.addEventListener("click", updateActiveColor(index));
+    newColor.addEventListener("click", () => updateActiveColor(index));
     colorContainer.appendChild(newColor);
   });
 }
 
-// gets the data from the background script
+// returns a promiss that resolves into a state variable from background script
 function getGlobalState() {
   const promiss = browser.runtime.sendMessage({ msg: "getColors" });
   return promiss;
@@ -69,7 +70,16 @@ function createColor(colorCode, activeStatus) {
 }
 
 // updates the active color to the provided index of the color from the global state color array
-function updateActiveColor(index) {}
+function updateActiveColor(index) {
+  colorState.activeColor = colorState.colors[index];
+  //   updating the ui
+  updateColorUi(colorState);
+
+  //   updating the css variable
+  document
+    .querySelector(":root")
+    .style.setProperty("--active-color", colorState.colors[index]);
+}
 
 // sends a console log to the background scritp console
 function print(msg) {
