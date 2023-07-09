@@ -1,7 +1,7 @@
 // current state of the application
 const appState = {
   topic: "Universal",
-  color: "green",
+  color: "#E9FF32",
   searchVisibility: false,
 };
 // contains the application information
@@ -9,7 +9,7 @@ const appState = {
 // such as the topics and categories and highlits as well.
 const appData = {
   topics: ["universal"],
-  colors: ["yellow", "green"],
+  colors: ["#8CFF32", "#E9FF32", "#FF9C35", "#AEE2FF", "#E90064"],
   data: [
     // {
     //   domain: "The url of the highlited data",
