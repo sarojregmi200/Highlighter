@@ -2,7 +2,10 @@
 const appState = {
   topic: "Universal",
   color: "#8CFF32",
-  searchVisibility: false,
+  search: {
+    visibility: false,
+    type: "", //type means search or title or color
+  },
 };
 // contains the application information
 // this also stores the items that are added by the users
@@ -43,6 +46,14 @@ function handleShortcutChange(state) {
     case "search":
       // for the first search shortcut the search box will be visible and if the shortcut is pressed again then it should close
       setSearchVisibility();
+      browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        browser.tabs.sendMessage(tabs[0].id, {
+          msg: "activate",
+          type: "search",
+          appState,
+          appData,
+        });
+      });
       break;
     case "color":
       // change the current color
@@ -57,7 +68,8 @@ function handleShortcutChange(state) {
 
 // changing the extension settings using the functions
 function changeColor() {
-  console.log("Changing the color");
+  // turning the search box on
+  setSearchVisibility(!appState.searchVisibility);
 }
 
 // used to switch the topic
@@ -65,19 +77,9 @@ function changetopics() {
   console.log("changing the topics");
 }
 
-// used to search the item
-function searchItem(data) {
-  console.log("searching item", data);
-}
-
 // turns search box on or off
 function setSearchVisibility(changedState) {
-  if (changedState) {
-    // create the search btn
-    // then return
-    return;
-  }
-  //   find the search box and make it invisible
+  appState.searchVisibility = changedState;
 }
 
 // get the previous state from the local storage
@@ -99,10 +101,12 @@ function saveInformation(stateName, value) {
 
 function handleMessage(request, sender, sendResponse) {
   switch (request.msg) {
+    // send the global state to the content script
     case "globalState":
       sendResponse(appState);
       break;
 
+    // sends the color state to popup and updates in the context script
     case "getColors":
       sendResponse({
         activeColor: appState.color,
@@ -110,8 +114,16 @@ function handleMessage(request, sender, sendResponse) {
       });
       break;
 
+    // changes the global app active state
     case "changeActive":
       appState.color = request.active;
+      break;
+
+    // inverses the visibility and acts as a toggle switch for the search box
+    case "getSearchVisibility":
+      sendResponse({
+        status: appState.searchVisibility,
+      });
       break;
   }
 }

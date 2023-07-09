@@ -65,3 +65,8 @@ function getHighlitedText() {
 function updateData(newData) {
   console.log(newData);
 }
+
+// generates a search container based on the supplied params and returns it
+function createSearch(type, appData, appState) {
+  
+}
