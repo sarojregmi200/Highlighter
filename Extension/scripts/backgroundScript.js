@@ -1,7 +1,7 @@
 // current state of the application
 const appState = {
   topic: "Universal",
-  Color: "yellow",
+  color: "green",
   searchVisibility: false,
 };
 // contains the application information
@@ -33,6 +33,9 @@ if (browser.commands.onCommand)
     handleShortcutChange(command)
   );
 
+// listening for messages from other scripts
+browser.runtime.onMessage.addListener(handleMessage);
+
 // handles the different shortcut keypress
 function handleShortcutChange(state) {
   // repeatign shortcut. used during changing between multiple categories or topics
@@ -42,7 +45,7 @@ function handleShortcutChange(state) {
       setSearchVisibility();
       break;
     case "color":
-      // change the current Color
+      // change the current color
       changeColor();
       break;
     case "topic":
@@ -54,7 +57,7 @@ function handleShortcutChange(state) {
 
 // changing the extension settings using the functions
 function changeColor() {
-  console.log("Changing the Color");
+  console.log("Changing the color");
 }
 
 // used to switch the topic
@@ -82,10 +85,8 @@ function setSearchVisibility(changedState) {
 function getPreviousState() {
   const state = localStorage.getItem("state");
   if (!state) return;
-
-  const { Color, topic } = JSON.parse(state);
-
-  appState.Color = Color;
+  const { color, topic } = JSON.parse(state);
+  appState.color = color;
   appState.topic = topic;
 }
 
@@ -94,4 +95,10 @@ function saveInformation(stateName, value) {
   // converting the value into a json string
   const sValue = JSON.stringify(value);
   localStorage.setItem(stateName, sValue);
+}
+
+function handleMessage(request, sender, sendResponse) {
+  if (request.msg === "globalState") {
+    sendResponse(appState);
+  }
 }
