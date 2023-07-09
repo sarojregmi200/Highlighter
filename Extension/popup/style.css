@@ -101,3 +101,15 @@ html {
   background-color: var(--dark-gray);
   /* color: var(--light-gray); */
 }
+
+.colorsContainer .colors {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: var(--standard-m-p);
+}
+.colorsContainer .color {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}

@@ -101,4 +101,10 @@ function handleMessage(request, sender, sendResponse) {
   if (request.msg === "globalState") {
     sendResponse(appState);
   }
+  if (request.msg === "getColors") {
+    sendResponse({
+      activeColor: appState.color,
+      colors: appData.colors,
+    });
+  }
 }
