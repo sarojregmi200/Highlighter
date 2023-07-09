@@ -8,6 +8,7 @@
 
 /* variables */
 :root {
+  /* stylish font is for title */
   --stylish-font: "Expletus Sans", cursive;
   --normal-font: "Akatab", sans-serif;
   --title-font-size: 7rem;
@@ -98,4 +99,10 @@ html {
 .shortcut:hover .key {
   background-color: var(--dark-gray);
   /* color: var(--light-gray); */
+}
+
+.colorsContainer .title {
+  font-size: var(--title-font-size);
+  color: var(--light-black-title);
+  font-family: var(--stylish-font);
 }
