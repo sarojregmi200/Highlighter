@@ -7,25 +7,38 @@ const colorContainer = document.querySelector(".colors");
 
 if (colorContainer) {
   // updating the ui
-  updateUiColors();
+  tiggerUiColorsUpdate();
 }
 
 // adds the colors in ui by fetching data from the global state
-function updateUiColors() {
+function tiggerUiColorsUpdate() {
   // getting the global state
-  getGlobalState();
+  getGlobalState().then(
+    ({ colors, activeColor }) => {
+      updateColorUi({
+        colors: colors,
+        activeColor: activeColor,
+      });
+      colorState.activeColor = activeColor;
+      colorState.colors = colors;
+    },
+    (e) => {
+      console.log("Cannot get global state");
+      return "err";
+    }
+  );
+}
 
+function updateColorUi(state) {
   // clearing the previous colors
   colorContainer.innerHTML = "";
 
-  print(colorState.colors.length);
   //   if no colors found
-  if (colorState.colors.length < 1) return;
+  if (state.colors.length < 1) return;
 
-  colorState.colors.forEach((color, index) => {
-    const newColor = createColor(color, color === colorState.activeColor);
+  state.colors.forEach((color, index) => {
+    const newColor = createColor(color, color === state.activeColor);
 
-    print(newColor);
     // adding a event listener to handle updating color on click
     newColor.addEventListener("click", updateActiveColor(index));
     colorContainer.appendChild(newColor);
@@ -34,16 +47,8 @@ function updateUiColors() {
 
 // gets the data from the background script
 function getGlobalState() {
-  const request = browser.runtime.sendMessage({ msg: "getColors" });
-  request.then(
-    (response) => {
-      colorState.activeColor = response.activeColor;
-      colorState.colors = response.colors;
-    },
-    (e) => {
-      console.log("Cannot get global state");
-    }
-  );
+  const promiss = browser.runtime.sendMessage({ msg: "getColors" });
+  return promiss;
 }
 
 // creates a individual element with color class and active status
