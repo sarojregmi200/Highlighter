@@ -1,9 +1,9 @@
 {
-  "name": "highliter_server",
+  "name": "highlighter_server",
   "version": "1.0.0",
-  "description": "Back bone of the highliter app and extension that let's people highlight stuff that they like",
+  "description": "Back bone of the highlighter app and extension that let's people highlight stuff that they like",
   "main": "index.js",
-  "repository": "https://github.com/sarojregmi200/Highliter",
+  "repository": "https://github.com/sarojregmi200/highlighter",
   "author": "Saroj Regmi",
   "license": "MIT",
   "private": "false",

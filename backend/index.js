@@ -3,7 +3,7 @@ import env from "dotenv";
 
 // establishes the database connection
 import establishDBConnection from "./config/db.config.js";
-import highliterRoute from "./routes/highliter.route.js";
+import highlighterRoute from "./routes/highlighter.route.js";
 
 const app = Express();
 
@@ -19,4 +19,4 @@ app.listen(PORT, () => {
   console.log(`The app is running in the port ${PORT}`);
 });
 
-app.use(highliterRoute);
+app.use(highlighterRoute);
