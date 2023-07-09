@@ -1,7 +1,7 @@
 // current state of the application
 const appState = {
   topic: "Universal",
-  color: "#E9FF32",
+  color: "#8CFF32",
   searchVisibility: false,
 };
 // contains the application information

@@ -21,6 +21,11 @@ function tiggerUiColorsUpdate() {
       });
       colorState.activeColor = activeColor;
       colorState.colors = colors;
+
+      //   setting the css active color variable
+      document
+        .querySelector(":root")
+        .style.setProperty("--active-color", activeColor);
     },
     (e) => {
       console.log("Cannot get global state");

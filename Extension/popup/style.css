@@ -23,6 +23,9 @@
   --light-black-title: #1f1f1f;
   --light-black-normal: #333;
   --code-background: #d4d4d4;
+
+  /* state managed variable */
+  --active-color: black;
 }
 html {
   font-size: 4px;
@@ -113,6 +116,8 @@ html {
 .colorsContainer .colors {
   display: flex;
   flex-wrap: wrap;
+  justify-content: left;
+  align-items: center;
   width: 100%;
   padding: var(--standard-m-p);
 }
@@ -122,10 +127,18 @@ html {
   border-radius: 50%;
   opacity: 0.7;
   cursor: pointer;
+  filter: saturate(70%);
 }
 .colorsContainer .color + .color {
   margin-left: 10px;
 }
 .colorsContainer .color:hover {
   opacity: 1;
+  filter: saturate(100%);
+}
+.colorsContainer .active {
+  border: 4px solid white;
+  outline: 3px solid var(--active-color);
+  opacity: 1;
+  filter: saturate(100%);
 }
