@@ -38,7 +38,8 @@ html {
   width: 500px;
   overflow: hidden;
 }
-.shortcutContainer > .title {
+.shortcutContainer > .title,
+.colorsContainer .title {
   font-family: var(--stylish-font);
   display: flex;
   align-items: center;
@@ -99,10 +100,4 @@ html {
 .shortcut:hover .key {
   background-color: var(--dark-gray);
   /* color: var(--light-gray); */
-}
-
-.colorsContainer .title {
-  font-size: var(--title-font-size);
-  color: var(--light-black-title);
-  font-family: var(--stylish-font);
 }

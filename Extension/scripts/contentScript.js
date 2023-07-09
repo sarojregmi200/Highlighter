@@ -24,7 +24,7 @@ function processHighlitedText() {
 
   // creating a wrapper
   const span = document.createElement("span");
-  span.classList.add(`wrapper-highliter-highlit`);
+  span.classList.add(`wrapper-highlighter-highlit`);
   span.innerText = selectedText;
   span.style.textDecorationColor = color;
 

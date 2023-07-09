@@ -1,7 +1,7 @@
 {
   "author": "Saroj Regmi",
   "version": "1.0",
-  "name": "Highliter",
+  "name": "Highlighter",
   "manifest_version": 3,
   "description": "An great extension that lets you highlight the text, that you remember and helps you to organize and browse them effeciently",
   "permissions": ["activeTab", "cookies"],
