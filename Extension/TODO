@@ -13,11 +13,5 @@ todays goal:
   ☐ integrating orama search with the search.
   ☐ making the extension non persistant
 
-if possible:
-  ☐ tags ui.
-  ☐ creating different category for todo.
-  ☐ mapping category with different colors.
-  ☐ ability to create category.
-  ☐ manage category.
-  ☐ category integration along with the highlited data.
-  ☐ adding way to store category.
+bugs:
+  ☐ search shortcut doesnot work?

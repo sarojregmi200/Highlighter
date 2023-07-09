@@ -66,7 +66,14 @@ function updateData(newData) {
   console.log(newData);
 }
 
+// listening for the messages
+browser.runtime.onMessage.addListener((msg, type, appState, appData) => {
+  console.log(msg);
+
+  if (msg === "activate") createSearch(type, appData, appState);
+});
+
 // generates a search container based on the supplied params and returns it
 function createSearch(type, appData, appState) {
-  
+  console.log(type);
 }

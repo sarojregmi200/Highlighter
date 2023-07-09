@@ -44,38 +44,44 @@ function handleShortcutChange(state) {
   // repeatign shortcut. used during changing between multiple categories or topics
   switch (state) {
     case "search":
-      // for the first search shortcut the search box will be visible and if the shortcut is pressed again then it should close
-      setSearchVisibility();
-      browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        browser.tabs.sendMessage(tabs[0].id, {
-          msg: "activate",
-          type: "search",
-          appState,
-          appData,
-        });
-      });
+      handleSearch();
+      sendSearchData(state);
       break;
     case "color":
       // change the current color
       changeColor();
+      sendSearchData(state);
       break;
     case "topic":
       // change the topic
       changetopics();
+      sendSearchData(state);
       break;
   }
 }
 
-// changing the extension settings using the functions
-function changeColor() {
-  // turning the search box on
+function sendSearchData(type) {
   setSearchVisibility(!appState.searchVisibility);
+  console.log(type);
+  browser.tabs.query({ active: true, currentWindow: true }, (response) => {
+    console.log(response);
+    if (!response) return;
+    browser.tabs.sendMessage(response[0].id, {
+      msg: "activate",
+      type: type,
+      appState,
+      appData,
+    });
+  });
 }
+// activates the search with correct state data
+function handleSearch() {}
+
+// changing the extension settings using the functions
+function changeColor() {}
 
 // used to switch the topic
-function changetopics() {
-  console.log("changing the topics");
-}
+function changetopics() {}
 
 // turns search box on or off
 function setSearchVisibility(changedState) {
