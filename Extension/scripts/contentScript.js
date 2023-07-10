@@ -1,6 +1,3 @@
-// this is a script that gets injected in every tab
-// it looks like it doesnot work on some pages even after providing all urls in the manifest file
-
 // these are the data from the global state
 let color;
 let topic = "New application research";
@@ -68,7 +65,16 @@ function updateData(newData) {
 
 // listening for the messages
 browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
-  if (msg === "activate-search") createSearch(type, appData, appState);
+  if (msg === "activate-search") {
+    const existingSearch = document.querySelector(".mainContainer-highlighter");
+
+    // if the popup is active then turn it off
+    if (existingSearch) {
+      document.body.removeChild(existingSearch);
+      return;
+    }
+    createSearch(type, appData, appState);
+  }
 });
 
 // generates a element with the given class name and type and return it
@@ -94,6 +100,7 @@ function createSearch(type, appData, appState) {
   const disposer = createElement("div", "disposer-highlighter");
 
   // adding event listeners
+  disposer.addEventListener("click", closeSearchBox);
 
   // search container holds the search box and the results
   searchContainer.append(searchBox, resultContainer);
@@ -125,4 +132,9 @@ function updateSearchResultUi(type, appData, appState) {
       resultContainer.appendChild(result);
     });
   }
+}
+
+// closes the search popup
+function closeSearchBox() {
+  chrome.runtime.sendMessage({ msg: "getSearchVisibility" }).then();
 }
