@@ -66,13 +66,9 @@ function updateData(newData) {
 // listening for the messages
 browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
   if (msg === "activate-search") {
-    const existingSearch = document.querySelector(".mainContainer-highlighter");
+    // closes the search box and returns true if the search box was already open
+    if (closeSearchBox()) return;
 
-    // if the popup is active then turn it off
-    if (existingSearch) {
-      document.body.removeChild(existingSearch);
-      return;
-    }
     createSearch(type, appData, appState);
   }
 });
@@ -128,19 +124,23 @@ function updateSearchResultUi(type, appData, appState) {
       const result = createElement("div", "result-highlighter");
       if (color === appState.color)
         result.classList.add("activeResult-highlighter");
+
       result.innerText = color;
+      // adding the click even to change the active color
+      result.addEventListener("click", () => changeActive());
       resultContainer.appendChild(result);
     });
   }
 }
 
-// closes the search popup
+// closes the search popup only if it is open and returns trur or else does nothing and returns false
 function closeSearchBox() {
   const existingSearch = document.querySelector(".mainContainer-highlighter");
 
   // if the popup is active then turn it off
   if (existingSearch) {
     document.body.removeChild(existingSearch);
-    return;
+    return true;
   }
+  return false;
 }
