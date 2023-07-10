@@ -67,13 +67,62 @@ function updateData(newData) {
 }
 
 // listening for the messages
-browser.runtime.onMessage.addListener((msg, type, appState, appData) => {
-  console.log(msg);
-
-  if (msg === "activate") createSearch(type, appData, appState);
+browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
+  if (msg === "activate-search") createSearch(type, appData, appState);
 });
 
-// generates a search container based on the supplied params and returns it
+// generates a element with the given class name and type and return it
+function createElement(type, className) {
+  const element = document.createElement(type);
+  element.classList.add(className);
+  return element;
+}
+
+// generates a the search markup and calls the updatesearchresultui to populate the markup
 function createSearch(type, appData, appState) {
-  console.log(type);
+  // the main wrapper
+  const mainContainer = createElement("div", "mainContainer-highlighter");
+  // search box
+  const searchBox = createElement("input", "searchInput-highlighter");
+  // search and result container
+  const searchContainer = createElement("div", "searchContainer-highlighter");
+  // results container
+  const resultContainer = createElement("div", "resultContainer-highlighter");
+  // add btn when something is not available
+  const addBtn = createElement("div", "addBtn-highlighter");
+  // used to close the search
+  const disposer = createElement("div", "disposer-highlighter");
+
+  // adding event listeners
+
+  // search container holds the search box and the results
+  searchContainer.append(searchBox, resultContainer);
+  // main container contains search container, addbtn , disposer
+  mainContainer.append(searchContainer, addBtn, disposer);
+  // appending to the body
+  document.body.appendChild(mainContainer);
+
+  // updates the appended elements with the correct data
+  updateSearchResultUi(type, appData, appState);
+}
+
+// updates the search result with the provided search type elements data
+function updateSearchResultUi(type, appData, appState) {
+  const resultContainer = document.querySelector(
+    ".resultContainer-highlighter"
+  );
+
+  // clearing out the previous result
+  resultContainer.innerHTML = "";
+
+  if (type === "color") {
+    // appending the new result
+    appData.colors.forEach((color) => {
+      const result = createElement("div", "result-highlighter");
+      if (color === appState.color)
+        result.classList.add("activeResult-highlighter");
+      result.innerText = color;
+      resultContainer.appendChild(result);
+    });
+  }
 }

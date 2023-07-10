@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .title {
+        font-size: 64px;
+      }
+      p {
+        font-size: 18px;
+      }
+
+      .disposer {
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(255, 255, 255, 0.2);
+        /* filter: blur(20px); */
+        backdrop-filter: blur(5px);
+        z-index: 1;
+      }
+      .searchContainer {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        margin-top: 50px;
+        width: 60%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+      }
+      input {
+        height: 50px;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        padding: 0 20px;
+        border-radius: 2px;
+        font-size: 18px;
+        outline: 1px solid #d3d3d3;
+      }
+      .results {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        margin-top: 10px;
+      }
+      .result,
+      .create {
+        display: flex;
+        align-items: center;
+        padding: 10px 25px;
+        border-radius: 2px;
+        font-size: 18px;
+        cursor: pointer;
+        text-transform: capitalize;
+      }
+      .result:hover {
+        background-color: #f1f1f1;
+      }
+      .active {
+        background-color: #444444;
+        color: white;
+      }
+      .create {
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="searchContainer">
+      <input type="text" class="searchBox" placeholder="Enter the color name" />
+      <div class="results">
+        <div class="result active">red</div>
+        <div class="result">green</div>
+        <div class="result">blue</div>
+        <div class="result">yellow</div>
+        <div class="result">orange</div>
+        <div class="result">purple</div>
+        <div class="result">pink</div>
+      </div>
+      <div class="create">
+        <div class="txt">Add color</div>
+        <div class="icon">+</div>
+      </div>
+    </div>
+    <div class="disposer"></div>
+
+    <div class="title">Chor</div>
+    <div class="content">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem
+        voluptas animi, sit nemo modi non repellendus dolore placeat. Ipsam
+        culpa natus, aspernatur nobis nemo officia vel doloribus fuga deleniti?
+        Optio nostrum rem quo repellendus. Ratione ut reiciendis, quae quaerat
+        quisquam rerum eius quam voluptas sapiente earum quis atque maxime neque
+        corporis mollitia porro, facere aspernatur veritatis ab. Qui, saepe!
+      </p>
+    </div>
+  </body>
+</html>

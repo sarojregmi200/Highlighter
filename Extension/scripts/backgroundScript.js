@@ -44,44 +44,34 @@ function handleShortcutChange(state) {
   // repeatign shortcut. used during changing between multiple categories or topics
   switch (state) {
     case "search":
-      handleSearch();
       sendSearchData(state);
       break;
     case "color":
       // change the current color
-      changeColor();
       sendSearchData(state);
       break;
     case "topic":
       // change the topic
-      changetopics();
       sendSearchData(state);
       break;
   }
 }
 
 function sendSearchData(type) {
+  // inverse the visibility
   setSearchVisibility(!appState.searchVisibility);
-  console.log(type);
+
+  // sends the data to the active tabs content script
   browser.tabs.query({ active: true, currentWindow: true }, (response) => {
-    console.log(response);
     if (!response) return;
     browser.tabs.sendMessage(response[0].id, {
-      msg: "activate",
-      type: type,
+      msg: "activate-search",
+      type,
       appState,
       appData,
     });
   });
 }
-// activates the search with correct state data
-function handleSearch() {}
-
-// changing the extension settings using the functions
-function changeColor() {}
-
-// used to switch the topic
-function changetopics() {}
 
 // turns search box on or off
 function setSearchVisibility(changedState) {
