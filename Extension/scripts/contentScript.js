@@ -136,5 +136,11 @@ function updateSearchResultUi(type, appData, appState) {
 
 // closes the search popup
 function closeSearchBox() {
-  chrome.runtime.sendMessage({ msg: "getSearchVisibility" }).then();
+  const existingSearch = document.querySelector(".mainContainer-highlighter");
+
+  // if the popup is active then turn it off
+  if (existingSearch) {
+    document.body.removeChild(existingSearch);
+    return;
+  }
 }
