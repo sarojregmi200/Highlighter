@@ -169,7 +169,7 @@ function keyboardSelection(event, appData) {
         case "ArrowDown":
           //current index of active selection in global data store
           let activeIndex = appData.colors.indexOf(activeSelection);
-          if (appData.colors.length === activeIndex) activeIndex = 0;
+          if (appData.colors.length - 1 === activeIndex) activeIndex = -1;
           activeIndex += 1;
 
           const activeColor = appData.colors[activeIndex];

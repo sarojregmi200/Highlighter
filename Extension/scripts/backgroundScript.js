@@ -125,7 +125,6 @@ function handleMessage(request, sender, sendResponse) {
 
     // changes the search state
     case "updateSearchState":
-      console.log({ request });
       appState.search.visibility = request.visibility;
       appState.search.type = request.type;
       appState.search.activeSelection = request.activeSelection;
