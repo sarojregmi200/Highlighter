@@ -73,6 +73,11 @@ browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
     createSearch();
     // updates the appended elements with the correct data
     updateSearchResultUi(type, appData, appState);
+
+    // creating a event listener for keyboard navigation
+    document.addEventListener("keydown", (e) =>
+      keyboardSelection(e, type, appData, appState)
+    );
   }
 });
 
@@ -89,8 +94,7 @@ function createSearch() {
   const mainContainer = createElement("div", "mainContainer-highlighter");
   // search box
   const searchBox = createElement("input", "searchInput-highlighter");
-  searchBox.addEventListener("input", handleSearchInput);
-  searchBox.autofocus = true; // places the cursor in the input box automatically 
+  searchBox.autofocus = true; // places the cursor in the input box automatically
 
   // search and result container
   const searchContainer = createElement("div", "searchContainer-highlighter");
@@ -145,9 +149,26 @@ function updateSearchResultUi(type, appData, appState) {
   }
 }
 
-// searches and updates the searched results.
-function handleSearchInput(e) {
-  console.log(e);
+function keyboardSelection(event, type, appData, appState) {
+  switch (event.key) {
+    case "ArrowDown":
+      //current index of active selection in global data store
+      let activeIndex = appData.colors.indexOf(appState.color);
+      if (appData.colors.length === activeIndex) activeIndex = 0;
+
+      activeIndex += 1;
+      // updating the active color
+      let updatedState = { ...appState };
+      updatedState.color = appData.colors[activeIndex];
+
+      console.log(updatedState.color, activeIndex);
+      updateSearchResultUi(type, appData, updatedState);
+      break;
+    case "ArrowUp":
+      break;
+    case "Enter":
+      break;
+  }
 }
 
 // closes the search popup only if it is open and returns true or else does nothing and returns false
