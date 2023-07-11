@@ -90,6 +90,8 @@ function createSearch() {
   // search box
   const searchBox = createElement("input", "searchInput-highlighter");
   searchBox.addEventListener("input", handleSearchInput);
+  searchBox.autofocus = true; // places the cursor in the input box automatically 
+
   // search and result container
   const searchContainer = createElement("div", "searchContainer-highlighter");
   // results container
@@ -143,7 +145,10 @@ function updateSearchResultUi(type, appData, appState) {
   }
 }
 
-handleSearchInput;
+// searches and updates the searched results.
+function handleSearchInput(e) {
+  console.log(e);
+}
 
 // closes the search popup only if it is open and returns true or else does nothing and returns false
 function closeSearchBox() {
