@@ -5,6 +5,7 @@ const appState = {
   search: {
     visibility: false,
     type: "", //type means search or title or color
+    activeSelection: "", // contains the actively highlited search result
   },
 };
 // contains the application information
@@ -119,6 +120,21 @@ function handleMessage(request, sender, sendResponse) {
     case "getSearchVisibility":
       sendResponse({
         status: appState.searchVisibility,
+      });
+      break;
+
+    // changes the search state
+    case "updateSearchState":
+      console.log({ request });
+      appState.search.visibility = request.visibility;
+      appState.search.type = request.type;
+      appState.search.activeSelection = request.activeSelection;
+      break;
+
+    // send the search state
+    case "getSearchState":
+      sendResponse({
+        state: appState.search,
       });
       break;
   }

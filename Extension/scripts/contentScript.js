@@ -63,6 +63,8 @@ function updateData(newData) {
   console.log(newData);
 }
 
+let keybordControls = false;
+
 // listening for the messages
 browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
   if (msg === "activate-search") {
@@ -75,8 +77,8 @@ browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
     updateSearchResultUi(type, appData, appState);
 
     // creating a event listener for keyboard navigation
-    document.addEventListener("keydown", (e) =>
-      keyboardSelection(e, type, appData, appState)
+    keybordControls = document.addEventListener("keydown", (e) =>
+      keyboardSelection(e, appData)
     );
   }
 });
@@ -132,6 +134,14 @@ function updateSearchResultUi(type, appData, appState) {
       if (color === appState.color) {
         result.classList.add("activeResult-highlighter");
         result.style.background = color;
+
+        // updating the global search state with the current active item
+        browser.runtime.sendMessage({
+          msg: "updateSearchState",
+          visibility: true,
+          type,
+          activeSelection: color,
+        });
       }
 
       result.innerText = color;
@@ -149,26 +159,28 @@ function updateSearchResultUi(type, appData, appState) {
   }
 }
 
-function keyboardSelection(event, type, appData, appState) {
-  switch (event.key) {
-    case "ArrowDown":
-      //current index of active selection in global data store
-      let activeIndex = appData.colors.indexOf(appState.color);
-      if (appData.colors.length === activeIndex) activeIndex = 0;
+function keyboardSelection(event, appData) {
+  // getting the current states
+  browser.runtime
+    .sendMessage({ msg: "getSearchState" })
+    .then(({ state: { visibility, type, activeSelection } }) => {
+      console.log({ visibility, type, activeSelection });
+      switch (event.key) {
+        case "ArrowDown":
+          //current index of active selection in global data store
+          let activeIndex = appData.colors.indexOf(activeSelection);
+          if (appData.colors.length === activeIndex) activeIndex = 0;
+          activeIndex += 1;
 
-      activeIndex += 1;
-      // updating the active color
-      let updatedState = { ...appState };
-      updatedState.color = appData.colors[activeIndex];
-
-      console.log(updatedState.color, activeIndex);
-      updateSearchResultUi(type, appData, updatedState);
-      break;
-    case "ArrowUp":
-      break;
-    case "Enter":
-      break;
-  }
+          const activeColor = appData.colors[activeIndex];
+          updateSearchResultUi(type, appData, { color: activeColor });
+          break;
+        case "ArrowUp":
+          break;
+        case "Enter":
+          break;
+      }
+    });
 }
 
 // closes the search popup only if it is open and returns true or else does nothing and returns false
