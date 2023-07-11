@@ -69,7 +69,10 @@ browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
     // closes the search box and returns true if the search box was already open
     if (closeSearchBox()) return;
 
-    createSearch(type, appData, appState);
+    // there was no searchbox already open so creating a new one
+    createSearch();
+    // updates the appended elements with the correct data
+    updateSearchResultUi(type, appData, appState);
   }
 });
 
@@ -81,11 +84,12 @@ function createElement(type, className) {
 }
 
 // generates a the search markup and calls the updatesearchresultui to populate the markup
-function createSearch(type, appData, appState) {
+function createSearch() {
   // the main wrapper
   const mainContainer = createElement("div", "mainContainer-highlighter");
   // search box
   const searchBox = createElement("input", "searchInput-highlighter");
+  searchBox.addEventListener("input", handleSearchInput);
   // search and result container
   const searchContainer = createElement("div", "searchContainer-highlighter");
   // results container
@@ -104,9 +108,6 @@ function createSearch(type, appData, appState) {
   mainContainer.append(searchContainer, addBtn, disposer);
   // appending to the body
   document.body.appendChild(mainContainer);
-
-  // updates the appended elements with the correct data
-  updateSearchResultUi(type, appData, appState);
 }
 
 // updates the search result with the provided search type elements data
@@ -122,18 +123,29 @@ function updateSearchResultUi(type, appData, appState) {
     // appending the new result
     appData.colors.forEach((color) => {
       const result = createElement("div", "result-highlighter");
-      if (color === appState.color)
+      if (color === appState.color) {
         result.classList.add("activeResult-highlighter");
+        result.style.background = color;
+      }
 
       result.innerText = color;
-      // adding the click even to change the active color
-      result.addEventListener("click", () => changeActive());
+      //  changing active color on click
+      result.addEventListener("click", () => {
+        // changing the global state
+        browser.runtime
+          .sendMessage({ msg: "changeActive", active: color })
+          .then(() => {
+            closeSearchBox();
+          });
+      });
       resultContainer.appendChild(result);
     });
   }
 }
 
-// closes the search popup only if it is open and returns trur or else does nothing and returns false
+handleSearchInput;
+
+// closes the search popup only if it is open and returns true or else does nothing and returns false
 function closeSearchBox() {
   const existingSearch = document.querySelector(".mainContainer-highlighter");
 
