@@ -164,18 +164,22 @@ function keyboardSelection(event, appData) {
   browser.runtime
     .sendMessage({ msg: "getSearchState" })
     .then(({ state: { visibility, type, activeSelection } }) => {
-      console.log({ visibility, type, activeSelection });
+      //current index of active selection in global data store
+      let activeIndex = appData.colors.indexOf(activeSelection);
+      let activeColor = activeSelection;
+
       switch (event.key) {
         case "ArrowDown":
-          //current index of active selection in global data store
-          let activeIndex = appData.colors.indexOf(activeSelection);
           if (appData.colors.length - 1 === activeIndex) activeIndex = -1;
           activeIndex += 1;
-
-          const activeColor = appData.colors[activeIndex];
+          activeColor = appData.colors[activeIndex];
           updateSearchResultUi(type, appData, { color: activeColor });
           break;
         case "ArrowUp":
+          if (activeIndex === 0) activeIndex = appData.colors.length;
+          activeIndex -= 1;
+          activeColor = appData.colors[activeIndex];
+          updateSearchResultUi(type, appData, { color: activeColor });
           break;
         case "Enter":
           break;
