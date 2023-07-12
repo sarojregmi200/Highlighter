@@ -202,11 +202,18 @@ function keyboardSelection(event, appData) {
             break;
 
           default:
-            searchTerm += event.key;
+            const keycode = event.keyCode;
+
+            if (
+              (keycode > 47 && keycode < 58) ||
+              (keycode > 64 && keycode < 91)
+            )
+              searchTerm += event.key;
+
             break;
         }
 
-        console.log(searchTerm);
+        console.log(event.keyCode);
       }
     });
 }
