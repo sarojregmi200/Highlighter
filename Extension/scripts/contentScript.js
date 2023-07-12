@@ -76,10 +76,11 @@ browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
     // updates the appended elements with the correct data
     updateSearchResultUi(type, appData, appState);
 
-    // creating a event listener for keyboard navigation
-    keybordControls = document.addEventListener("keydown", (e) =>
-      keyboardSelection(e, appData)
-    );
+    const searchBox = document.querySelector(".searchInput-highlighter");
+    keybordControls = searchBox.addEventListener("keydown", (e) => {
+      console.log("Key down is running ");
+      keyboardSelection(e, appData);
+    });
   }
 });
 
@@ -97,6 +98,7 @@ function createSearch() {
   // search box
   const searchBox = createElement("input", "searchInput-highlighter");
   searchBox.autofocus = true; // places the cursor in the input box automatically
+  // creating a event listener for keyboard navigation
 
   // search and result container
   const searchContainer = createElement("div", "searchContainer-highlighter");
@@ -182,6 +184,14 @@ function keyboardSelection(event, appData) {
           updateSearchResultUi(type, appData, { color: activeColor });
           break;
         case "Enter":
+          browser.runtime
+            .sendMessage({
+              msg: "changeActive",
+              active: activeSelection,
+            })
+            .then(() => {
+              closeSearchBox();
+            });
           break;
       }
     });
@@ -193,6 +203,9 @@ function closeSearchBox() {
 
   // if the popup is active then turn it off
   if (existingSearch) {
+    document.removeEventListener(keybordControls, () =>
+      console.log("removed event")
+    );
     document.body.removeChild(existingSearch);
     return true;
   }
