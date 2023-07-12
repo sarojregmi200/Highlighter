@@ -1,3 +1,20 @@
+// importing orama
+import {
+  create,
+  search,
+  insert,
+} from "https://unpkg.com/@orama/orama@latest/dist/index.js";
+
+const db = await create({
+  schema: {
+    test: "string",
+  },
+});
+const id = await insert(db, {
+  test: "hello world",
+});
+
+console.log({ id, db });
 // current state of the application
 const appState = {
   topic: "Universal",

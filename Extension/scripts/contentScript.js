@@ -48,7 +48,7 @@ function getGlobalState() {
       title = response.title;
     },
     (e) => {
-      console.log("Cannot get global state");
+      console.log("Cannot get global state", e);
     }
   );
 }
@@ -67,23 +67,26 @@ function updateData(newData) {
 let searchTerm = "";
 // event listenter for keypress
 let keybordControls = false;
-// listening for the messages
-browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
-  if (msg === "activate-search") {
-    // closes the search box and returns true if the search box was already open
-    if (closeSearchBox()) return;
 
-    // there was no searchbox already open so creating a new one
-    createSearch();
-    // updates the appended elements with the correct data
-    updateSearchResultUi(type, appData, appState);
+document.addEventListener("DOMContentLoaded", () => {
+  // listening for the messages
+  browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
+    if (msg === "activate-search") {
+      // closes the search box and returns true if the search box was already open
+      if (closeSearchBox()) return;
 
-    const searchBox = document.querySelector(".searchInput-highlighter");
-    searchBox.focus();
-    keybordControls = searchBox.addEventListener("keydown", (e) => {
-      keyboardSelection(searchBox, e, appData);
-    });
-  }
+      // there was no searchbox already open so creating a new one
+      createSearch();
+      // updates the appended elements with the correct data
+      updateSearchResultUi(type, appData, appState);
+
+      const searchBox = document.querySelector(".searchInput-highlighter");
+      searchBox.focus();
+      keybordControls = searchBox.addEventListener("keydown", (e) => {
+        keyboardSelection(searchBox, e, appData);
+      });
+    }
+  });
 });
 
 // generates a element with the given class name and type and return it

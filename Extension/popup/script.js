@@ -5,10 +5,12 @@ const colorState = {
 
 const colorContainer = document.querySelector(".colors");
 
-if (colorContainer) {
-  // updating the ui
-  triggerUiColorsUpdate();
-}
+document.addEventListener("DOMContentLoaded", () => {
+  if (colorContainer) {
+    // updating the ui
+    triggerUiColorsUpdate();
+  }
+});
 
 // adds the colors in ui by fetching data from the global state
 function triggerUiColorsUpdate() {
