@@ -81,7 +81,7 @@ browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
     const searchBox = document.querySelector(".searchInput-highlighter");
     searchBox.focus();
     keybordControls = searchBox.addEventListener("keydown", (e) => {
-      keyboardSelection(e, appData);
+      keyboardSelection(searchBox, e, appData);
     });
   }
 });
@@ -160,7 +160,7 @@ function updateSearchResultUi(type, appData, appState) {
   }
 }
 
-function keyboardSelection(event, appData) {
+function keyboardSelection(inputBox, event, appData) {
   // getting the current states
   browser.runtime
     .sendMessage({ msg: "getSearchState" })
@@ -179,12 +179,14 @@ function keyboardSelection(event, appData) {
             activeColor = appData.colors[activeIndex];
             updateSearchResultUi(type, appData, { color: activeColor });
             break;
+
           case "ArrowUp":
             if (activeIndex === 0) activeIndex = appData.colors.length;
             activeIndex -= 1;
             activeColor = appData.colors[activeIndex];
             updateSearchResultUi(type, appData, { color: activeColor });
             break;
+
           case "Enter":
             browser.runtime
               .sendMessage({
@@ -196,24 +198,30 @@ function keyboardSelection(event, appData) {
                 searchTerm = "";
               });
             break;
+
           case "Escape":
             closeSearchBox();
             searchTerm = "";
             break;
 
+          case "Backspace":
+            searchTerm = inputBox.value;
+            break;
+
           default:
             const keycode = event.keyCode;
-
+            console.log(
+              (keycode > 47 && keycode < 58) || (keycode > 64 && keycode < 91)
+            );
             if (
               (keycode > 47 && keycode < 58) ||
               (keycode > 64 && keycode < 91)
             )
-              searchTerm += event.key;
-
+              searchTerm = inputBox.value;
             break;
         }
 
-        console.log(event.keyCode);
+        console.log(event.key);
       }
     });
 }
