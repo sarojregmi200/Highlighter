@@ -63,8 +63,10 @@ function updateData(newData) {
   console.log(newData);
 }
 
+// the term to search and narrow the results
+let searchTerm = "";
+// event listenter for keypress
 let keybordControls = false;
-
 // listening for the messages
 browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
   if (msg === "activate-search") {
@@ -77,8 +79,8 @@ browser.runtime.onMessage.addListener(({ msg, type, appState, appData }) => {
     updateSearchResultUi(type, appData, appState);
 
     const searchBox = document.querySelector(".searchInput-highlighter");
+    searchBox.focus();
     keybordControls = searchBox.addEventListener("keydown", (e) => {
-      console.log("Key down is running ");
       keyboardSelection(e, appData);
     });
   }
@@ -97,9 +99,6 @@ function createSearch() {
   const mainContainer = createElement("div", "mainContainer-highlighter");
   // search box
   const searchBox = createElement("input", "searchInput-highlighter");
-  searchBox.autofocus = true; // places the cursor in the input box automatically
-  // creating a event listener for keyboard navigation
-
   // search and result container
   const searchContainer = createElement("div", "searchContainer-highlighter");
   // results container
@@ -168,31 +167,46 @@ function keyboardSelection(event, appData) {
     .then(({ state: { visibility, type, activeSelection } }) => {
       //current index of active selection in global data store
       let activeIndex = appData.colors.indexOf(activeSelection);
-      let activeColor = activeSelection;
 
-      switch (event.key) {
-        case "ArrowDown":
-          if (appData.colors.length - 1 === activeIndex) activeIndex = -1;
-          activeIndex += 1;
-          activeColor = appData.colors[activeIndex];
-          updateSearchResultUi(type, appData, { color: activeColor });
-          break;
-        case "ArrowUp":
-          if (activeIndex === 0) activeIndex = appData.colors.length;
-          activeIndex -= 1;
-          activeColor = appData.colors[activeIndex];
-          updateSearchResultUi(type, appData, { color: activeColor });
-          break;
-        case "Enter":
-          browser.runtime
-            .sendMessage({
-              msg: "changeActive",
-              active: activeSelection,
-            })
-            .then(() => {
-              closeSearchBox();
-            });
-          break;
+      if (type === "color") {
+        // getting the currently selected color
+        let activeColor = activeSelection;
+
+        switch (event.key) {
+          case "ArrowDown":
+            if (appData.colors.length - 1 === activeIndex) activeIndex = -1;
+            activeIndex += 1;
+            activeColor = appData.colors[activeIndex];
+            updateSearchResultUi(type, appData, { color: activeColor });
+            break;
+          case "ArrowUp":
+            if (activeIndex === 0) activeIndex = appData.colors.length;
+            activeIndex -= 1;
+            activeColor = appData.colors[activeIndex];
+            updateSearchResultUi(type, appData, { color: activeColor });
+            break;
+          case "Enter":
+            browser.runtime
+              .sendMessage({
+                msg: "changeActive",
+                active: activeSelection,
+              })
+              .then(() => {
+                closeSearchBox();
+                searchTerm = "";
+              });
+            break;
+          case "Escape":
+            closeSearchBox();
+            searchTerm = "";
+            break;
+
+          default:
+            searchTerm += event.key;
+            break;
+        }
+
+        console.log(searchTerm);
       }
     });
 }
