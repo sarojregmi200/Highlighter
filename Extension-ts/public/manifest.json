@@ -1,0 +1,46 @@
+{
+  "author": "Saroj Regmi",
+  "version": "1.0",
+  "name": "Highlighter",
+  "manifest_version": 3,
+  "description": "An great extension that lets you highlight the text, that you remember and helps you to organize and browse them effeciently",
+  "permissions": ["activeTab", "cookies"],
+  "host_permissions": ["http://localhost:3000/"],
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "homepage_url": "https://www.google.com",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["scripts/contentScript.js"],
+      "css": ["scripts/style/contentScript.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+H"
+      }
+    },
+    "search": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+K"
+      }
+    },
+    "color": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+C"
+      }
+    },
+    "topic": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+T"
+      }
+    }
+  }
+}
