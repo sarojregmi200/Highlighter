@@ -30,8 +30,8 @@ function triggerUiColorsUpdate() {
         .style.setProperty("--active-color", activeColor);
     },
     (e) => {
-      console.log("Cannot get global state");
-      return "err";
+      console.log("Cannot get global state", e);
+      return e;
     }
   );
 }

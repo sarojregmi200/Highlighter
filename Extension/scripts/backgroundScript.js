@@ -15,6 +15,7 @@ const id = await insert(db, {
 });
 
 console.log({ id, db });
+console.log("I am background script");
 // current state of the application
 const appState = {
   topic: "Universal",
