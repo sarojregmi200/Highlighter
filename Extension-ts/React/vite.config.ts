@@ -5,7 +5,14 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   build: {
+    emptyOutDir: true,
     outDir: "../Extension/src",
-    assetsDir: "./", // with respect to outDir
+    assetsDir: "./", // with respect to outDir,
+    rollupOptions: {
+      output: {
+        assetFileNames: "style[extname]",
+        entryFileNames: "script.js",
+      },
+    },
   },
 });
