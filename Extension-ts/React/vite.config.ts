@@ -3,6 +3,7 @@ import { resolve } from "path";
 
 import react from "@vitejs/plugin-react";
 
+import html from "@rollup/plugin-html";
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -19,9 +20,21 @@ export default defineConfig({
       fileName: "scripts/[name]",
     },
     rollupOptions: {
+      external: ["react"],
+
       output: {
         assetFileNames: "/assets/style[extname]",
+        chunkFileNames: "[name]",
+        globals: {
+          react: "React",
+        },
       },
+      input: resolve("./src/popup/index.tsx"),
+      plugins: [
+        html({
+          fileName: "popup.html",
+        }),
+      ],
     },
   },
 });
