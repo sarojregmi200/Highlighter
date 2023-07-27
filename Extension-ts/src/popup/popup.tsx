@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Title, Shortcut } from "../components";
 
 // keyboard shortcuts
@@ -22,6 +22,10 @@ const shortcuts = [
 ];
 
 const Popup = () => {
+
+  const [colors, setColors] = useState({
+
+  })
   return (
     <div className="mainContainer">
       <div className="shortcutContainer">
@@ -32,6 +36,11 @@ const Popup = () => {
         {shortcuts.map(({ shortcut, desc }, index) => {
           return <Shortcut shortcut={shortcut} desc={desc} key={index} />;
         })}
+      </div>
+
+      <div className="colorsContainer">
+        <Title title="Colors" icon={true} />
+        <div className="colors"></div>
       </div>
     </div>
   );
