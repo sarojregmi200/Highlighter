@@ -1,10 +1,13 @@
 import React from "react";
 import "./popup.css";
+import { Title } from "../components";
 
 const Popup = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <div className="mainContainer">
+      <div className="shortcutContainer">
+        <Title title="Keyboard Shortcuts" icon={true} />
+      </div>
     </div>
   );
 };
