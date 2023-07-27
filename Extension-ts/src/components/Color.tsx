@@ -10,12 +10,21 @@ function Color({
   active: boolean;
   setColor: React.Dispatch<colorState>;
 }): React.JSX.Element {
+  const activeStyle = {
+    border: `4px solid white`,
+    outline: `3px solid ${color}`,
+    opacity: 1,
+    filter: `saturate(100%)`,
+  };
+
   const changeColor = () => {};
   return (
     <div
       className={active ? "color active" : "color"}
       onClick={changeColor}
-      style={{ background: color }}
+      style={
+        active ? { ...activeStyle, background: color } : { background: color }
+      }
     ></div>
   );
 }
