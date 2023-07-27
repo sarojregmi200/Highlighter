@@ -20,8 +20,9 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ["react"],
+
       output: {
-        assetFileNames: "style[extname]",
+        assetFileNames: "/assets/style[extname]",
         globals: {
           react: "react",
         },
