@@ -8,7 +8,7 @@ function Color({
 }: {
   color: string;
   active: boolean;
-  setColor: React.Dispatch<colorState>;
+  setColor: React.Dispatch<React.SetStateAction<colorState>>;
 }): React.JSX.Element {
   const activeStyle = {
     border: `4px solid white`,
@@ -17,7 +17,14 @@ function Color({
     filter: `saturate(100%)`,
   };
 
-  const changeColor = () => {};
+  const changeColor = () => {
+    setColor((prev) => {
+      return {
+        ...prev,
+        active: color,
+      };
+    });
+  };
   return (
     <div
       className={active ? "color active" : "color"}

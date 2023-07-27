@@ -25,7 +25,7 @@ const shortcuts = [
 const Popup = () => {
   const [colors, setColors]: [
     colors: colorState,
-    setColors: React.Dispatch<colorState>
+    setColors: React.Dispatch<React.SetStateAction<colorState>>
   ] = useState<colorState>({
     all: ["#8CFF32", "#E9FF32", "#FF9C35", "#AEE2FF", "#E90064"],
     active: "#8CFF32",
