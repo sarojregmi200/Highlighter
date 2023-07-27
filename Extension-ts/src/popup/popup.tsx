@@ -1,5 +1,4 @@
 import React from "react";
-import "./popup.css";
 import { Title } from "../components";
 
 const Popup = () => {
