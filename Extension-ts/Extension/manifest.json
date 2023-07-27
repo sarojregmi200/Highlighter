@@ -6,17 +6,18 @@
   "description": "An great extension that lets you highlight the text, that you remember and helps you to organize and browse them effeciently",
   "permissions": ["activeTab", "cookies"],
   "action": {
-    "default_popup": "/index.html"
+    "default_popup": "src/popup.html"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["scripts/contentScript.js"],
-      "css": ["scripts/style/contentScript.css"]
+      "js": ["src/scripts/contentScript.js"]
     }
   ],
   "background": {
-    "page": "background.html"
+    "scripts": ["src/scripts/background.js"],
+    "service_worker": "src/scripts/background.js",
+    "type": "module"
   },
   "commands": {
     "_execute_action": {

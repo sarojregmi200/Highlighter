@@ -1,31 +1,26 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
 
-// https://vitejs.dev/config/
+import react from "@vitejs/plugin-react";
+
 export default defineConfig({
+  plugins: [react()],
   build: {
-    emptyOutDir: true,
+    emptyOutDir: false,
     outDir: "../Extension/src",
     assetsDir: "./", // with respect to outDir,
-
     lib: {
       entry: {
-        popup: resolve("./src/popup/popup.tsx"),
+        popup: resolve("./src/popup/index.tsx"),
         background: resolve("./src/background/background.ts"),
         contentScript: resolve("./src/contentScript/contentScript.tsx"),
       },
       formats: ["es"],
-      fileName: "[name]",
+      fileName: "scripts/[name]",
     },
     rollupOptions: {
-      external: ["react"],
-
       output: {
         assetFileNames: "/assets/style[extname]",
-        globals: {
-          react: "react",
-        },
       },
     },
   },
