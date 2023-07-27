@@ -11,7 +11,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: "style[extname]",
-        entryFileNames: "script.js",
+        manualChunks: {
+          popup: ["./src/popup/popup.tsx"],
+          background: ["./src/background/background.ts"],
+          contentScript: ["./src/contentScript/contentScript.tsx"],
+        },
+        chunkFileNames: "scripts/[name].js",
       },
     },
   },
