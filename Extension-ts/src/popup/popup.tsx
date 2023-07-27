@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Title, Shortcut } from "../components";
+import { Title, Shortcut, Color } from "../components";
+import { colorState } from "../types";
 
 // keyboard shortcuts
 const shortcuts = [
@@ -22,10 +23,14 @@ const shortcuts = [
 ];
 
 const Popup = () => {
+  const [colors, setColors]: [
+    colors: colorState,
+    setColors: React.Dispatch<colorState>
+  ] = useState<colorState>({
+    all: ["#8CFF32", "#E9FF32", "#FF9C35", "#AEE2FF", "#E90064"],
+    active: "#8CFF32",
+  });
 
-  const [colors, setColors] = useState({
-
-  })
   return (
     <div className="mainContainer">
       <div className="shortcutContainer">
@@ -40,7 +45,18 @@ const Popup = () => {
 
       <div className="colorsContainer">
         <Title title="Colors" icon={true} />
-        <div className="colors"></div>
+        <div className="colors">
+          {colors.all.map((color, index) => {
+            return (
+              <Color
+                active={color === colors.active}
+                color={color}
+                key={index}
+                setColor={setColors}
+              ></Color>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

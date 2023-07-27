@@ -135,9 +135,3 @@ html {
   opacity: 1;
   filter: saturate(100%);
 }
-.colorsContainer .active {
-  border: 4px solid white;
-  outline: 3px solid var(--active-color);
-  opacity: 1;
-  filter: saturate(100%);
-}
