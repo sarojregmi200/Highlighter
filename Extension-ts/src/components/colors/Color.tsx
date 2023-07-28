@@ -1,5 +1,6 @@
 import React from "react";
 import { colorState } from "../../types";
+import { globalState } from "../../background/DataStore";
 
 function Color({
   color,
@@ -19,6 +20,7 @@ function Color({
 
   const changeColor = () => {
     // updating the global state
+    chrome.runtime.sendMessage({ msg: "changeActiveColor", color });
     setColor((prev) => {
       return {
         ...prev,

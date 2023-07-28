@@ -12,5 +12,9 @@ export function handleMessage(request, sender, response) {
         state: globalState,
       });
       break;
+
+    case "changeActiveColor":
+      globalState.activeColor = request.color;
+      break;
   }
 }
