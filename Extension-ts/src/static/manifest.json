@@ -6,6 +6,8 @@
     "default_popup": "popup.html",
     "default_title": "Highlighter"
   },
+  "description": "An great extension that lets you highlight the text, that you remember and helps you to organize and browse them effeciently",
+  "permissions": ["activeTab", "cookies"],
   "background": {
     "scripts": ["background.js"]
   },
