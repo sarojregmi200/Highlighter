@@ -1,5 +1,5 @@
 import React from "react";
-import { colorState } from "../types";
+import { colorState } from "../../types";
 
 function Color({
   color,
