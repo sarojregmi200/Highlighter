@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Title, Shortcut, Color } from "../components";
 import { colorState } from "../types";
-
+  
 // keyboard shortcuts
 const shortcuts = [
   {

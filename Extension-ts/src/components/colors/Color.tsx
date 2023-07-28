@@ -18,6 +18,7 @@ function Color({
   };
 
   const changeColor = () => {
+    // updating the global state
     setColor((prev) => {
       return {
         ...prev,

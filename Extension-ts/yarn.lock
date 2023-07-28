@@ -111,10 +111,10 @@
   resolved "https://registry.yarnpkg.com/@orama/orama/-/orama-1.1.1.tgz#b96d3225e22a3509f985aec11b08bf70c15bbe41"
   integrity sha512-s52+s1ThY7Q/lAqwmws21Yq6LmSqwB9IJW9+Vwh21eonlwFGBaUkiiiQnuozl7ILWQSr+yfmZ8CVujr7cZQJ6Q==
 
-"@types/chrome@^0.0.188":
-  version "0.0.188"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.188.tgz#ed73feca28a6d84f796ec50a2dbe7e41510175b3"
-  integrity sha512-fVxbcnSrQqCaaTFfaP9QooRr0Lf47Ni+QVGpd4SQafe6x8RlLrlp+AAgc4QKNUVK7W6xEoOePMAu5sBXrc2qhA==
+"@types/chrome@^0.0.242":
+  version "0.0.242"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.242.tgz#bb1199fb885ff6d3e8d30dd81fe97e23bd9d6ecd"
+  integrity sha512-SeMXBSfcAGX9ezTz7Pro7n/AiNdIH3cetkdbM+Kfg3zD24jmbnm0IAEIxzx8ccqrnJenLCfD7fR+4WIYAbeQHw==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
@@ -210,6 +210,11 @@
   version "0.16.3"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
   integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
+
+"@types/webextension-polyfill@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@types/webextension-polyfill/-/webextension-polyfill-0.10.1.tgz#63698f0ef78a069d2d307be3caaee5e70c12e09d"
+  integrity sha512-Sdg+E2F5JUbhkE1qX15QUxpyhfMFKRGJqND9nb1C0gNN4NR7kCV31/1GvNbg6Xe+m/JElJ9/lG5kepMzjGPuQw==
 
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"
@@ -2029,6 +2034,11 @@ watchpack@^2.4.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+web-ext-types@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/web-ext-types/-/web-ext-types-3.2.1.tgz#3edc0e3c2e8fe121d7d7e4ca0b7ee0c883cea832"
+  integrity sha512-oQZYDU3W8X867h8Jmt3129kRVKklz70db40Y6OzoTTuzOJpF/dB2KULJUf0txVPyUUXuyzV8GmT3nVvRHoG+Ew==
 
 webpack-cli@^4.9.2:
   version "4.10.0"
