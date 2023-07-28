@@ -17,10 +17,6 @@ const defaultColors = [
   { color: "#E9FF32" },
   { color: "#FF9C35" },
   { color: "#AEE2FF" },
-  { color: "#E90064" },
-  { color: "#E90064" },
-  { color: "#E90064" },
-  { color: "#E90064" },
 ];
 
 await insertMultiple(colorDb, defaultColors);
