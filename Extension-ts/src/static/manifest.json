@@ -8,7 +8,9 @@
   },
   "description": "An great extension that lets you highlight the text, that you remember and helps you to organize and browse them effeciently",
   "permissions": ["activeTab", "cookies"],
-
+  "background": {
+    "scripts": ["background.js"]
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
@@ -37,5 +39,8 @@
         "default": "Ctrl+Alt+T"
       }
     }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
   }
 }

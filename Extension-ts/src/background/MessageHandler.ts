@@ -1,18 +1,16 @@
-import Browser from "webextension-polyfill";
+import { globalState } from "./DataStore";
 
 export function initMessages() {
-  Browser.runtime.onMessage.addListener(handleMessage);
+  chrome.runtime.onMessage.addListener(handleMessage);
 }
 
-function handleMessage({
-  request: { msg, payload },
-  sender,
-  response,
-}: {
-  request: {
-    msg: string;
-    payload?: any;
-  };
-  sender: Browser.Runtime.MessageSender;
-  response: any;
-}) {}
+export function handleMessage(request, sender, response) {
+  console.log(request);
+  switch (request.msg) {
+    case "getGlobalState":
+      response({
+        state: globalState,
+      });
+      break;
+  }
+}

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Title, Shortcut, Color } from "../components";
 import { colorState } from "../types";
-  
 // keyboard shortcuts
 const shortcuts = [
   {
@@ -31,6 +30,16 @@ const Popup = () => {
     active: "#8CFF32",
   });
 
+  useEffect(() => {
+    chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
+      setColors((prev) => {
+        return {
+          ...prev,
+          active: res.state.activeColor,
+        };
+      });
+    });
+  }, []);
   return (
     <div className="mainContainer">
       <div className="shortcutContainer">

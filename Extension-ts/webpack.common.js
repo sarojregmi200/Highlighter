@@ -46,6 +46,7 @@ module.exports = {
         },
       ],
     }),
+
     ...getHtmlPlugins(["popup"]),
   ],
   resolve: {
