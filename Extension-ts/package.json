@@ -27,13 +27,11 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@orama/orama": "^1.1.1",
     "@types/webextension-polyfill": "^0.10.1",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "react-router-dom": "6.2",
     "tailwindcss": "^3.0.24",
-    "web-ext-types": "^3.2.1",
-    "webextension-polyfill": "^0.10.0"
+    "web-ext-types": "^3.2.1"
   }
 }
