@@ -31,6 +31,15 @@ const Popup = () => {
   });
 
   useEffect(() => {
+    chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
+      setColors((prev) => {
+        return {
+          ...prev,
+          all: [...res.colors],
+        };
+      });
+    });
+
     chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
       setColors((prev) => {
         return {

@@ -1,11 +1,10 @@
-import { globalState } from "./DataStore";
+import { ColorCache, globalState } from "./DataStore";
 
 export function initMessages() {
   chrome.runtime.onMessage.addListener(handleMessage);
 }
 
 export function handleMessage(request, sender, response) {
-  console.log(request);
   switch (request.msg) {
     case "getGlobalState":
       response({
@@ -15,6 +14,10 @@ export function handleMessage(request, sender, response) {
 
     case "changeActiveColor":
       globalState.activeColor = request.color;
+      break;
+
+    case "getAllColors":
+      response({ colors: ColorCache });
       break;
   }
 }
