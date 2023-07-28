@@ -1,3 +1,5 @@
+import { colorDb } from "../../background/DataStore";
+import { search } from "../../background/orama";
 import { createElement } from "./CreateElement";
 
 export function createSearch() {
@@ -30,3 +32,33 @@ function closeSearchBox() {
     document.body.removeChild(existingSearch);
   }
 }
+
+export async function createSearchResultsUI(type: string) {
+  const resultContainer = document.querySelector(
+    ".resultContainer-highlighter"
+  );
+  // clearing out the previous result
+  resultContainer.innerHTML = "";
+
+  let activeColor = "";
+
+  chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
+    activeColor = res.state.activeColor;
+  });
+
+  chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
+    // #todo no search result or no color or any error
+    if (!res) return;
+
+    res.colors.forEach((color) => {
+      const result = createElement("div", "result-highlighter");
+      if (color === activeColor) {
+        result.classList.add("activeResult-highlighter");
+        result.style.background = color;
+      }
+      result.innerText = color;
+      resultContainer.appendChild(result);
+    });
+  });
+}
+export function updateSearchResultsUI() {}

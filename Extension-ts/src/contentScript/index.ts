@@ -1,3 +1,4 @@
-import { createSearch } from "../components";
+import { createSearch, createSearchResultsUI } from "../components";
 
 createSearch();
+createSearchResultsUI("colors");

@@ -3,6 +3,18 @@ import Shortcut from "./popup/Shortcut";
 import Color from "./colors/Color";
 
 import { createElement } from "./global/CreateElement";
-import { createSearch } from "./global/SearchBox";
+import {
+  createSearch,
+  updateSearchResultsUI,
+  createSearchResultsUI,
+} from "./global/SearchBox";
 
-export { Title, Shortcut, Color, createElement, createSearch };
+export {
+  Title,
+  Shortcut,
+  Color,
+  createElement,
+  createSearch,
+  updateSearchResultsUI,
+  createSearchResultsUI,
+};
