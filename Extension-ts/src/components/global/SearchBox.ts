@@ -12,6 +12,7 @@ export function createSearch() {
 
   // adding event listeners
   disposer.addEventListener("click", closeSearchBox);
+  searchBox.addEventListener("keypress", updateSearchResultsUI);
 
   // search container holds the search box and the results
   searchContainer.append(searchBox, resultContainer);
@@ -33,17 +34,17 @@ function closeSearchBox() {
   }
 }
 
-export async function createSearchResultsUI(type: string) {
+export function createSearchResultsUI(type: string) {
   const resultContainer = document.querySelector(
     ".resultContainer-highlighter"
   );
   // clearing out the previous result
   resultContainer.innerHTML = "";
 
-  let activeColor = "";
+  let activeState;
 
   chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
-    activeColor = res.state.activeColor;
+    activeState = res.state;
   });
 
   chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
@@ -52,7 +53,7 @@ export async function createSearchResultsUI(type: string) {
 
     res.colors.forEach((color) => {
       const result = createElement("div", "result-highlighter");
-      if (color === activeColor) {
+      if (color === activeState.activeColor) {
         result.classList.add("activeResult-highlighter");
         result.style.background = color;
       }
@@ -61,4 +62,5 @@ export async function createSearchResultsUI(type: string) {
     });
   });
 }
+
 export function updateSearchResultsUI() {}
