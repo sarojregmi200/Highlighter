@@ -1,4 +1,4 @@
-import { ColorCache, colorDb, globalState } from "./DataStore";
+import { colorDb, globalState } from "./DataStore";
 import { search } from "./orama";
 
 export function initMessages() {
@@ -18,7 +18,13 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "getAllColors":
-      response({ colors: ColorCache });
+      search(colorDb, { term: "", properties: ["color"] }).then((res) => {
+        const allColors = res.hits.map((item) => {
+          return item.document.color;
+        });
+        response({ colors: allColors });
+      });
+      return true;
       break;
 
     case "getSearchResults":
@@ -27,8 +33,8 @@ export function handleMessage(request, sender, response) {
           term: request.searchTerm,
           properties: "*",
         }).then((res) => response(res));
+        return true;
       }
-      return true;
 
       break;
   }

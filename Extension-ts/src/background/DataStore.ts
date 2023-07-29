@@ -20,24 +20,3 @@ const defaultColors = [
 ];
 
 await insertMultiple(colorDb, defaultColors);
-
-const allColors = await search(colorDb, {
-  term: "",
-  properties: ["color"],
-});
-let ColorCache = allColors.hits.map((item) => {
-  return item.document.color;
-});
-
-export function updateColorCache() {
-  search(colorDb, {
-    term: "",
-    properties: ["color"],
-  }).then((res) => {
-    ColorCache = allColors.hits.map((item) => {
-      return item.document.color;
-    });
-  });
-}
-
-export { ColorCache };
