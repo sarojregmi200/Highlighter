@@ -68,5 +68,11 @@ export function handleMessage(request, sender, response) {
     case "changeActiveTopic":
       globalState.activeTopic = request.topic;
       break;
+
+    case "addNewTopic":
+      insert(topicDb, {
+        topic: request.topic,
+      });
+      break;
   }
 }

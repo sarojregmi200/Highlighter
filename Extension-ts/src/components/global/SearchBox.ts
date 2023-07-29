@@ -1,5 +1,3 @@
-import { colorDb } from "../../background/DataStore";
-import { search } from "../../background/orama";
 import { createElement } from "./CreateElement";
 
 export function createSearch(type: string) {
@@ -71,7 +69,7 @@ export function createSearchResultsUI(type: string) {
       });
       break;
 
-    case "category":
+    case "topic":
       chrome.runtime.sendMessage({ msg: "getAllTopics" }).then((res) => {
         if (res.topics.length === 0) return;
 
@@ -114,26 +112,53 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
       break;
 
     case "Enter":
-      if (type !== "colors") return;
-      const activeColor = document.querySelector(
-        ".activeResult-highlighter"
-      ).textContent;
-      const newColor = document
-        .querySelector(".activeResult-highlighter")
-        .getAttribute("color");
+      if (type !== "colors" && type !== "topic") return;
 
-      chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
-        if (res.colors.includes(activeColor)) {
-          chrome.runtime.sendMessage({
-            msg: "changeActiveColor",
-            color: activeColor,
+      switch (type) {
+        case "colors":
+          const activeColor = document.querySelector(
+            ".activeResult-highlighter"
+          ).textContent;
+          const newColor = document
+            .querySelector(".activeResult-highlighter")
+            .getAttribute("color");
+
+          chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
+            if (res.colors.includes(activeColor)) {
+              chrome.runtime.sendMessage({
+                msg: "changeActiveColor",
+                color: activeColor,
+              });
+            } else {
+              chrome.runtime.sendMessage({
+                msg: "addNewColor",
+                color: newColor,
+              });
+            }
           });
-        } else {
-          chrome.runtime.sendMessage({ msg: "addNewColor", color: newColor });
-        }
-      });
-      closeSearchBox();
+          break;
+        case "topic":
+          const activeTopic = document.querySelector(
+            ".activeResult-highlighter"
+          ).textContent;
 
+          chrome.runtime.sendMessage({ msg: "getAllTopics" }).then((res) => {
+            if (res.topics.includes(activeTopic)) {
+              chrome.runtime.sendMessage({
+                msg: "changeActiveTopic",
+                topic: activeTopic,
+              });
+            } else {
+              chrome.runtime.sendMessage({
+                msg: "addNewTopic",
+                topic: activeTopic,
+              });
+            }
+          });
+
+          break;
+      }
+      closeSearchBox();
       break;
 
     case "Escape":

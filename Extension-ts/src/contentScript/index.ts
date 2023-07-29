@@ -1,4 +1,4 @@
 import { createSearch, createSearchResultsUI } from "../components";
 
-createSearch("category");
-createSearchResultsUI("category");
+createSearch("topic");
+createSearchResultsUI("topic");
