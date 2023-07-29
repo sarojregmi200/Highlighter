@@ -12,6 +12,7 @@ export const colorDb = await create({
     color: "string",
   },
 });
+
 const defaultColors = [
   { color: "#8CFF32" },
   { color: "#E9FF32" },
@@ -34,3 +35,39 @@ const defaultTopics = [
 ];
 
 await insertMultiple(topicDb, defaultTopics);
+
+const highlightedDataDb = await create({
+  schema: {
+    xpath: "string",
+    data: "string",
+    color: "string",
+    domain: "string",
+    time: "string",
+  },
+});
+
+const sampleData = [
+  {
+    xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
+    data: "Another highlited data",
+    color: "black",
+    domain: "chorbazar.in",
+    time: "12pm yesterday",
+  },
+  {
+    xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
+    data: "This is a important data",
+    color: "red",
+    domain: "google.com",
+    time: "11pm today",
+  },
+  {
+    xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
+    data: "For the testing purpose",
+    color: "red",
+    domain: "hero.com.np",
+    time: "10pm today",
+  },
+];
+
+await insertMultiple(highlightedDataDb, sampleData);
