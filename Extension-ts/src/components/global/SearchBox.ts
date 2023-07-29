@@ -87,10 +87,19 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
       const activeColor = document.querySelector(
         ".activeResult-highlighter"
       ).textContent;
+      const newColor = document
+        .querySelector(".activeResult-highlighter")
+        .getAttribute("color");
 
-      chrome.runtime.sendMessage({
-        msg: "changeActiveColor",
-        color: activeColor,
+      chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
+        if (res.colors.includes(activeColor)) {
+          chrome.runtime.sendMessage({
+            msg: "changeActiveColor",
+            color: activeColor,
+          });
+        }
+
+        chrome.runtime.sendMessage({ msg: "addNewColor", color: newColor });
       });
       closeSearchBox();
 
@@ -143,6 +152,7 @@ function changeSearchResultUI(type: string, searchTerm: string) {
           result.classList.add("activeResult-highlighter");
           result.style.background = color;
           result.innerText = "Add " + color + " to your colors list";
+          result.setAttribute("color", color);
           resultContainer.appendChild(result);
           return;
         }

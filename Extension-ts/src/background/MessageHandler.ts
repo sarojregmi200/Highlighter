@@ -1,5 +1,5 @@
 import { colorDb, globalState } from "./DataStore";
-import { search } from "./orama";
+import { insert, search } from "./orama";
 
 export function initMessages() {
   chrome.runtime.onMessage.addListener(handleMessage);
@@ -14,6 +14,13 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "changeActiveColor":
+      globalState.activeColor = request.color;
+      break;
+    case "addNewColor":
+      console.log(request);
+      insert(colorDb, {
+        color: request.color,
+      });
       globalState.activeColor = request.color;
       break;
 
