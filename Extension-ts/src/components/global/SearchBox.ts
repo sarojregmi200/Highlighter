@@ -150,7 +150,7 @@ function highlightedDataMarkup(item) {
   upperContainer.append(category, liveLocate);
   lowerContainer.append(timeStamp, selectedColor);
 
-  result.append(upperContainer, data, lowerContainer);
+  result.append(upperContainer, domain, data, lowerContainer);
   return result;
 }
 
