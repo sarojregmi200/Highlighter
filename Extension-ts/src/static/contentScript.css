@@ -50,12 +50,11 @@
 .searchInput-highlighter {
   height: 50px;
   border: none;
-  outline: none;
   background-color: transparent;
   padding: 0 20px;
   border-radius: 2px;
   font-size: 18px;
-  outline: 1px solid #d3d3d3;
+  outline: 2px solid #d3d3d3;
 }
 
 .resultContainer-highlighter {
