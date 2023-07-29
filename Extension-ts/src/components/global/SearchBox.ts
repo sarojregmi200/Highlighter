@@ -261,6 +261,24 @@ function changeSearchResultUI(type: string, searchTerm: string) {
               resultContainer.appendChild(result);
               return;
             }
+            // if there are topic
+            items.forEach((item, index) => {
+              const topic = item.topic;
+              const result = createElement("div", "result-highlighter");
+              result.addEventListener("click", () => {
+                chrome.runtime.sendMessage({
+                  msg: "addNewTopic",
+                  topic,
+                });
+                closeSearchBox();
+              });
+              if (index === 0) {
+                result.classList.add("activeResult-highlighter");
+                result.style.background = globalState.activeColor;
+              }
+              result.innerText = topic;
+              resultContainer.appendChild(result);
+            });
           });
           break;
       }
