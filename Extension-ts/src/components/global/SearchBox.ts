@@ -154,6 +154,13 @@ function changeSearchResultUI(type: string, searchTerm: string) {
           result.classList.add("activeResult-highlighter");
           result.style.background = color;
           result.innerText = "Add " + color + " to your colors list";
+          result.addEventListener("click", () => {
+            chrome.runtime.sendMessage({
+              msg: "addNewColor",
+              color: color,
+            });
+            closeSearchBox();
+          });
           result.setAttribute("color", color);
           resultContainer.appendChild(result);
           return;
