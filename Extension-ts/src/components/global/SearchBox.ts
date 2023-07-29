@@ -92,6 +92,7 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
         msg: "changeActiveColor",
         color: activeColor,
       });
+      closeSearchBox();
 
       break;
 
