@@ -95,6 +95,9 @@
   height: max-content;
 }
 
+.result-highlighter:hover .highlightedData-sideSection-highlighter {
+  opacity: 1;
+}
 .highlightedData-liveLocate-highlighter {
 }
 .highlightedData-category-highlighter {
@@ -127,7 +130,9 @@
 .highlightedData-sideSection-highlighter {
   justify-content: right;
   width: 200px;
+  opacity: 0;
 }
+
 .highlightedData-selectedColor-highlighter {
   height: 20px;
   width: 20px;

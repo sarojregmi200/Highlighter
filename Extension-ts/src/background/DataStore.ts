@@ -57,7 +57,7 @@ const sampleData = [
   },
   {
     xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
-    data: "This is a important data",
+    data: "Most of the insert function internals are synchronous, so inserting a large number of documents in a loop could potentially block the event loop. If you have a lot of records, we suggest using the insertMultiple function.",
     color: "red",
     domain: "google.com",
     time: "11pm today",
