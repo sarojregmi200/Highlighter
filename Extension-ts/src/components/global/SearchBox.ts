@@ -220,29 +220,31 @@ function changeActiveSelection(number: number, type: string) {
   );
   const totalResults = results.length;
 
-  let currentActiveIndex = 0;
-  let newActiveIndex = 0;
-  results.forEach((result, index) => {
-    result.classList.contains("activeResult-highlighter")
-      ? (currentActiveIndex = index)
-      : null;
-  });
+  chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
+    let globalState = res.state;
 
-  newActiveIndex = currentActiveIndex + number;
+    let currentActiveIndex = 0;
+    let newActiveIndex = 0;
+    results.forEach((result, index) => {
+      if (result.classList.contains("activeResult-highlighter")) {
+        currentActiveIndex = index;
+        result.style.background = "white";
+        result.classList.remove("activeResult-highlighter");
+      }
+    });
 
-  if (newActiveIndex < 0) newActiveIndex = totalResults - 1;
-  if (newActiveIndex === totalResults) newActiveIndex = 0;
+    newActiveIndex = currentActiveIndex + number;
 
-  results.forEach((result, index) => {
-    if (result.classList.contains("activeResult-highlighter")) {
-      result.style.background = "white";
-      result.classList.remove("activeResult-highlighter");
-    }
-    if (index != newActiveIndex) return;
+    if (newActiveIndex < 0) newActiveIndex = totalResults - 1;
+    if (newActiveIndex === totalResults) newActiveIndex = 0;
 
-    result.classList.add("activeResult-highlighter");
+    const newActiveElement = results[newActiveIndex];
+    newActiveElement.classList.add("activeResult-highlighter");
+
+    console.log({ globalState, newActiveElement });
+    newActiveElement.style.background = globalState.activeColor;
     if (type === "colors") {
-      result.style.background = result.innerText;
+      newActiveElement.style.background = newActiveElement.innerText;
     }
   });
 }
