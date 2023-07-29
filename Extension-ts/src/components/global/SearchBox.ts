@@ -141,7 +141,9 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
           const activeTopic = document.querySelector(
             ".activeResult-highlighter"
           ).textContent;
-
+          const newTopic = document
+            .querySelector(".activeResult-highlighter")
+            .getAttribute("topic");
           chrome.runtime.sendMessage({ msg: "getAllTopics" }).then((res) => {
             if (res.topics.includes(activeTopic)) {
               chrome.runtime.sendMessage({
@@ -151,7 +153,7 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
             } else {
               chrome.runtime.sendMessage({
                 msg: "addNewTopic",
-                topic: activeTopic,
+                topic: newTopic,
               });
             }
           });
@@ -250,10 +252,12 @@ function changeSearchResultUI(type: string, searchTerm: string) {
               result.addEventListener("click", () => {
                 chrome.runtime.sendMessage({
                   msg: "addNewTopic",
-                  topic: searchTerm,
+                  topic,
                 });
                 closeSearchBox();
               });
+
+              result.setAttribute("topic", topic);
               resultContainer.appendChild(result);
               return;
             }
