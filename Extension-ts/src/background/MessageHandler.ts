@@ -11,6 +11,7 @@ export function handleMessage(request, sender, response) {
       response({
         state: globalState,
       });
+      return true;
       break;
 
     case "changeActiveColor":
