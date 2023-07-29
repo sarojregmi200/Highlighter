@@ -30,9 +30,6 @@ function closeSearchBox() {
 
   // if the popup is active then turn it off
   if (existingSearch) {
-    //   document.removeEventListener(keybordControls, () =>
-    //     console.log("removed event")
-    //   );
     document.body.removeChild(existingSearch);
   }
 }
@@ -97,9 +94,9 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
             msg: "changeActiveColor",
             color: activeColor,
           });
+        } else {
+          chrome.runtime.sendMessage({ msg: "addNewColor", color: newColor });
         }
-
-        chrome.runtime.sendMessage({ msg: "addNewColor", color: newColor });
       });
       closeSearchBox();
 
@@ -127,8 +124,6 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
   }
 }
 function isPrintableKey(key: string, e: KeyboardEvent) {
-  console.log({ key: key });
-  console.log("is printable");
   return (
     key.length === 1 && key !== " " && !e.ctrlKey && !e.altKey && !e.metaKey
   );
