@@ -1,4 +1,4 @@
-import { colorDb, globalState } from "./DataStore";
+import { colorDb, globalState, topicDb } from "./DataStore";
 import { insert, search } from "./orama";
 
 export function initMessages() {
@@ -49,6 +49,23 @@ export function handleMessage(request, sender, response) {
         return true;
       }
 
+      break;
+
+    case "getAllTopics":
+      search(topicDb, {
+        term: "",
+        properties: ["topic"],
+      }).then((res) => {
+        const allTopics = res.hits.map((item) => {
+          return item.document.category;
+        });
+        response({ topics: allTopics });
+      });
+      return true;
+      break;
+
+    case "changeActiveTopic":
+      globalState.activeTopic = request.topic;
       break;
   }
 }
