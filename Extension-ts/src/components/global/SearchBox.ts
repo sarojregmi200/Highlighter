@@ -73,8 +73,6 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
   const resultContainer = document.querySelector(
     ".resultContainer-highlighter"
   );
-  // clearing out the previous result
-  resultContainer.innerHTML = "";
 
   let searchTerm = inputBox.value;
 
@@ -121,21 +119,20 @@ function changeSearchResultUI(type: string, searchTerm: string) {
   const resultContainer = document.querySelector(
     ".resultContainer-highlighter"
   );
-  // clearing out the previous result
-  resultContainer.innerHTML = "";
 
   chrome.runtime
     .sendMessage({ msg: "getSearchResults", type, searchTerm })
     .then((res) => {
       const items = res.items;
-      console.log(items);
+      // clearing out the previous result
+      resultContainer.innerHTML = "";
       if (type === "colors") {
         if (items.length === 0) {
           const color = searchTerm;
           const result = createElement("div", "result-highlighter");
           result.classList.add("activeResult-highlighter");
           result.style.background = color;
-          result.innerText = "Add " + color + "to your colors list";
+          result.innerText = "Add " + color + " to your colors list";
           resultContainer.appendChild(result);
           return;
         }
