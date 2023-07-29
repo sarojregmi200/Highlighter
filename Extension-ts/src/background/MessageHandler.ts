@@ -28,6 +28,7 @@ export function handleMessage(request, sender, response) {
           properties: "*",
         }).then((res) => response(res));
       }
+      return true;
 
       break;
   }

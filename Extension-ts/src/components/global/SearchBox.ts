@@ -104,7 +104,7 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
     default:
       if (isPrintableKey(e.key, e)) {
         searchTerm = inputBox.value;
-        changeSearchResultUI(type, inputBox.value);
+        changeSearchResultUI(type, searchTerm);
       }
 
       break;
@@ -119,10 +119,6 @@ function isPrintableKey(key: string, e: KeyboardEvent) {
 }
 
 function changeSearchResultUI(type: string, searchTerm: string) {
-  console.log({ searchTerm });
-  const inputBox: HTMLInputElement = document.querySelector(
-    ".searchInput-highlighter"
-  );
   const resultContainer = document.querySelector(
     ".resultContainer-highlighter"
   );
