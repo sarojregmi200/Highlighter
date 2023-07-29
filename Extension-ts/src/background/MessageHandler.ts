@@ -32,7 +32,13 @@ export function handleMessage(request, sender, response) {
         search(colorDb, {
           term: request.searchTerm,
           properties: "*",
-        }).then((res) => response(res));
+        }).then((res) =>
+          response({
+            items: res.hits.map((item) => {
+              return item.document;
+            }),
+          })
+        );
         return true;
       }
 

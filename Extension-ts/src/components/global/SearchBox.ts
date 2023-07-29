@@ -13,7 +13,6 @@ export function createSearch(type: string) {
   // adding event listeners
   disposer.addEventListener("click", closeSearchBox);
   searchBox.addEventListener("keyup", (e) => {
-    console.log("I am called");
     updateSearchResultsUI(e, type);
   });
 
@@ -67,7 +66,6 @@ export function createSearchResultsUI(type: string) {
 }
 
 export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
-  console.log("I am also called");
   const inputBox: HTMLInputElement = document.querySelector(
     ".searchInput-highlighter"
   );
@@ -128,6 +126,19 @@ function changeSearchResultUI(type: string, searchTerm: string) {
   chrome.runtime
     .sendMessage({ msg: "getSearchResults", type, searchTerm })
     .then((res) => {
-      console.log({ SearchedResult: res });
+      const items = res.items;
+      console.log(items);
+      if (type === "colors") {
+        items.forEach((item, index) => {
+          const color = item.color;
+          const result = createElement("div", "result-highlighter");
+          if (index === 0) {
+            result.classList.add("activeResult-highlighter");
+            result.style.background = color;
+          }
+          result.innerText = color;
+          resultContainer.appendChild(result);
+        });
+      }
     });
 }
