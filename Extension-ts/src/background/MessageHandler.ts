@@ -76,5 +76,19 @@ export function handleMessage(request, sender, response) {
 
       globalState.activeTopic = request.topic;
       break;
+
+    case "searchHighlightedData":
+      search(highlightedDataDb, {
+        term: request.searchTerm,
+        properties: "*",
+      }).then((res) =>
+        response({
+          items: res.hits.map((item) => {
+            return item.document;
+          }),
+        })
+      );
+      return true;
+      break;
   }
 }
