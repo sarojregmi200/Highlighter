@@ -66,8 +66,6 @@
 }
 .result-highlighter,
 .addBtn-highlighter {
-  display: flex;
-  align-items: center;
   padding: 10px 25px;
   border-radius: 2px;
   font-size: 18px;
@@ -91,4 +89,20 @@
 
 .addBtn-highlighter {
   justify-content: space-between;
+}
+.highlightedData-category-highlighter,
+.highlightedData-domain-highlighter,
+.highlightedData-liveLocate-highlighter,
+.highlightedData-data-highlighter,
+.highlightedData-selectedColor-highlighter,
+.highlightedData-timeStamp-highlighter {
+}
+
+.highlightedData-upperContainer-highlighter,
+.highlightedData-lowerContainer-highlighter {
+  display: flex;
+  justify-content: space-between;
+}
+.result-highlighter {
+  height: max-content;
 }
