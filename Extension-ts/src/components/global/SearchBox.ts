@@ -241,7 +241,6 @@ function changeActiveSelection(number: number, type: string) {
     const newActiveElement = results[newActiveIndex];
     newActiveElement.classList.add("activeResult-highlighter");
 
-    console.log({ globalState, newActiveElement });
     newActiveElement.style.background = globalState.activeColor;
     if (type === "colors") {
       newActiveElement.style.background = newActiveElement.innerText;
