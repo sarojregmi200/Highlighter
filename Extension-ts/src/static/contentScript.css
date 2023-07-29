@@ -115,9 +115,11 @@
 .highlightedData-data-highlighter {
   font-size: 18px;
   color: #272727;
+  margin-top: 20px;
 }
 .highlightedData-timeStamp-highlighter {
   color: #606060;
+  margin-top: 20px;
 }
 
 .highlightedData-upperContainer-highlighter,
