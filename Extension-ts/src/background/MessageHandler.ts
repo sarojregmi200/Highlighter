@@ -86,6 +86,8 @@ export function handleMessage(request, sender, response) {
       insert(topicDb, {
         topic: request.topic,
       });
+
+      globalState.activeTopic = request.topic;
       break;
   }
 }
