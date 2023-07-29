@@ -1,4 +1,4 @@
-import { colorDb, globalState, topicDb } from "./DataStore";
+import { colorDb, globalState, highlightedDataDb, topicDb } from "./DataStore";
 import { insert, search } from "./orama";
 
 export function initMessages() {
@@ -36,32 +36,19 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "getSearchResults":
-      switch (request.type) {
-        case "colors":
-          search(colorDb, {
-            term: request.searchTerm,
-            properties: "*",
-          }).then((res) =>
-            response({
-              items: res.hits.map((item) => {
-                return item.document;
-              }),
-            })
-          );
-          break;
-        case "topic":
-          search(topicDb, {
-            term: request.searchTerm,
-            properties: ["topic"],
-          }).then((res) =>
-            response({
-              items: res.hits.map((item) => {
-                return item.document;
-              }),
-            })
-          );
-          break;
-      }
+      const type = request.type;
+      const searchDb = type === "colors" ? colorDb : topicDb;
+      search(searchDb, {
+        term: request.searchTerm,
+        properties: "*",
+      }).then((res) =>
+        response({
+          items: res.hits.map((item) => {
+            return item.document;
+          }),
+        })
+      );
+
       return true;
       break;
 

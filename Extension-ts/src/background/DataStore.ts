@@ -36,7 +36,7 @@ const defaultTopics = [
 
 await insertMultiple(topicDb, defaultTopics);
 
-const highlightedDataDb = await create({
+export const highlightedDataDb = await create({
   schema: {
     xpath: "string",
     data: "string",
