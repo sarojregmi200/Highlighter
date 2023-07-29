@@ -196,7 +196,6 @@ function changeSearchResultUI(type: string, searchTerm: string) {
     ".resultContainer-highlighter"
   );
 
-  console.log({ type, searchTerm });
   chrome.runtime
     .sendMessage({ msg: "getSearchResults", type, searchTerm })
     .then((res) => {
