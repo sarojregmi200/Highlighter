@@ -21,3 +21,16 @@ const defaultColors = [
 ];
 
 await insertMultiple(colorDb, defaultColors);
+
+export const topicDb = await create({
+  schema: {
+    topic: "string",
+  },
+});
+const defaultTopics = [
+  { topic: "Research" },
+  { topic: "Global" },
+  { topic: "School Project" },
+];
+
+await insertMultiple(topicDb, defaultTopics);
