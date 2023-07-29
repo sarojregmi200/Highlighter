@@ -12,7 +12,7 @@ export function createSearch(type: string) {
 
   // adding event listeners
   disposer.addEventListener("click", closeSearchBox);
-  searchBox.addEventListener("keypress", (e) => {
+  searchBox.addEventListener("keyup", (e) => {
     console.log("I am called");
     updateSearchResultsUI(e, type);
   });
@@ -103,8 +103,8 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
 
     default:
       if (isPrintableKey(e.key, e)) {
-        searchTerm += e.key;
-        changeSearchResultUI(type, searchTerm);
+        searchTerm = inputBox.value;
+        changeSearchResultUI(type, inputBox.value);
       }
 
       break;
