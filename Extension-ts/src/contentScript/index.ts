@@ -1,7 +1,7 @@
 import { createSearch, createSearchResultsUI } from "../components";
 import { initializePen } from "./pen";
 
-createSearch("hdata");
-createSearchResultsUI("hdata");
+createSearch("highlightedData");
+createSearchResultsUI("highlightedData");
 
 initializePen();

@@ -53,6 +53,7 @@ const sampleData = [
     color: "black",
     domain: "chorbazar.in",
     time: "12pm yesterday",
+    category: "Test category",
   },
   {
     xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
@@ -60,6 +61,7 @@ const sampleData = [
     color: "red",
     domain: "google.com",
     time: "11pm today",
+    category: "Test category 2",
   },
   {
     xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
@@ -67,6 +69,7 @@ const sampleData = [
     color: "red",
     domain: "hero.com.np",
     time: "10pm today",
+    category: "Test category 3",
   },
 ];
 

@@ -32,6 +32,7 @@ function closeSearchBox() {
   }
 }
 
+// first initial search result ui
 export function createSearchResultsUI(type: string) {
   const resultContainer = document.querySelector(
     ".resultContainer-highlighter"
@@ -92,9 +93,68 @@ export function createSearchResultsUI(type: string) {
       });
 
       break;
+
+    // just for making the Ui and testing purpose
+    case "highlightedData":
+      chrome.runtime
+        .sendMessage({
+          msg: "searchHighlightedData",
+          searchTerm: "",
+        })
+        .then((res) => {
+          const items = res.items;
+
+          items.forEach((item) => {
+            resultContainer.append(highlightedDataMarkup(item));
+          });
+        });
+      break;
   }
 }
 
+function highlightedDataMarkup(item) {
+  const result = createElement("div", "result-highlighter");
+
+  const category = createElement("div", "highlightedData-category-highlighter");
+  const domain = createElement("div", "highlightedData-domain-highlighter");
+  const liveLocate = createElement(
+    "button",
+    "highlightedData-liveLocate-highlighter"
+  );
+  const data = createElement("div", "highlightedData-data-highlighter");
+  const selectedColor = createElement(
+    "div",
+    "highlightedData-selectedColor-highlighter"
+  );
+  const timeStamp = createElement(
+    "div",
+    "highlightedData-timeStamp-highlighter"
+  );
+
+  const upperContainer = createElement(
+    "div",
+    "highlightedData-upperContainer-highlighter"
+  );
+  const lowerContainer = createElement(
+    "div",
+    "highlightedData-lowerContainer-highlighter"
+  );
+
+  category.innerText = item.category;
+  domain.innerText = item.domain;
+  liveLocate.innerText = "Live Locate";
+  data.innerText = item.data;
+  selectedColor.style.background = item.color;
+  timeStamp.innerText = item.time;
+
+  upperContainer.append(category, liveLocate);
+  lowerContainer.append(timeStamp, selectedColor);
+
+  result.append(upperContainer, data, lowerContainer);
+  return result;
+}
+
+// runs when there is a keyboard input
 export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
   const inputBox: HTMLInputElement = document.querySelector(
     ".searchInput-highlighter"
@@ -185,12 +245,13 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
   }
 }
 
+// checks whether the key is a special key or not
 function isPrintableKey(key: string, e: KeyboardEvent) {
   return (
     key.length === 1 && key !== " " && !e.ctrlKey && !e.altKey && !e.metaKey
   );
 }
-
+// is called by the update search results ui
 function changeSearchResultUI(type: string, searchTerm: string) {
   const resultContainer = document.querySelector(
     ".resultContainer-highlighter"
@@ -287,6 +348,7 @@ function changeSearchResultUI(type: string, searchTerm: string) {
     });
 }
 
+// is also called by the update search results ui but it's special keyboard keys
 function changeActiveSelection(number: number, type: string) {
   const results: NodeListOf<HTMLDivElement> = document.querySelectorAll(
     ".result-highlighter"
