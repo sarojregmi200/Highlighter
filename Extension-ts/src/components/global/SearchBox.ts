@@ -2,7 +2,7 @@ import { colorDb } from "../../background/DataStore";
 import { search } from "../../background/orama";
 import { createElement } from "./CreateElement";
 
-export function createSearch() {
+export function createSearch(type: string) {
   const mainContainer = createElement("div", "mainContainer-highlighter");
   const searchBox = createElement("input", "searchInput-highlighter");
   const searchContainer = createElement("div", "searchContainer-highlighter");
@@ -12,7 +12,10 @@ export function createSearch() {
 
   // adding event listeners
   disposer.addEventListener("click", closeSearchBox);
-  searchBox.addEventListener("keypress", updateSearchResultsUI);
+  searchBox.addEventListener("keypress", (e) => {
+    console.log("I am called");
+    updateSearchResultsUI(e, type);
+  });
 
   // search container holds the search box and the results
   searchContainer.append(searchBox, resultContainer);
@@ -63,4 +66,72 @@ export function createSearchResultsUI(type: string) {
   });
 }
 
-export function updateSearchResultsUI() {}
+export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
+  console.log("I am also called");
+  const inputBox: HTMLInputElement = document.querySelector(
+    ".searchInput-highlighter"
+  );
+  const resultContainer = document.querySelector(
+    ".resultContainer-highlighter"
+  );
+  // clearing out the previous result
+  resultContainer.innerHTML = "";
+
+  let searchTerm = inputBox.value;
+
+  switch (e.key) {
+    case "ArrowDown":
+      break;
+
+    case "ArrowUp":
+      break;
+
+    case "Enter":
+      break;
+
+    case "Escape":
+      closeSearchBox();
+      searchTerm = "";
+      //   resetting the ui
+      createSearchResultsUI(type);
+      break;
+
+    case "Backspace":
+      searchTerm = inputBox.value;
+      changeSearchResultUI(type, searchTerm);
+      break;
+
+    default:
+      if (isPrintableKey(e.key, e)) {
+        searchTerm += e.key;
+        changeSearchResultUI(type, searchTerm);
+      }
+
+      break;
+  }
+}
+function isPrintableKey(key: string, e: KeyboardEvent) {
+  console.log({ key: key });
+  console.log("is printable");
+  return (
+    key.length === 1 && key !== " " && !e.ctrlKey && !e.altKey && !e.metaKey
+  );
+}
+
+function changeSearchResultUI(type: string, searchTerm: string) {
+  console.log({ searchTerm });
+  const inputBox: HTMLInputElement = document.querySelector(
+    ".searchInput-highlighter"
+  );
+  const resultContainer = document.querySelector(
+    ".resultContainer-highlighter"
+  );
+  // clearing out the previous result
+  resultContainer.innerHTML = "";
+
+  chrome.runtime
+    .sendMessage({ msg: "getSearchResults", type, searchTerm })
+    .then((res) => {
+      console.log({ SearchedResult: res });
+    });
+}

@@ -1,4 +1,4 @@
 import { createSearch, createSearchResultsUI } from "../components";
 
-createSearch();
+createSearch("colors");
 createSearchResultsUI("colors");
