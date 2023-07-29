@@ -7,6 +7,7 @@ export function createSearch(type: string) {
   const searchBox = createElement("input", "searchInput-highlighter");
   const searchContainer = createElement("div", "searchContainer-highlighter");
   const resultContainer = createElement("div", "resultContainer-highlighter");
+
   const addBtn = createElement("div", "addBtn-highlighter");
   const disposer = createElement("div", "disposer-highlighter");
 
@@ -129,6 +130,15 @@ function changeSearchResultUI(type: string, searchTerm: string) {
       const items = res.items;
       console.log(items);
       if (type === "colors") {
+        if (items.length === 0) {
+          const color = searchTerm;
+          const result = createElement("div", "result-highlighter");
+          result.classList.add("activeResult-highlighter");
+          result.style.background = color;
+          result.innerText = "Add " + color + "to your colors list";
+          resultContainer.appendChild(result);
+          return;
+        }
         items.forEach((item, index) => {
           const color = item.color;
           const result = createElement("div", "result-highlighter");
