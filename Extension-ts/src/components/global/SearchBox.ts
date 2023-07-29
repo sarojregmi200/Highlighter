@@ -135,9 +135,9 @@ function highlightedDataMarkup(item) {
     "div",
     "highlightedData-upperContainer-highlighter"
   );
-  const lowerContainer = createElement(
+  const sideSection = createElement(
     "div",
-    "highlightedData-lowerContainer-highlighter"
+    "highlightedData-sideSection-highlighter"
   );
 
   category.innerText = item.category;
@@ -147,10 +147,10 @@ function highlightedDataMarkup(item) {
   selectedColor.style.background = item.color;
   timeStamp.innerText = item.time;
 
-  upperContainer.append(category, liveLocate);
-  lowerContainer.append(timeStamp, selectedColor);
+  sideSection.append(selectedColor, liveLocate);
+  upperContainer.append(category, sideSection);
 
-  result.append(upperContainer, domain, data, lowerContainer);
+  result.append(upperContainer, domain, data, timeStamp);
   return result;
 }
 
