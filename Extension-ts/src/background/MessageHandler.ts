@@ -57,7 +57,7 @@ export function handleMessage(request, sender, response) {
         properties: ["topic"],
       }).then((res) => {
         const allTopics = res.hits.map((item) => {
-          return item.document.category;
+          return item.document.topic;
         });
         response({ topics: allTopics });
       });
