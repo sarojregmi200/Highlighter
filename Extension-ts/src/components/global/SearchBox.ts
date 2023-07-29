@@ -46,28 +46,55 @@ export function createSearchResultsUI(type: string) {
   chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
     activeState = res.state;
   });
+  switch (type) {
+    case "colors":
+      chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
+        // #todo no search result or no color or any error
+        if (res.colors.length === 0) return;
 
-  chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
-    // #todo no search result or no color or any error
-    if (!res) return;
-
-    res.colors.forEach((color) => {
-      const result = createElement("div", "result-highlighter");
-      if (color === activeState.activeColor) {
-        result.classList.add("activeResult-highlighter");
-        result.style.background = color;
-      }
-      result.innerText = color;
-      resultContainer.appendChild(result);
-      result.addEventListener("click", () => {
-        chrome.runtime.sendMessage({
-          msg: "changeActiveColor",
-          color: color,
+        res.colors.forEach((color) => {
+          const result = createElement("div", "result-highlighter");
+          if (color === activeState.activeColor) {
+            result.classList.add("activeResult-highlighter");
+            result.style.background = color;
+          }
+          result.innerText = color;
+          resultContainer.appendChild(result);
+          result.addEventListener("click", () => {
+            chrome.runtime.sendMessage({
+              msg: "changeActiveColor",
+              color: color,
+            });
+            closeSearchBox();
+          });
         });
-        closeSearchBox();
       });
-    });
-  });
+      break;
+
+    case "category":
+      chrome.runtime.sendMessage({ msg: "getAllTopics" }).then((res) => {
+        if (res.topics.length === 0) return;
+
+        res.topics.forEach((topic) => {
+          const result = createElement("div", "result-highlighter");
+          if (topic === activeState.activeTopic) {
+            result.classList.add("activeResult-highlighter");
+            result.style.background = activeState.activeColor;
+          }
+          result.innerText = topic;
+          resultContainer.appendChild(result);
+          result.addEventListener("click", () => {
+            chrome.runtime.sendMessage({
+              msg: "changeActiveTopic",
+              topic,
+            });
+            closeSearchBox();
+          });
+        });
+      });
+
+      break;
+  }
 }
 
 export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
@@ -130,6 +157,7 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
       break;
   }
 }
+
 function isPrintableKey(key: string, e: KeyboardEvent) {
   return (
     key.length === 1 && key !== " " && !e.ctrlKey && !e.altKey && !e.metaKey
