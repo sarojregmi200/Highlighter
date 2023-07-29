@@ -59,6 +59,13 @@ export function createSearchResultsUI(type: string) {
       }
       result.innerText = color;
       resultContainer.appendChild(result);
+      result.addEventListener("click", () => {
+        chrome.runtime.sendMessage({
+          msg: "changeActiveColor",
+          color: color,
+        });
+        closeSearchBox();
+      });
     });
   });
 }
@@ -154,6 +161,13 @@ function changeSearchResultUI(type: string, searchTerm: string) {
         items.forEach((item, index) => {
           const color = item.color;
           const result = createElement("div", "result-highlighter");
+          result.addEventListener("click", () => {
+            chrome.runtime.sendMessage({
+              msg: "changeActiveColor",
+              color: color,
+            });
+            closeSearchBox();
+          });
           if (index === 0) {
             result.classList.add("activeResult-highlighter");
             result.style.background = color;

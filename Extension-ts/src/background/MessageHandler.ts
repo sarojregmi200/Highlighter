@@ -16,6 +16,7 @@ export function handleMessage(request, sender, response) {
     case "changeActiveColor":
       globalState.activeColor = request.color;
       break;
+
     case "addNewColor":
       insert(colorDb, {
         color: request.color,
