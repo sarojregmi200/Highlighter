@@ -83,6 +83,16 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
       break;
 
     case "Enter":
+      if (type !== "colors") return;
+      const activeColor = document.querySelector(
+        ".activeResult-highlighter"
+      ).textContent;
+
+      chrome.runtime.sendMessage({
+        msg: "changeActiveColor",
+        color: activeColor,
+      });
+
       break;
 
     case "Escape":
