@@ -70,17 +70,16 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
   const inputBox: HTMLInputElement = document.querySelector(
     ".searchInput-highlighter"
   );
-  const resultContainer = document.querySelector(
-    ".resultContainer-highlighter"
-  );
 
   let searchTerm = inputBox.value;
 
   switch (e.key) {
     case "ArrowDown":
+      changeActiveSelection(1, type);
       break;
 
     case "ArrowUp":
+      changeActiveSelection(-1, type);
       break;
 
     case "Enter":
@@ -148,4 +147,37 @@ function changeSearchResultUI(type: string, searchTerm: string) {
         });
       }
     });
+}
+
+function changeActiveSelection(number: number, type: string) {
+  const results: NodeListOf<HTMLDivElement> = document.querySelectorAll(
+    ".result-highlighter"
+  );
+  const totalResults = results.length;
+
+  let currentActiveIndex = 0;
+  let newActiveIndex = 0;
+  results.forEach((result, index) => {
+    result.classList.contains("activeResult-highlighter")
+      ? (currentActiveIndex = index)
+      : null;
+  });
+
+  newActiveIndex = currentActiveIndex + number;
+
+  if (newActiveIndex < 0) newActiveIndex = totalResults - 1;
+  if (newActiveIndex === totalResults) newActiveIndex = 0;
+
+  results.forEach((result, index) => {
+    if (result.classList.contains("activeResult-highlighter")) {
+      result.style.background = "white";
+      result.classList.remove("activeResult-highlighter");
+    }
+    if (index != newActiveIndex) return;
+
+    result.classList.add("activeResult-highlighter");
+    if (type === "colors") {
+      result.style.background = result.innerText;
+    }
+  });
 }
