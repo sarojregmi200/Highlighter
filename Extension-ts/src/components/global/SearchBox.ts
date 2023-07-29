@@ -266,7 +266,7 @@ function changeSearchResultUI(type: string, searchTerm: string) {
               const result = createElement("div", "result-highlighter");
               result.addEventListener("click", () => {
                 chrome.runtime.sendMessage({
-                  msg: "addNewTopic",
+                  msg: "changeActiveTopic",
                   topic,
                 });
                 closeSearchBox();
