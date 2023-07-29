@@ -200,10 +200,10 @@ function changeSearchResultUI(type: string, searchTerm: string) {
     .sendMessage({ msg: "getSearchResults", type, searchTerm })
     .then((res) => {
       const items = res.items;
-      // clearing out the previous result
-      resultContainer.innerHTML = "";
       switch (type) {
         case "colors":
+          // clearing out the previous result
+          resultContainer.innerHTML = "";
           if (items.length === 0) {
             const color = searchTerm;
             const result = createElement("div", "result-highlighter");
@@ -242,6 +242,9 @@ function changeSearchResultUI(type: string, searchTerm: string) {
         case "topic":
           chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
             let globalState = res.state;
+
+            // clearing out the previous result
+            resultContainer.innerHTML = "";
             if (items.length === 0) {
               const topic = searchTerm;
               const result = createElement("div", "result-highlighter");
