@@ -36,20 +36,33 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "getSearchResults":
-      if (request.type === "colors") {
-        search(colorDb, {
-          term: request.searchTerm,
-          properties: "*",
-        }).then((res) =>
-          response({
-            items: res.hits.map((item) => {
-              return item.document;
-            }),
-          })
-        );
-        return true;
+      switch (request.type) {
+        case "colors":
+          search(colorDb, {
+            term: request.searchTerm,
+            properties: "*",
+          }).then((res) =>
+            response({
+              items: res.hits.map((item) => {
+                return item.document;
+              }),
+            })
+          );
+          break;
+        case "topic":
+          search(topicDb, {
+            term: request.searchTerm,
+            properties: ["topic"],
+          }).then((res) =>
+            response({
+              items: res.hits.map((item) => {
+                return item.document;
+              }),
+            })
+          );
+          break;
       }
-
+      return true;
       break;
 
     case "getAllTopics":

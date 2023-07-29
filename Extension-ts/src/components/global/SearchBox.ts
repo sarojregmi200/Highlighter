@@ -194,47 +194,71 @@ function changeSearchResultUI(type: string, searchTerm: string) {
     ".resultContainer-highlighter"
   );
 
+  console.log({ type, searchTerm });
   chrome.runtime
     .sendMessage({ msg: "getSearchResults", type, searchTerm })
     .then((res) => {
       const items = res.items;
       // clearing out the previous result
       resultContainer.innerHTML = "";
-      if (type === "colors") {
-        if (items.length === 0) {
-          const color = searchTerm;
-          const result = createElement("div", "result-highlighter");
-          result.classList.add("activeResult-highlighter");
-          result.style.background = color;
-          result.innerText = "Add " + color + " to your colors list";
-          result.addEventListener("click", () => {
-            chrome.runtime.sendMessage({
-              msg: "addNewColor",
-              color: color,
-            });
-            closeSearchBox();
-          });
-          result.setAttribute("color", color);
-          resultContainer.appendChild(result);
-          return;
-        }
-        items.forEach((item, index) => {
-          const color = item.color;
-          const result = createElement("div", "result-highlighter");
-          result.addEventListener("click", () => {
-            chrome.runtime.sendMessage({
-              msg: "changeActiveColor",
-              color: color,
-            });
-            closeSearchBox();
-          });
-          if (index === 0) {
+      switch (type) {
+        case "colors":
+          if (items.length === 0) {
+            const color = searchTerm;
+            const result = createElement("div", "result-highlighter");
             result.classList.add("activeResult-highlighter");
             result.style.background = color;
+            result.innerText = "Add " + color + " to your colors list";
+            result.addEventListener("click", () => {
+              chrome.runtime.sendMessage({
+                msg: "addNewColor",
+                color: color,
+              });
+              closeSearchBox();
+            });
+            result.setAttribute("color", color);
+            resultContainer.appendChild(result);
+            return;
           }
-          result.innerText = color;
-          resultContainer.appendChild(result);
-        });
+          items.forEach((item, index) => {
+            const color = item.color;
+            const result = createElement("div", "result-highlighter");
+            result.addEventListener("click", () => {
+              chrome.runtime.sendMessage({
+                msg: "changeActiveColor",
+                color: color,
+              });
+              closeSearchBox();
+            });
+            if (index === 0) {
+              result.classList.add("activeResult-highlighter");
+              result.style.background = color;
+            }
+            result.innerText = color;
+            resultContainer.appendChild(result);
+          });
+          break;
+        case "topic":
+          chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
+            let globalState = res.state;
+            if (items.length === 0) {
+              const topic = searchTerm;
+              const result = createElement("div", "result-highlighter");
+              result.classList.add("activeResult-highlighter");
+              result.style.background = globalState.activeColor;
+              result.innerText = "Add " + topic + " to your topics list";
+              result.addEventListener("click", () => {
+                chrome.runtime.sendMessage({
+                  msg: "addNewTopic",
+                  topic: searchTerm,
+                });
+                closeSearchBox();
+              });
+              resultContainer.appendChild(result);
+              return;
+            }
+          });
+          break;
       }
     });
 }
