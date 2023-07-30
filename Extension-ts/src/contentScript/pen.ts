@@ -20,18 +20,21 @@ function getHighlitedText(): {
   const selection = window.getSelection();
   if (!selection || !selection.getRangeAt(0)) return;
 
-  const selctionText = selection.getRangeAt(0).toString().trim();
+  const selectedText = selection.getRangeAt(0).toString().trim();
 
   if (
     (selection.isCollapsed && selection.rangeCount <= 0) ||
     !selection ||
-    !selctionText
+    !selectedText
   )
     return { empty: true };
 
   const xpath = "In another version";
   if (!xpath) return { empty: true };
-  return { text: selctionText, location: xpath, empty: false };
+
+  styleHighlightedData(selection.getRangeAt(0));
+
+  return { text: selectedText, location: xpath, empty: false };
 }
 
 function processHighlitedText(
@@ -93,4 +96,21 @@ function generateXpath(element: HTMLElement) {
     const index = siblings.indexOf(element) + 1;
     return `${generateXpath(parent)}/${tagName}[${index}]`;
   }
+}
+
+function styleHighlightedData(range) {
+  const selectedText = range.toString();
+  if (selectedText.trim() === "") return;
+
+  // creating a wrapper
+  const span = document.createElement("span");
+  span.classList.add(`wrapper-highlighter-highlight`);
+  span.innerText = selectedText;
+  span.style.textDecorationColor = "white";
+
+  // removing the content of the range
+  range.deleteContents();
+
+  // inserting back with the wrapper
+  range.insertNode(span);
 }
