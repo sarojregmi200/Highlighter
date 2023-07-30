@@ -60,20 +60,21 @@ function getXpath(selection: Selection): string {
 
   const range = selection.getRangeAt(0);
   const containerNode = range.commonAncestorContainer;
-  console.log(range);
   if (containerNode.nodeType !== Node.TEXT_NODE) return "";
 
   const containerElement = containerNode.parentElement;
 
   xpath = generateXpath(containerElement);
+  console.log(xpath);
   return xpath;
 }
 
 function generateXpath(element: HTMLElement) {
-  console.log(element);
   if (!element || !element.tagName) return "";
   const tagName = element.tagName.toLowerCase();
   const parent = element.parentElement;
+  // checking for the last parent
+  if (!parent) return "";
   const siblings = Array.from(parent.children).filter(
     (child) => child.tagName === tagName
   );
