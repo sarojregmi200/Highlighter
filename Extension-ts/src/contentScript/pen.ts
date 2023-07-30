@@ -98,14 +98,16 @@ function generateXpath(element: HTMLElement) {
   }
 }
 
-function styleHighlightedData(range) {
+function styleHighlightedData(range: Range) {
   const selectedText = range.toString();
   if (selectedText.trim() === "") return;
+
+  const textContainer: Node = range.commonAncestorContainer;
 
   // creating a wrapper
   const span = document.createElement("span");
   span.classList.add(`wrapper-highlighter-highlight`);
-  span.innerText = selectedText;
+  span.innerHTML = textContainer.innerHTML;
   span.style.textDecorationColor = "white";
 
   // removing the content of the range
