@@ -130,6 +130,12 @@ function styleHighlightedData(
     span.innerHTML = selectedText;
   }
   span.style.textDecorationColor = color;
+  span.style.background = color;
+
+  // generating the light version of the selected color
+  const colorInRGB = span.style.background;
+  const rgbArr = colorInRGB.match(/\d+/g).map(Number);
+  span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
 
   // removing the content of the range
   range.deleteContents();

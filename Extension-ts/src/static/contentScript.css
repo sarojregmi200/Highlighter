@@ -3,6 +3,8 @@
   text-decoration-thickness: 2px;
   font-style: italic;
   line-height: 102%;
+  border-radius: 3px;
+  background-blend-mode: lighten;
 }
 * {
   margin: 0;
