@@ -108,6 +108,15 @@
   opacity: 0.7;
   border: 2px solid #33333343;
   color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.highlightedData-liveLocate-icon-highlighter {
+  background: url("./openExternalLink.svg");
+  height: 24px;
+  width: 24px;
+  margin-left: 10px;
 }
 .highlightedData-liveLocate-highlighter:hover {
   opacity: 1;
@@ -144,7 +153,6 @@
 
 .highlightedData-sideSection-highlighter {
   justify-content: right;
-  width: 200px;
   opacity: 0;
 }
 
@@ -168,6 +176,7 @@
   height: 400px;
   width: 100%;
 }
+
 .result-highlighter-initial {
   display: flex;
   justify-content: center;

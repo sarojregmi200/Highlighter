@@ -96,15 +96,23 @@ export function createSearchResultsUI(type: string) {
 
     // just for making the Ui and testing purpose
     case "highlightedData":
-      resultContainer.append(highlightedDataMarkup("", "initial"));
-      break;
+      chrome.runtime
+        .sendMessage({ msg: "searchHighlightedData" })
+        .then((res) => {
+          const items = res.items;
+          items.forEach((item) =>
+            resultContainer.append(highlightedDataMarkup(item, ""))
+          );
+        });
   }
 }
 
 function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
-  const result = createElement("div", "result-highlighter-initial");
+  let result = createElement("div", "result-highlighter");
 
   if (mode === "initial") {
+    result = createElement("div", "result-highlighter-initial");
+
     const image = createElement(
       "div",
       "highlightedData-initialImage-highlighter"
@@ -125,6 +133,8 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
     return result;
   }
   if (mode === "noSearch") {
+    result = createElement("div", "result-highlighter-initial");
+
     const image = createElement("div", "highlightedData-noSearch-highlighter");
     const msg = createElement("div", "highlightedData-initialMsg-highlighter");
     const title = createElement(
@@ -151,6 +161,14 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
     "button",
     "highlightedData-liveLocate-highlighter"
   );
+  const liveLocateIcon = createElement(
+    "button",
+    "highlightedData-liveLocate-icon-highlighter"
+  );
+  const liveLocateTxt = createElement(
+    "button",
+    "highlightedData-liveLocate-Txt-highlighter"
+  );
   const data = createElement("div", "highlightedData-data-highlighter");
   const selectedColor = createElement(
     "div",
@@ -172,11 +190,12 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
 
   category.innerText = item.category;
   domain.innerText = item.domain;
-  liveLocate.innerText = "Live Locate";
+  liveLocateTxt.innerText = "Live Locate";
   data.innerText = item.data;
   selectedColor.style.background = item.color;
   timeStamp.innerText = item.time;
 
+  liveLocate.append(liveLocateTxt, liveLocateIcon);
   sideSection.append(selectedColor, liveLocate);
   upperContainer.append(category, sideSection);
 
