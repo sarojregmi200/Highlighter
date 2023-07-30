@@ -140,10 +140,10 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
       "highlightedData-initialMsg-desc-highlighter"
     );
     desc.innerText =
-      "No Results for " +
+      "No Search Results for " +
       searchData +
-      "found" +
-      "Try searching something or creating a highlight first.";
+      " found" +
+      "Try searching something else or creating a highlight first.";
     msg.append(title, desc);
     result.append(image, msg);
     return result;
