@@ -6,8 +6,6 @@ export function createSearch(type: string) {
   const searchContainer = createElement("div", "searchContainer-highlighter");
   const resultContainer = createElement("div", "resultContainer-highlighter");
 
-  searchBox.autofocus = true;
-
   const addBtn = createElement("div", "addBtn-highlighter");
   const disposer = createElement("div", "disposer-highlighter");
 
@@ -23,6 +21,10 @@ export function createSearch(type: string) {
   mainContainer.append(searchContainer, addBtn, disposer);
   // appending to the body
   document.body.appendChild(mainContainer);
+
+  const appendedInput: HTMLInputElement = document.querySelector(
+    ".searchInput-highlighter"
+  );
 }
 
 export function closeSearchBox() {
@@ -52,7 +54,6 @@ export function createSearchResultsUI(type: string) {
   switch (type) {
     case "colors":
       chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
-        // #todo no search result or no color or any error
         if (res.colors.length === 0) return;
 
         res.colors.forEach((color) => {
@@ -146,8 +147,8 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
     desc.innerText =
       "No Search Results for " +
       searchData +
-      " found" +
-      "Try searching something else or creating a highlight first.";
+      " found." +
+      " Try searching something else or creating a highlight first.";
     msg.append(title, desc);
     result.append(image, msg);
     return result;
@@ -205,6 +206,8 @@ export function updateSearchResultsUI(e: KeyboardEvent, type: string) {
   const inputBox: HTMLInputElement = document.querySelector(
     ".searchInput-highlighter"
   );
+  inputBox.focus();
+  inputBox.autofocus = true;
 
   let searchTerm = inputBox.value;
 
@@ -304,6 +307,11 @@ function changeSearchResultUI(type: string, searchTerm: string) {
   );
 
   if (type === "highlightedData") {
+    if (searchTerm.trim() === "") {
+      resultContainer.innerHTML = "";
+      resultContainer.append(highlightedDataMarkup("", "initial"));
+      return;
+    }
     chrome.runtime
       .sendMessage({ msg: "searchHighlightedData", searchTerm: searchTerm })
       .then((res) => {
