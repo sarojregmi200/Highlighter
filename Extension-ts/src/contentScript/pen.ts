@@ -131,7 +131,8 @@ function styleHighlightedData(
   }
   span.style.textDecorationColor = color;
   span.style.background = color;
-
+  const hoverEffectChild = createHoverElement(span, { topic, color, time });
+  span.appendChild(hoverEffectChild);
   // generating the light version of the selected color
   const colorInRGB = span.style.background;
   const rgbArr = colorInRGB.match(/\d+/g).map(Number);
@@ -146,4 +147,44 @@ function styleHighlightedData(
 
 function hasInnerHTML(node: Node): node is HTMLElement {
   return node instanceof HTMLElement;
+}
+
+function createHoverElement(
+  span: HTMLElement,
+  data: { topic: string; color: string; time: string }
+): HTMLElement {
+  const container = createElement(
+    "div",
+    "wrapper-highlighter-highlight-hover-container"
+  );
+  const topic = createElement(
+    "div",
+    "wrapper-highlighter-highlight-hover-topic"
+  );
+  topic.innerText = data.topic;
+
+  const time = createElement("div", "wrapper-highlighter-highlight-hover-time");
+  time.textContent = data.time;
+
+  const color = createElement(
+    "div",
+    "wrapper-highlighter-highlight-hover-color"
+  );
+  color.style.background = data.color;
+
+  const bottomWrapper = createElement(
+    "div",
+    "wrapper-highlighter-highlight-hover-bottom-wrapper"
+  );
+
+  bottomWrapper.append(time, color);
+  container.append(topic, bottomWrapper);
+
+  return container;
+}
+
+function createElement(type: string, className: string): HTMLElement {
+  const elem = document.createElement(type);
+  elem.classList.add(className);
+  return elem;
 }
