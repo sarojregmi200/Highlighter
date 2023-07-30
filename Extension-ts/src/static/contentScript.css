@@ -157,13 +157,17 @@
 
 /* initial screen */
 .highlightedData-initialImage-highlighter {
-  background: url("./arrow.svg");
+  background: url("./arrow.svg") no-repeat center;
   height: 300px;
   background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
+.highlightedData-noSearch-highlighter {
+  background: url("./noSearch.png") no-repeat center;
+  background-size: contain;
+  height: 400px;
+  width: 100%;
+}
 .result-highlighter-initial {
   display: flex;
   justify-content: center;

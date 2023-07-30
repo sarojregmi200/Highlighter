@@ -45,7 +45,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["./arrow.svg"],
+      "resources": ["./arrow.svg", "./noSearch.png"],
       "matches": ["<all_urls>"]
     }
   ]

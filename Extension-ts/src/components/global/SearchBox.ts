@@ -96,13 +96,15 @@ export function createSearchResultsUI(type: string) {
 
     // just for making the Ui and testing purpose
     case "highlightedData":
-      resultContainer.append(highlightedDataMarkup("", "initial"));
+      resultContainer.append(
+        highlightedDataMarkup("", "noSearch", "something")
+      );
 
       break;
   }
 }
 
-function highlightedDataMarkup(item, mode) {
+function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
   const result = createElement("div", "result-highlighter-initial");
 
   if (mode === "initial") {
@@ -121,6 +123,27 @@ function highlightedDataMarkup(item, mode) {
       "highlightedData-initialMsg-desc-highlighter"
     );
     desc.innerText = "like: categories or anything like good extension.";
+    msg.append(title, desc);
+    result.append(image, msg);
+    return result;
+  }
+  if (mode === "noSearch") {
+    const image = createElement("div", "highlightedData-noSearch-highlighter");
+    const msg = createElement("div", "highlightedData-initialMsg-highlighter");
+    const title = createElement(
+      "h1",
+      "highlightedData-initialMsg-title-highlighter"
+    );
+    title.innerText = "Sorry, Request failed!";
+    const desc = createElement(
+      "div",
+      "highlightedData-initialMsg-desc-highlighter"
+    );
+    desc.innerText =
+      "No Results for " +
+      searchData +
+      "found" +
+      "Try searching or creating a highlight first.";
     msg.append(title, desc);
     result.append(image, msg);
     return result;
