@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       searchBox.focus();
       keybordControls = searchBox.addEventListener("keydown", (e) => {
         keyboardSelection(searchBox, e, appData);
-      });
+      }); 
     }
   });
 });
