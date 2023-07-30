@@ -96,25 +96,36 @@ export function createSearchResultsUI(type: string) {
 
     // just for making the Ui and testing purpose
     case "highlightedData":
-      chrome.runtime
-        .sendMessage({
-          msg: "searchHighlightedData",
-          searchTerm: "",
-        })
-        .then((res) => {
-          const items = res.items;
+      resultContainer.append(highlightedDataMarkup("", "initial"));
 
-          items.forEach((item) => {
-            resultContainer.append(highlightedDataMarkup(item));
-          });
-        });
       break;
   }
 }
 
-function highlightedDataMarkup(item) {
-  const result = createElement("div", "result-highlighter");
+function highlightedDataMarkup(item, mode) {
+  const result = createElement("div", "result-highlighter-initial");
 
+  if (mode === "initial") {
+    const image = createElement(
+      "div",
+      "highlightedData-initialImage-highlighter"
+    );
+    const msg = createElement("div", "highlightedData-initialMsg-highlighter");
+    const title = createElement(
+      "h1",
+      "highlightedData-initialMsg-title-highlighter"
+    );
+    title.innerText = "Try searching";
+    const desc = createElement(
+      "div",
+      "highlightedData-initialMsg-desc-highlighter"
+    );
+    desc.innerText =
+      "something, like: categories or anything like good extension.";
+    msg.append(title, desc);
+    result.append(image, msg);
+    return result;
+  }
   const category = createElement("div", "highlightedData-category-highlighter");
   const domain = createElement("div", "highlightedData-domain-highlighter");
   const liveLocate = createElement(

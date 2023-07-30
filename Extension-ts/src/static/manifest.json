@@ -42,5 +42,11 @@
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["./arrow.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
