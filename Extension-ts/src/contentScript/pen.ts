@@ -1,13 +1,19 @@
 export function initializePen() {
   chrome.runtime.sendMessage({ msg: "getGlobalState" }).then(({ state }) => {
     const globalState = state;
+
+    const highlightedData = getHighlitedText();
+    if (highlightedData.empty) return; // if nothings is highlited
+
     processHighlitedText(globalState.activeColor, globalState.activeTopic);
   });
 }
 
-function processHighlitedText(color: string, topic: string) {}
-
-function getHighlitedText(): { text?: string; location?: string } {
+function getHighlitedText(): {
+  text?: string;
+  location?: string;
+  empty: boolean;
+} {
   const selection = window.getSelection();
   const selctionText = selection.getRangeAt(0).toString().trim();
   if (
@@ -15,7 +21,8 @@ function getHighlitedText(): { text?: string; location?: string } {
     !selection ||
     !selctionText
   )
-    return {};
-
-  return { text: selctionText };
+    return { empty: true };
+  return { text: selctionText, location: "xpath", empty: false };
 }
+
+function processHighlitedText(color: string, topic: string) {}
