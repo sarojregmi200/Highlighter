@@ -1,4 +1,8 @@
-import { createSearch, createSearchResultsUI } from "../components";
+import {
+  createSearch,
+  createSearchResultsUI,
+  removeSearch,
+} from "../components";
 import { initializePen } from "./pen";
 
 createSearch("highlightedData");

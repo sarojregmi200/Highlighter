@@ -22,8 +22,14 @@ export function createSearch(type: string) {
   // appending to the body
   document.body.appendChild(mainContainer);
 }
+export function removeSearch() {
+  const search = document.querySelector(".mainContainer-Highlighter");
+  if (!search) return;
 
-function closeSearchBox() {
+  document.removeChild(search);
+}
+
+export function closeSearchBox() {
   const existingSearch = document.querySelector(".mainContainer-highlighter");
 
   // if the popup is active then turn it off
