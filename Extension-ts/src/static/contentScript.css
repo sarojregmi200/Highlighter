@@ -130,6 +130,11 @@
   font-weight: bolder;
   color: #333;
 }
+.highlightedData-domain-highlighter,
+.highlightedData-topic-highlighter,
+.highlightedData-data-highlighter {
+  text-transform: none;
+}
 
 .highlightedData-domain-highlighter,
 .highlightedData-timeStamp-highlighter {
