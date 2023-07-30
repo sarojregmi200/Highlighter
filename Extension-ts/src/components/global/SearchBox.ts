@@ -115,13 +115,12 @@ function highlightedDataMarkup(item, mode) {
       "h1",
       "highlightedData-initialMsg-title-highlighter"
     );
-    title.innerText = "Try searching";
+    title.innerText = "Try searching something";
     const desc = createElement(
       "div",
       "highlightedData-initialMsg-desc-highlighter"
     );
-    desc.innerText =
-      "something, like: categories or anything like good extension.";
+    desc.innerText = "like: categories or anything like good extension.";
     msg.append(title, desc);
     result.append(image, msg);
     return result;

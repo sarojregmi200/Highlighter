@@ -157,5 +157,36 @@
 
 /* initial screen */
 .highlightedData-initialImage-highlighter {
-  background: url("./arrow.png");
+  background: url("./arrow.svg");
+  height: 300px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.result-highlighter-initial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.highlightedData-initialImage-highlighter {
+  width: 100%;
+}
+
+.highlightedData-initialMsg-title-highlighter {
+  text-align: center;
+  font-size: 34px;
+  margin-top: 40px;
+  font-weight: bolder;
+  color: #656565;
+  text-transform: capitalize;
+}
+
+.highlightedData-initialMsg-desc-highlighter {
+  margin-top: 10px;
+  text-transform: capitalize;
+  color: #7e7e7e;
+  padding-bottom: 50px;
 }
