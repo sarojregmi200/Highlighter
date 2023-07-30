@@ -5,10 +5,15 @@ export function initializePen() {
     const highlightedData = getHighlitedText();
     if (highlightedData.empty) return; // if nothings is highlited
 
-    processHighlitedText(globalState.activeColor, globalState.activeTopic, {
-      text: highlightedData.text,
-      location: highlightedData.location,
-    });
+    processHighlitedText(
+      globalState.activeColor,
+      globalState.activeTopic,
+      {
+        text: highlightedData.text,
+        location: highlightedData.location,
+      },
+      highlightedData.range
+    );
   });
 }
 
@@ -16,6 +21,7 @@ function getHighlitedText(): {
   text?: string;
   location?: string;
   empty: boolean;
+  range?: Range;
 } {
   const selection = window.getSelection();
   if (!selection || !selection.getRangeAt(0)) return;
@@ -32,15 +38,19 @@ function getHighlitedText(): {
   const xpath = "In another version";
   if (!xpath) return { empty: true };
 
-  styleHighlightedData(selection.getRangeAt(0));
-
-  return { text: selectedText, location: xpath, empty: false };
+  return {
+    text: selectedText,
+    location: xpath,
+    empty: false,
+    range: selection.getRangeAt(0),
+  };
 }
 
 function processHighlitedText(
   color: string,
   topic: string,
-  highlightedData: { text: string; location: string }
+  highlightedData: { text: string; location: string },
+  range: Range
 ) {
   const domain = window.location.origin + window.location.pathname;
 
@@ -53,6 +63,8 @@ function processHighlitedText(
     domain,
     time: timeNow,
   };
+
+  styleHighlightedData(range, color, topic, timeNow);
 
   chrome.runtime.sendMessage({
     msg: "addNewHighlightedData",
@@ -98,7 +110,12 @@ function generateXpath(element: HTMLElement) {
   }
 }
 
-function styleHighlightedData(range: Range) {
+function styleHighlightedData(
+  range: Range,
+  color: string,
+  topic: string,
+  time: string
+) {
   const selectedText = range.toString();
   if (selectedText.trim() === "") return;
 
@@ -112,7 +129,7 @@ function styleHighlightedData(range: Range) {
   } else {
     span.innerHTML = selectedText;
   }
-  span.style.textDecorationColor = "white";
+  span.style.textDecorationColor = color;
 
   // removing the content of the range
   range.deleteContents();
