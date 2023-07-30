@@ -102,12 +102,16 @@ function styleHighlightedData(range: Range) {
   const selectedText = range.toString();
   if (selectedText.trim() === "") return;
 
-  const textContainer: Node = range.commonAncestorContainer;
+  const textContainer = range.commonAncestorContainer;
 
   // creating a wrapper
   const span = document.createElement("span");
   span.classList.add(`wrapper-highlighter-highlight`);
-  span.innerHTML = textContainer.innerHTML;
+  if (hasInnerHTML(textContainer)) {
+    span.innerHTML = (textContainer as HTMLElement).innerHTML;
+  } else {
+    span.innerHTML = selectedText;
+  }
   span.style.textDecorationColor = "white";
 
   // removing the content of the range
@@ -115,4 +119,8 @@ function styleHighlightedData(range: Range) {
 
   // inserting back with the wrapper
   range.insertNode(span);
+}
+
+function hasInnerHTML(node: Node): node is HTMLElement {
+  return node instanceof HTMLElement;
 }
