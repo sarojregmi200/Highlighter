@@ -19,13 +19,16 @@ function getHighlitedText(): {
 } {
   const selection = window.getSelection();
   const selctionText = selection.getRangeAt(0).toString().trim();
+  const xpath = getXpath(selection);
+
   if (
     (selection.isCollapsed && selection.rangeCount <= 0) ||
     !selection ||
-    !selctionText
+    !selctionText ||
+    xpath === ""
   )
     return { empty: true };
-  return { text: selctionText, location: "xpath", empty: false };
+  return { text: selctionText, location: xpath, empty: false };
 }
 
 function processHighlitedText(
@@ -49,4 +52,34 @@ function processHighlitedText(
     msg: "addNewHighlightedData",
     ...newHighlightedData,
   });
+}
+
+function getXpath(selection: Selection): string {
+  let xpath = "";
+
+  const range = selection.getRangeAt(0);
+  const containerNode = range.commonAncestorContainer;
+  console.log(range);
+  if (containerNode.nodeType !== Node.TEXT_NODE) return "";
+
+  const containerElement = containerNode.parentElement;
+
+  xpath = generateXpath(containerElement);
+  return xpath;
+}
+
+function generateXpath(element: HTMLElement) {
+  console.log(element);
+  if (!element || !element.tagName) return "";
+  const tagName = element.tagName.toLowerCase();
+  const parent = element.parentElement;
+  const siblings = Array.from(parent.children).filter(
+    (child) => child.tagName === tagName
+  );
+  if (siblings.length === 1) {
+    return `${generateXpath(parent)}/${tagName}`;
+  } else {
+    const index = siblings.indexOf(element) + 1;
+    return `${generateXpath(parent)}/${tagName}[${index}]`;
+  }
 }
