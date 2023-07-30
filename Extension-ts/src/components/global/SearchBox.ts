@@ -25,6 +25,9 @@ export function createSearch(type: string) {
   const appendedInput: HTMLInputElement = document.querySelector(
     ".searchInput-highlighter"
   );
+
+  appendedInput.focus();
+  appendedInput.autofocus = true;
 }
 
 export function closeSearchBox() {
