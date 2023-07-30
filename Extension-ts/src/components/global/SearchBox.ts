@@ -96,10 +96,7 @@ export function createSearchResultsUI(type: string) {
 
     // just for making the Ui and testing purpose
     case "highlightedData":
-      resultContainer.append(
-        highlightedDataMarkup("", "noSearch", "something")
-      );
-
+      resultContainer.append(highlightedDataMarkup("", "initial"));
       break;
   }
 }
