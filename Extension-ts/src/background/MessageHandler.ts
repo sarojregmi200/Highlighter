@@ -92,5 +92,16 @@ export function handleMessage(request, sender, response) {
       );
       return true;
       break;
+
+    case "addNewHighlightedData":
+      insert(highlightedDataDb, {
+        xpath: request.location,
+        data: request.text,
+        color: request.color,
+        domain: request.domain,
+        time: request.time,
+        topic: request.topic,
+      });
+      break;
   }
 }
