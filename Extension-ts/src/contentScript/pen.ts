@@ -62,9 +62,11 @@ function getXpath(selection: Selection): string {
 
   const range = selection.getRangeAt(0);
   const containerNode = range.commonAncestorContainer;
-  if (containerNode.nodeType !== Node.TEXT_NODE) return "";
+  let containerElement;
 
-  const containerElement = containerNode.parentElement;
+  if (containerNode.nodeType === Node.TEXT_NODE)
+    containerElement = containerNode.parentElement;
+  else containerElement = containerNode;
 
   xpath = generateXpath(containerElement);
   console.log(xpath);
