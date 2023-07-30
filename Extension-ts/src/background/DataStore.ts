@@ -71,6 +71,22 @@ const sampleData = [
     time: "10pm today",
     category: "Test category 3",
   },
+  {
+    xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
+    data: "For the testing purpose",
+    color: "red",
+    domain: "hero.com.np",
+    time: "10pm today",
+    category: "Test category 3",
+  },
+  {
+    xpath: "/html/body/div/div/div[2]/article/main/ul[8]",
+    data: "For the testing purpose",
+    color: "red",
+    domain: "hero.com.np",
+    time: "10pm today",
+    category: "Test category 3",
+  },
 ];
 
 await insertMultiple(highlightedDataDb, sampleData);
