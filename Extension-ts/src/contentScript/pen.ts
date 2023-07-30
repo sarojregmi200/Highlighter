@@ -140,7 +140,6 @@ function styleHighlightedData(
   span.addEventListener("mousemove", (e) => {
     hoverEffectChild.style.left = e.pageX + "px";
     hoverEffectChild.style.top = e.pageY + "px";
-    console.log(e);
   });
   span.addEventListener(
     "mouseleave",
