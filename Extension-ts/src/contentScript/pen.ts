@@ -33,7 +33,10 @@ function processHighlitedText(
   topic: string,
   highlightedData: { text: string; location: string }
 ) {
+  const domain = window.location.origin + window.location.pathname;
+
   console.log({
+    domain,
     color,
     topic,
     highlightedData,
