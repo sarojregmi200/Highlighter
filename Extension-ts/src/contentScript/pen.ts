@@ -54,8 +54,10 @@ function processHighlitedText(
 ) {
   const domain = window.location.origin + window.location.pathname;
 
-  const timeNow = Date.now().toString();
+  const date = new Date();
 
+  // july 31st mon 2023, 10:11
+  const timeNow = formatDate(date);
   const newHighlightedData = {
     color,
     topic,
@@ -72,6 +74,41 @@ function processHighlitedText(
   });
 }
 
+function formatDate(date) {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const dayOfWeek = daysOfWeek[date.getDay()];
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  let daySuffix = "th";
+  if (day === 1 || day === 21 || day === 31) {
+    daySuffix = "st";
+  } else if (day === 2 || day === 22) {
+    daySuffix = "nd";
+  } else if (day === 3 || day === 23) {
+    daySuffix = "rd";
+  }
+
+  return `${month} ${day}${daySuffix} ${dayOfWeek} ${year}, ${hours}:${minutes}`;
+}
 function getXpath(selection: Selection): string {
   let xpath = "";
 
