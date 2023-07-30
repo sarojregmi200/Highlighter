@@ -19,15 +19,16 @@ function getHighlitedText(): {
 } {
   const selection = window.getSelection();
   const selctionText = selection.getRangeAt(0).toString().trim();
-  const xpath = getXpath(selection);
 
   if (
     (selection.isCollapsed && selection.rangeCount <= 0) ||
     !selection ||
-    !selctionText ||
-    xpath === ""
+    !selctionText
   )
     return { empty: true };
+
+  const xpath = getXpath(selection);
+  if (xpath === "") return { empty: true };
   return { text: selctionText, location: xpath, empty: false };
 }
 
