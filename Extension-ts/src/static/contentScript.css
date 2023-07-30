@@ -223,6 +223,9 @@
   border-radius: 5px;
   color: #333;
   text-decoration: none !important;
+  position: absolute;
+  transition: 0.25s;
+  opacity: 0;
 }
 
 .wrapper-highlighter-highlight-hover-topic {

@@ -132,6 +132,20 @@ function styleHighlightedData(
   span.style.textDecorationColor = color;
   span.style.background = color;
   const hoverEffectChild = createHoverElement(span, { topic, color, time });
+  hoverEffectChild.style.opacity = "1";
+  span.addEventListener(
+    "mouseenter",
+    () => (hoverEffectChild.style.opacity = "1")
+  );
+  span.addEventListener("mousemove", (e) => {
+    hoverEffectChild.style.left = e.pageX + "px";
+    hoverEffectChild.style.top = e.pageY + "px";
+    console.log(e);
+  });
+  span.addEventListener(
+    "mouseleave",
+    () => (hoverEffectChild.style.opacity = "0")
+  );
   span.appendChild(hoverEffectChild);
   // generating the light version of the selected color
   const colorInRGB = span.style.background;
