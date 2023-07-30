@@ -6,6 +6,8 @@ export function createSearch(type: string) {
   const searchContainer = createElement("div", "searchContainer-highlighter");
   const resultContainer = createElement("div", "resultContainer-highlighter");
 
+  searchBox.autofocus = true;
+
   const addBtn = createElement("div", "addBtn-highlighter");
   const disposer = createElement("div", "disposer-highlighter");
 
