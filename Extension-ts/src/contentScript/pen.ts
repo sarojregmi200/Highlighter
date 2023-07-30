@@ -35,10 +35,12 @@ function processHighlitedText(
 ) {
   const domain = window.location.origin + window.location.pathname;
 
-  console.log({
-    domain,
+  const newHighlightedData = {
     color,
     topic,
     highlightedData,
-  });
+    domain,
+  };
+
+  chrome.runtime.sendMessage({ msg: "addNewHighlightedData" });
 }

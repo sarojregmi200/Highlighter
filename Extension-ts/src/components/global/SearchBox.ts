@@ -148,7 +148,7 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
     result.append(image, msg);
     return result;
   }
-  const category = createElement("div", "highlightedData-category-highlighter");
+  const topic = createElement("div", "highlightedData-topic-highlighter");
   const domain = createElement("div", "highlightedData-domain-highlighter");
   const liveLocate = createElement(
     "button",
@@ -181,7 +181,7 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
     "highlightedData-sideSection-highlighter"
   );
 
-  category.innerText = item.category;
+  topic.innerText = item.topic;
   domain.innerText = item.domain;
   liveLocateTxt.innerText = "Live Locate";
   data.innerText = item.data;
@@ -190,7 +190,7 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
 
   liveLocate.append(liveLocateTxt, liveLocateIcon);
   sideSection.append(selectedColor, liveLocate);
-  upperContainer.append(category, sideSection);
+  upperContainer.append(topic, sideSection);
 
   result.append(upperContainer, domain, data, timeStamp);
   return result;
