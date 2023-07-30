@@ -130,7 +130,19 @@ function styleHighlightedData(
     span.innerHTML = selectedText;
   }
   span.style.textDecorationColor = color;
-  span.style.background = color;
+
+  // creating a temp div to apply color
+  const temp = document.createElement("div");
+  temp.style.background = color;
+  document.body.appendChild(temp);
+  // generating the light version of the selected color
+  const colorInRGB = window
+    .getComputedStyle(temp)
+    .getPropertyValue("background");
+  console.log(colorInRGB);
+  const rgbArr = colorInRGB.match(/\d+/g).map(Number);
+  span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
+
   const hoverEffectChild = createHoverElement(span, { topic, color, time });
   hoverEffectChild.style.opacity = "1";
   span.addEventListener(
@@ -146,10 +158,6 @@ function styleHighlightedData(
     () => (hoverEffectChild.style.opacity = "0")
   );
   span.appendChild(hoverEffectChild);
-  // generating the light version of the selected color
-  const colorInRGB = span.style.background;
-  const rgbArr = colorInRGB.match(/\d+/g).map(Number);
-  span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
 
   // removing the content of the range
   range.deleteContents();
