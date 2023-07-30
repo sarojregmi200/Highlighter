@@ -5,7 +5,10 @@ export function initializePen() {
     const highlightedData = getHighlitedText();
     if (highlightedData.empty) return; // if nothings is highlited
 
-    processHighlitedText(globalState.activeColor, globalState.activeTopic);
+    processHighlitedText(globalState.activeColor, globalState.activeTopic, {
+      text: highlightedData.text,
+      location: highlightedData.location,
+    });
   });
 }
 
@@ -25,4 +28,14 @@ function getHighlitedText(): {
   return { text: selctionText, location: "xpath", empty: false };
 }
 
-function processHighlitedText(color: string, topic: string) {}
+function processHighlitedText(
+  color: string,
+  topic: string,
+  highlightedData: { text: string; location: string }
+) {
+  console.log({
+    color,
+    topic,
+    highlightedData,
+  });
+}
