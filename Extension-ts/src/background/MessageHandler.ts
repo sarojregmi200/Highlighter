@@ -81,6 +81,8 @@ export function handleMessage(request, sender, response) {
       search(highlightedDataDb, {
         term: request.searchTerm,
         properties: "*",
+        tolerance: 3,
+        threshold: 0,
       }).then((res) =>
         response({
           items: res.hits.map((item) => {

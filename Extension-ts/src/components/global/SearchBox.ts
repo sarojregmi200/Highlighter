@@ -96,14 +96,7 @@ export function createSearchResultsUI(type: string) {
 
     // just for making the Ui and testing purpose
     case "highlightedData":
-      chrome.runtime
-        .sendMessage({ msg: "searchHighlightedData" })
-        .then((res) => {
-          const items = res.items;
-          items.forEach((item) =>
-            resultContainer.append(highlightedDataMarkup(item, ""))
-          );
-        });
+      resultContainer.append(highlightedDataMarkup("_", "initial"));
   }
 }
 
@@ -150,7 +143,7 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
       "No Results for " +
       searchData +
       "found" +
-      "Try searching or creating a highlight first.";
+      "Try searching something or creating a highlight first.";
     msg.append(title, desc);
     result.append(image, msg);
     return result;
@@ -306,6 +299,24 @@ function changeSearchResultUI(type: string, searchTerm: string) {
     ".resultContainer-highlighter"
   );
 
+  if (type === "highlightedData") {
+    chrome.runtime
+      .sendMessage({ msg: "searchHighlightedData", searchTerm: searchTerm })
+      .then((res) => {
+        resultContainer.innerHTML = "";
+        const items = res.items;
+        if (items.length === 0) {
+          resultContainer.append(
+            highlightedDataMarkup("", "noSearch", searchTerm)
+          );
+          return;
+        }
+        items.forEach((item) =>
+          resultContainer.append(highlightedDataMarkup(item, ""))
+        );
+      });
+    return;
+  }
   chrome.runtime
     .sendMessage({ msg: "getSearchResults", type, searchTerm })
     .then((res) => {
