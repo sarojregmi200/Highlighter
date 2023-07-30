@@ -213,3 +213,38 @@
   color: #7e7e7e;
   padding-bottom: 50px;
 }
+
+/* highlighted data hover effect */
+
+.wrapper-highlighter-highlight-hover-container {
+  padding: 10px;
+  background: white;
+  width: max-content;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none !important;
+}
+
+.wrapper-highlighter-highlight-hover-topic {
+  text-decoration: none;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.wrapper-highlighter-highlight-hover-bottom-wrapper {
+  font-style: normal;
+  font-size: 12px;
+  display: flex;
+  align-content: ;
+  align-items: center;
+}
+
+.wrapper-highlighter-highlight-hover-color {
+  height: 20px;
+  width: 20px;
+  margin-left: 20px;
+  border-radius: 10px;
+  border: 2px solid #cdcdcd;
+}
