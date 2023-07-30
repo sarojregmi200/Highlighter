@@ -18,6 +18,8 @@ function getHighlitedText(): {
   empty: boolean;
 } {
   const selection = window.getSelection();
+  if (!selection || !selection.getRangeAt(0)) return;
+
   const selctionText = selection.getRangeAt(0).toString().trim();
 
   if (
