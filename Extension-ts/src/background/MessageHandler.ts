@@ -81,7 +81,7 @@ export function handleMessage(request, sender, response) {
       search(highlightedDataDb, {
         term: request.searchTerm,
         properties: "*",
-        tolerance: 3,
+        tolerance: 5,
         threshold: 0,
       }).then((res) =>
         response({

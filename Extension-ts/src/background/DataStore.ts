@@ -43,6 +43,7 @@ export const highlightedDataDb = await create({
     color: "string",
     domain: "string",
     time: "string",
+    category: "string",
   },
 });
 
