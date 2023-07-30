@@ -8,7 +8,6 @@ import {
   updateSearchResultsUI,
   createSearchResultsUI,
   closeSearchBox,
-  removeSearch,
 } from "./global/SearchBox";
 
 export {
@@ -20,5 +19,4 @@ export {
   updateSearchResultsUI,
   createSearchResultsUI,
   closeSearchBox,
-  removeSearch,
 };
