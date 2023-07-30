@@ -37,6 +37,8 @@ export function createSearchResultsUI(type: string) {
   const resultContainer = document.querySelector(
     ".resultContainer-highlighter"
   );
+  if (!resultContainer) return;
+
   // clearing out the previous result
   resultContainer.innerHTML = "";
 
@@ -303,6 +305,7 @@ function changeSearchResultUI(type: string, searchTerm: string) {
     chrome.runtime
       .sendMessage({ msg: "searchHighlightedData", searchTerm: searchTerm })
       .then((res) => {
+        if (!resultContainer) return;
         resultContainer.innerHTML = "";
         const items = res.items;
         if (items.length === 0) {
@@ -323,6 +326,8 @@ function changeSearchResultUI(type: string, searchTerm: string) {
       const items = res.items;
       switch (type) {
         case "colors":
+          if (!resultContainer) return;
+
           // clearing out the previous result
           resultContainer.innerHTML = "";
           if (items.length === 0) {
@@ -363,7 +368,7 @@ function changeSearchResultUI(type: string, searchTerm: string) {
         case "topic":
           chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
             let globalState = res.state;
-
+            if (!resultContainer) return;
             // clearing out the previous result
             resultContainer.innerHTML = "";
             if (items.length === 0) {
