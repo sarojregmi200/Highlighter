@@ -29,8 +29,8 @@ function getHighlitedText(): {
   )
     return { empty: true };
 
-  const xpath = getXpath(selection);
-  if (xpath === "") return { empty: true };
+  const xpath = "In another version";
+  if (!xpath) return { empty: true };
   return { text: selctionText, location: xpath, empty: false };
 }
 
@@ -82,6 +82,11 @@ function generateXpath(element: HTMLElement) {
   const siblings = Array.from(parent.children).filter(
     (child) => child.tagName === tagName
   );
+
+  console.log({
+    siblings,
+    element,
+  });
   if (siblings.length === 1) {
     return `${generateXpath(parent)}/${tagName}`;
   } else {
