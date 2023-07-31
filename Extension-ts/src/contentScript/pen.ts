@@ -25,7 +25,10 @@ function getHighlitedText(): {
 } {
   const selection = window.getSelection();
   const selectionRange = selection.getRangeAt(0);
-  window.getSelection().removeAllRanges;
+  setTimeout(() => {
+    selection.removeAllRanges();
+    window.getSelection().removeAllRanges;
+  }, 10);
   if (!selection || !selectionRange) return;
 
   const selectedText = selectionRange.toString().trim();
