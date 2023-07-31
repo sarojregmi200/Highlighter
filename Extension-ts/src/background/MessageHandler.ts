@@ -1,5 +1,5 @@
 import { colorDb, globalState, highlightedDataDb, topicDb } from "./DataStore";
-import { insert, search } from "./orama";
+import { insert, remove, search } from "./orama";
 
 export function initMessages() {
   chrome.runtime.onMessage.addListener(handleMessage);
@@ -104,6 +104,23 @@ export function handleMessage(request, sender, response) {
       }).then((res) => response({ id: res }));
 
       return true;
+      break;
+
+    case "updateXpath":
+      const { id, xpath } = request;
+      const { text, color, domain, time, topic } = request.data;
+
+      remove(highlightedDataDb, id).then((res) => {
+        insert(highlightedDataDb, {
+          data: text,
+          xpath,
+          color,
+          domain,
+          time,
+          topic,
+        });
+      });
+
       break;
   }
 }

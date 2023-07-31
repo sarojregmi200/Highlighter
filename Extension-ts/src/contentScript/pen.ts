@@ -76,7 +76,13 @@ function processHighlitedText(
       styleHighlightedData(id, range, color, topic, timeNow);
 
       const xpath = getXpath(id);
-      console.log(xpath.toLowerCase());
+
+      chrome.runtime.sendMessage({
+        msg: "updateXpath",
+        id,
+        xpath,
+        data: newHighlightedData,
+      });
     });
 }
 
@@ -120,7 +126,7 @@ function getXpath(id: string): string {
   const item = document.querySelector(`[insertionid="${id}"]`).parentElement;
   let xpath = calculateXpath(item);
 
-  return xpath;
+  return xpath.toLowerCase();
 }
 function calculateXpath(item: Element): string {
   const current = item;
@@ -139,28 +145,6 @@ function calculateXpath(item: Element): string {
   return `${calculateXpath(parent)}//${current.tagName}[${
     siblings.indexOf(current) + 1
   }]`;
-}
-
-function generateXpath(element: HTMLElement) {
-  if (!element || !element.tagName) return "";
-  const tagName = element.tagName.toLowerCase();
-  const parent = element.parentElement;
-  // checking for the last parent
-  if (!parent) return "";
-  const siblings = Array.from(parent.children).filter(
-    (child) => child.tagName === tagName
-  );
-
-  console.log({
-    siblings,
-    element,
-  });
-  if (siblings.length === 1) {
-    return `${generateXpath(parent)}/${tagName}`;
-  } else {
-    const index = siblings.indexOf(element) + 1;
-    return `${generateXpath(parent)}/${tagName}[${index}]`;
-  }
 }
 
 function styleHighlightedData(
