@@ -101,7 +101,9 @@ export function handleMessage(request, sender, response) {
         domain: request.domain,
         time: request.time,
         topic: request.topic,
-      });
+      }).then((res) => response({ id: res }));
+
+      return true;
       break;
   }
 }

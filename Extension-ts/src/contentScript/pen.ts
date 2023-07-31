@@ -66,12 +66,15 @@ function processHighlitedText(
     time: timeNow,
   };
 
-  styleHighlightedData(range, color, topic, timeNow);
-
-  chrome.runtime.sendMessage({
-    msg: "addNewHighlightedData",
-    ...newHighlightedData,
-  });
+  chrome.runtime
+    .sendMessage({
+      msg: "addNewHighlightedData",
+      ...newHighlightedData,
+    })
+    .then((res) => {
+      const id = res.id;
+      styleHighlightedData(id, range, color, topic, timeNow);
+    });
 }
 
 function formatDate(date) {
@@ -109,6 +112,7 @@ function formatDate(date) {
 
   return `${month} ${day}${daySuffix} ${dayOfWeek} ${year}, ${hours}:${minutes}`;
 }
+
 function getXpath(selection: Selection): string {
   let xpath = "";
 
@@ -148,6 +152,7 @@ function generateXpath(element: HTMLElement) {
 }
 
 function styleHighlightedData(
+  id: string,
   range: Range,
   color: string,
   topic: string,
@@ -161,6 +166,8 @@ function styleHighlightedData(
   // creating a wrapper
   const span = document.createElement("span");
   span.classList.add(`wrapper-highlighter-highlight`);
+  span.setAttribute("insertionId", id);
+
   if (hasInnerHTML(textContainer)) {
     span.innerHTML = (textContainer as HTMLElement).innerHTML;
   } else {
