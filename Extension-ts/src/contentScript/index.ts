@@ -6,7 +6,6 @@ document.addEventListener("mouseup", initializePen);
 // listing for shortcuts
 chrome.runtime.onMessage.addListener((req, sender, res) => {
   const msg = req.msg;
-  console.log(msg);
   switch (msg) {
     case "activateSearch":
       const type = req.type;
@@ -21,15 +20,31 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
 
     case "highlightGivenData":
       const data = req.data;
-      console.log("got the msg with data ", data);
       const element = document.evaluate(
         data.xpath,
         document.body,
         null,
         XPathResult.FIRST_ORDERED_NODE_TYPE,
         null
-      );
-      console.log(element);
+      ).singleNodeValue;
+
+      if (!element) return;
+
+      highlightTrackedData(data, element);
       break;
   }
 });
+
+function highlightTrackedData(data, element: Node) {
+  // if it is previously style then leaving it as it is
+  if (
+    (element as HTMLElement).querySelector(`.wrapper-highlighter-highlight`)
+  ) {
+    return;
+  }
+
+  
+
+
+
+}

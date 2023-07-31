@@ -44,5 +44,6 @@ export const highlightedDataDb = await create({
     domain: "string",
     time: "string",
     topic: "string",
+    htmlMarkup: "string",
   },
 });

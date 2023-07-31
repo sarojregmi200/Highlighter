@@ -24,9 +24,11 @@ function getHighlitedText(): {
   range?: Range;
 } {
   const selection = window.getSelection();
-  if (!selection || !selection.getRangeAt(0)) return;
+  const selectionRange = selection.getRangeAt(0);
+  selection.removeAllRanges();
+  if (!selection || !selectionRange) return;
 
-  const selectedText = selection.getRangeAt(0).toString().trim();
+  const selectedText = selectionRange.toString().trim();
 
   if (
     (selection.isCollapsed && selection.rangeCount <= 0) ||
@@ -35,14 +37,14 @@ function getHighlitedText(): {
   )
     return { empty: true };
 
-  const xpath = "In another version";
+  const xpath = "will be added";
   if (!xpath) return { empty: true };
 
   return {
     text: selectedText,
     location: xpath,
     empty: false,
-    range: selection.getRangeAt(0),
+    range: selectionRange,
   };
 }
 
@@ -53,7 +55,14 @@ function processHighlitedText(
   range: Range
 ) {
   const domain = window.location.origin + window.location.pathname;
+  const textContainer = range.commonAncestorContainer;
 
+  let htmlMarkup = "";
+  if (hasInnerHTML(textContainer)) {
+    htmlMarkup = (textContainer as HTMLElement).innerHTML;
+  } else {
+    htmlMarkup = highlightedData.text;
+  }
   const date = new Date();
 
   // july 31st mon 2023, 10:11
@@ -64,6 +73,7 @@ function processHighlitedText(
     ...highlightedData,
     domain,
     time: timeNow,
+    htmlMarkup,
   };
 
   chrome.runtime

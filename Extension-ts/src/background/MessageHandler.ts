@@ -86,7 +86,7 @@ export function handleMessage(request, sender, response) {
       }).then((res) =>
         response({
           items: res.hits.map((item) => {
-            return item.document;
+            return { ...item.document, id: item.id };
           }),
         })
       );
@@ -101,6 +101,7 @@ export function handleMessage(request, sender, response) {
         domain: request.domain,
         time: request.time,
         topic: request.topic,
+        htmlMarkup: request.htmlMarkup,
       }).then((res) => response({ id: res }));
 
       return true;
@@ -108,7 +109,7 @@ export function handleMessage(request, sender, response) {
 
     case "updateXpath":
       const { id, xpath } = request;
-      const { text, color, domain, time, topic } = request.data;
+      const { text, color, domain, time, topic, htmlMarkup } = request.data;
 
       remove(highlightedDataDb, id).then((res) => {
         insert(highlightedDataDb, {
@@ -118,19 +119,16 @@ export function handleMessage(request, sender, response) {
           domain,
           time,
           topic,
+          htmlMarkup,
         });
       });
 
       break;
 
     case "locateHighlightedData":
-      const requesterTab = request.currentTab;
-      chrome.tabs.query({}).then((tabs) => {
+      const _url = request.data.domain;
+      chrome.tabs.query({ url: _url }).then((tabs) => {
         tabs.forEach((tab) => {
-          console.log(tab.id, tab.title);
-          if (tab.id == requesterTab) {
-            return;
-          }
           const data = request.data;
           chrome.tabs.sendMessage(tab.id, {
             msg: "highlightGivenData",
