@@ -104,7 +104,19 @@ export function createSearchResultsUI(type: string) {
 
     // just for making the Ui and testing purpose
     case "highlightedData":
-      resultContainer.append(highlightedDataMarkup("_", "initial"));
+      const site = window.location.origin + window.location.pathname;
+      browser.runtime
+        .sendMessage({ msg: "getCurrentSitesHighlight", domain: site })
+        .then(({ items }) => {
+          if (items.length === 0) {
+            resultContainer.append(highlightedDataMarkup("", "initial"));
+            return;
+          }
+          items.forEach((item) => {
+            resultContainer.append(highlightedDataMarkup(item, ""));
+          });
+        });
+      break;
   }
 }
 
