@@ -211,14 +211,16 @@ function locateHighlightedData(item) {
   window.open(item.domain, "_");
 
   // for firefox compatibility
-  browser.runtime.sendMessage({ msg: "getActiveTabId" }).then((res) => {
-    const currentTabId = res.id;
-    chrome.runtime.sendMessage({
-      msg: "locateHighlightedData",
-      data: item,
-      currentTab: currentTabId,
+  setTimeout(() => {
+    browser.runtime.sendMessage({ msg: "getActiveTabId" }).then((res) => {
+      const currentTabId = res.id;
+      chrome.runtime.sendMessage({
+        msg: "locateHighlightedData",
+        data: item,
+        currentTab: currentTabId,
+      });
     });
-  });
+  }, 2000);
 }
 
 // runs when there is a keyboard input

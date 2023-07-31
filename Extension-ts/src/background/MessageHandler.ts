@@ -124,11 +124,13 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "locateHighlightedData":
-      const URL = request.data.domain;
       const requesterTab = request.currentTab;
-      chrome.tabs.query({ url: URL }).then((tabs) => {
+      chrome.tabs.query({}).then((tabs) => {
         tabs.forEach((tab) => {
-          if (tab.id === requesterTab) return;
+          console.log(tab.id, tab.title);
+          if (tab.id == requesterTab) {
+            return;
+          }
           const data = request.data;
           chrome.tabs.sendMessage(tab.id, {
             msg: "highlightGivenData",
