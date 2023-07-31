@@ -194,7 +194,7 @@ function styleHighlightedData(
   const rgbArr = colorInRGB.match(/\d+/g).map(Number);
   span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
 
-  const hoverEffectChild = createHoverElement(span, { topic, color, time });
+  const hoverEffectChild = createHoverElement({ topic, color, time });
   hoverEffectChild.style.opacity = "0";
   span.addEventListener(
     "mouseenter",
@@ -221,10 +221,11 @@ function hasInnerHTML(node: Node): node is HTMLElement {
   return node instanceof HTMLElement;
 }
 
-function createHoverElement(
-  span: HTMLElement,
-  data: { topic: string; color: string; time: string }
-): HTMLElement {
+export function createHoverElement(data: {
+  topic: string;
+  color: string;
+  time: string;
+}): HTMLElement {
   const container = createElement(
     "div",
     "wrapper-highlighter-highlight-hover-container"
