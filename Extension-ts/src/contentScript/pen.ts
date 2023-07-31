@@ -135,7 +135,6 @@ function calculateXpath(item: Element): string {
   if (current.tagName.toLowerCase() === document.body.tagName.toLowerCase())
     return "";
 
-  console.log(current.tagName.toLowerCase());
   const siblings = Array.from(parent.children).filter(
     (child) => child.tagName === current.tagName
   );
@@ -179,7 +178,6 @@ function styleHighlightedData(
   const colorInRGB = window
     .getComputedStyle(temp)
     .getPropertyValue("background");
-  console.log(colorInRGB);
   const rgbArr = colorInRGB.match(/\d+/g).map(Number);
   span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
 
