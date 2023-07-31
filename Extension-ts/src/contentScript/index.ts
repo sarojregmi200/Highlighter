@@ -9,7 +9,6 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
   switch (msg) {
     case "activateSearch":
       const type = req.type;
-
       // if search is already open closing it
       const search = document.querySelector(".mainContainer-highlighter");
       if (search) {
@@ -17,7 +16,18 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
       }
       createSearch(type);
       createSearchResultsUI(type);
+      break;
 
+    case "highlightGivenData":
+      const data = req.data;
+      const element = document.evaluate(
+        data.xpath,
+        document.body,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      );
+      console.log(element);
       break;
   }
 });

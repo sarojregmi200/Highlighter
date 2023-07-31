@@ -208,10 +208,8 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
 }
 
 function locateHighlightedData(item) {
-  const newWindow = window.open(item.domain, "_");
-  newWindow.onload = function () {
-    chrome.runtime.sendMessage({ msg: "locateHighlightedData", data: item });
-  };
+  window.open(item.domain, "_");
+  chrome.runtime.sendMessage({ msg: "locateHighlightedData", data: item });
 }
 
 // runs when there is a keyboard input
