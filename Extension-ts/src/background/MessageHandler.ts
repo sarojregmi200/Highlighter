@@ -122,5 +122,16 @@ export function handleMessage(request, sender, response) {
       });
 
       break;
+
+    case "locateHighlightedData":
+      chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        const currentTab = tabs[0].id;
+        const data = request.data;
+        chrome.tabs.sendMessage(currentTab, {
+          msg: "highlightGivenData",
+          data,
+        });
+      });
+      break;
   }
 }
