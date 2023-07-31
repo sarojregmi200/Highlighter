@@ -3,7 +3,7 @@ import { initializePen } from "./pen";
 
 document.addEventListener("mouseup", () => {
   initializePen();
-  window.getSelection().removeAllRanges;
+  loadPreviousHighlights();
 });
 
 // listing for shortcuts
@@ -45,4 +45,15 @@ function highlightTrackedData(data, element: Node) {
   ) {
     return;
   }
+}
+
+function loadPreviousHighlights() {
+  const domain = window.location.origin + window.location.pathname;
+
+  browser.runtime
+    .sendMessage({ msg: "getCurrentSitesHighlight", domain })
+    .then((res) => {
+      const items = res.items;
+      console.log(items);
+    });
 }

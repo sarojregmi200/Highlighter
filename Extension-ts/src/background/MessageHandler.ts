@@ -145,5 +145,23 @@ export function handleMessage(request, sender, response) {
       return true;
 
       break;
+
+    case "getCurrentSitesHighlight":
+      const site = request.domain;
+      search(highlightedDataDb, {
+        term: site,
+        properties: ["domain"],
+        threshold: 0,
+        exact: true,
+      }).then((res) => {
+        console.log(res);
+        response({
+          items: res.hits.map((item) => {
+            return { ...item.document, id: item.id };
+          }),
+        });
+      });
+      return true;
+      break;
   }
 }
