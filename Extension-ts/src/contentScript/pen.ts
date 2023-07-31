@@ -126,14 +126,17 @@ function calculateXpath(item: Element): string {
   const current = item;
   const parent = item.parentElement;
 
-  if (!parent) return "";
+  if (current.tagName.toLowerCase() === document.body.tagName.toLowerCase())
+    return "";
+
+  console.log(current.tagName.toLowerCase());
   const siblings = Array.from(parent.children).filter(
     (child) => child.tagName === current.tagName
   );
 
   if (siblings.length === 0)
-    return `${calculateXpath(parent)}/${parent.tagName}/${current.tagName}`;
-  return `${calculateXpath(parent)}/${parent.tagName}/${current.tagName}[${
+    return `${calculateXpath(parent)}//${current.tagName}`;
+  return `${calculateXpath(parent)}//${current.tagName}[${
     siblings.indexOf(current) + 1
   }]`;
 }
