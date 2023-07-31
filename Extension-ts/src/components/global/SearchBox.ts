@@ -162,6 +162,9 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
     "button",
     "highlightedData-liveLocate-highlighter"
   );
+  liveLocate.addEventListener("click", () => {
+    locateHighlightedData(item);
+  });
   const liveLocateIcon = createElement(
     "button",
     "highlightedData-liveLocate-icon-highlighter"
@@ -202,6 +205,13 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
 
   result.append(upperContainer, domain, data, timeStamp);
   return result;
+}
+
+function locateHighlightedData(item) {
+  const newWindow = window.open(item.domain, "_");
+  newWindow.onload = function () {
+    chrome.runtime.sendMessage({ msg: "locateHighlightedData", data: item });
+  };
 }
 
 // runs when there is a keyboard input
