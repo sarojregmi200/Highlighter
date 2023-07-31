@@ -38,15 +38,6 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
   }
 });
 
-function highlightTrackedData(data, element: Node) {
-  // if it is previously style then leaving it as it is
-  if (
-    (element as HTMLElement).querySelector(`.wrapper-highlighter-highlight`)
-  ) {
-    return;
-  }
-}
-
 function loadPreviousHighlights() {
   const domain = window.location.origin + window.location.pathname;
 
@@ -54,6 +45,34 @@ function loadPreviousHighlights() {
     .sendMessage({ msg: "getCurrentSitesHighlight", domain })
     .then((res) => {
       const items = res.items;
-      console.log(items);
+      items.forEach((data) => {
+        const element = document.evaluate(
+          data.xpath,
+          document.body,
+          null,
+          XPathResult.FIRST_ORDERED_NODE_TYPE,
+          null
+        ).singleNodeValue;
+
+        if (!element) return;
+
+        highlightTrackedData(data, element);
+      });
     });
+}
+
+function highlightTrackedData(data, element: Node) {
+  // if it is previously style then leaving it as it is
+  if (
+    (element as HTMLElement).querySelector(`.wrapper-highlighter-highlight`)
+  ) {
+    return;
+  }
+
+  const highlightedMarkup = data.htmlMarkup;
+  const currentInnerHtml = (element as HTMLElement).innerHTML;
+
+  const newInnerHtml = currentInnerHtml.replace(highlightedMarkup, "🥳");
+
+  (element as HTMLElement).innerHTML = newInnerHtml;
 }

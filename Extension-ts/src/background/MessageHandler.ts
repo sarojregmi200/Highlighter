@@ -154,7 +154,6 @@ export function handleMessage(request, sender, response) {
         threshold: 0,
         exact: true,
       }).then((res) => {
-        console.log(res);
         response({
           items: res.hits.map((item) => {
             return { ...item.document, id: item.id };
