@@ -124,14 +124,26 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "locateHighlightedData":
-      chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-        const currentTab = tabs[0].id;
-        const data = request.data;
-        chrome.tabs.sendMessage(currentTab, {
-          msg: "highlightGivenData",
-          data,
+      const URL = request.data.domain;
+      const requesterTab = request.currentTab;
+      chrome.tabs.query({ url: URL }).then((tabs) => {
+        tabs.forEach((tab) => {
+          if (tab.id === requesterTab) return;
+          const data = request.data;
+          chrome.tabs.sendMessage(tab.id, {
+            msg: "highlightGivenData",
+            data,
+          });
         });
       });
+      break;
+
+    case "getActiveTabId":
+      browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        response({ id: tabs[0].id });
+      });
+      return true;
+
       break;
   }
 }

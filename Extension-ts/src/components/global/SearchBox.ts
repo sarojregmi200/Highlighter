@@ -209,7 +209,16 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
 
 function locateHighlightedData(item) {
   window.open(item.domain, "_");
-  chrome.runtime.sendMessage({ msg: "locateHighlightedData", data: item });
+
+  // for firefox compatibility
+  browser.runtime.sendMessage({ msg: "getActiveTabId" }).then((res) => {
+    const currentTabId = res.id;
+    chrome.runtime.sendMessage({
+      msg: "locateHighlightedData",
+      data: item,
+      currentTab: currentTabId,
+    });
+  });
 }
 
 // runs when there is a keyboard input

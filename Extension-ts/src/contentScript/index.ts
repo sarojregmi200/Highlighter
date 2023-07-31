@@ -6,6 +6,7 @@ document.addEventListener("mouseup", initializePen);
 // listing for shortcuts
 chrome.runtime.onMessage.addListener((req, sender, res) => {
   const msg = req.msg;
+  console.log(msg);
   switch (msg) {
     case "activateSearch":
       const type = req.type;
@@ -20,6 +21,7 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
 
     case "highlightGivenData":
       const data = req.data;
+      console.log("got the msg with data ", data);
       const element = document.evaluate(
         data.xpath,
         document.body,
