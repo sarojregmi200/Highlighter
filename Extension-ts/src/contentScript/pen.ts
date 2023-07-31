@@ -76,6 +76,7 @@ function processHighlitedText(
       styleHighlightedData(id, range, color, topic, timeNow);
 
       const xpath = getXpath(id);
+      console.log(xpath.toLowerCase());
     });
 }
 
@@ -125,16 +126,16 @@ function calculateXpath(item: Element): string {
   const current = item;
   const parent = item.parentElement;
 
-  const siblings = parent.children;
+  if (!parent) return "";
+  const siblings = Array.from(parent.children).filter(
+    (child) => child.tagName === current.tagName
+  );
 
-  console.log({
-    current,
-    parent,
-    siblings,
-  });
-
-  if (!parent) return calculateXpath(parent);
-  return "";
+  if (siblings.length === 0)
+    return `${calculateXpath(parent)}/${parent.tagName}/${current.tagName}`;
+  return `${calculateXpath(parent)}/${parent.tagName}/${current.tagName}[${
+    siblings.indexOf(current) + 1
+  }]`;
 }
 
 function generateXpath(element: HTMLElement) {
