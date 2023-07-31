@@ -1,7 +1,10 @@
 import { createSearch, createSearchResultsUI } from "../components";
 import { initializePen } from "./pen";
 
-document.addEventListener("mouseup", initializePen);
+document.addEventListener("mouseup", () => {
+  initializePen();
+  window.getSelection().removeAllRanges;
+});
 
 // listing for shortcuts
 chrome.runtime.onMessage.addListener((req, sender, res) => {
@@ -42,9 +45,4 @@ function highlightTrackedData(data, element: Node) {
   ) {
     return;
   }
-
-  
-
-
-
 }
