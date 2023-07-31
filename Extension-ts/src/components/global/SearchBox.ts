@@ -166,11 +166,11 @@ function highlightedDataMarkup(item: any, mode: string, searchData?: string) {
     locateHighlightedData(item);
   });
   const liveLocateIcon = createElement(
-    "button",
+    "div",
     "highlightedData-liveLocate-icon-highlighter"
   );
   const liveLocateTxt = createElement(
-    "button",
+    "div",
     "highlightedData-liveLocate-Txt-highlighter"
   );
   const data = createElement("div", "highlightedData-data-highlighter");
