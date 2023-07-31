@@ -74,6 +74,8 @@ function processHighlitedText(
     .then((res) => {
       const id = res.id;
       styleHighlightedData(id, range, color, topic, timeNow);
+
+      const xpath = getXpath(id);
     });
 }
 
@@ -113,20 +115,26 @@ function formatDate(date) {
   return `${month} ${day}${daySuffix} ${dayOfWeek} ${year}, ${hours}:${minutes}`;
 }
 
-function getXpath(selection: Selection): string {
-  let xpath = "";
+function getXpath(id: string): string {
+  const item = document.querySelector(`[insertionid="${id}"]`).parentElement;
+  let xpath = calculateXpath(item);
 
-  const range = selection.getRangeAt(0);
-  const containerNode = range.commonAncestorContainer;
-  let containerElement;
-
-  if (containerNode.nodeType === Node.TEXT_NODE)
-    containerElement = containerNode.parentElement;
-  else containerElement = containerNode;
-
-  xpath = generateXpath(containerElement);
-  console.log(xpath);
   return xpath;
+}
+function calculateXpath(item: Element): string {
+  const current = item;
+  const parent = item.parentElement;
+
+  const siblings = parent.children;
+
+  console.log({
+    current,
+    parent,
+    siblings,
+  });
+
+  if (!parent) return calculateXpath(parent);
+  return "";
 }
 
 function generateXpath(element: HTMLElement) {
