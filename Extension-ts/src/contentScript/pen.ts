@@ -195,7 +195,7 @@ function styleHighlightedData(
   span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
 
   const hoverEffectChild = createHoverElement(span, { topic, color, time });
-  hoverEffectChild.style.opacity = "1";
+  hoverEffectChild.style.opacity = "0";
   span.addEventListener(
     "mouseenter",
     () => (hoverEffectChild.style.opacity = "1")
