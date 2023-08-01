@@ -73,8 +73,13 @@ function highlightTrackedData(data, element: Node) {
 
   const highlightedMarkup = data.htmlMarkup;
   const currentInnerHtml = (element as HTMLElement).innerHTML;
-  const replacementElement = styleHighlightedData({ id, color, topic, time });
-  replacementElement.innerHTML = highlightedMarkup;
+  const replacementElement = styleHighlightedData({
+    id,
+    color,
+    topic,
+    time,
+    highlightedMarkup,
+  });
 
   const newInnerHtml = currentInnerHtml.replace(
     highlightedMarkup,
@@ -85,13 +90,14 @@ function highlightTrackedData(data, element: Node) {
   document.querySelector(`#id_${id}`).appendChild(replacementElement);
 }
 
-function styleHighlightedData({ id, color, topic, time }) {
+function styleHighlightedData({ id, color, topic, time, highlightedMarkup }) {
   // creating a wrapper
   const span = document.createElement("span");
   span.classList.add(`wrapper-highlighter-highlight`);
   span.setAttribute("insertionId", id);
 
   span.style.textDecorationColor = color;
+  span.innerHTML = highlightedMarkup;
 
   // creating a temp div to apply color
   const temp = document.createElement("div");
