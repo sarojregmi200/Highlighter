@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Title, Shortcut, Color } from "../components";
-import { colorState } from "../types";
+import { Title, Shortcut, Color, Toggler } from "../components";
+import { colorState, toggleState } from "../types";
+
 // keyboard shortcuts
 const shortcuts = [
   {
@@ -33,6 +34,24 @@ const Popup = () => {
     all: ["#8CFF32", "#E9FF32", "#FF9C35", "#AEE2FF", "#E90064"],
     active: "#8CFF32",
   });
+  const [pen, setPen]: [
+    colors: toggleState,
+    setColors: React.Dispatch<React.SetStateAction<toggleState>>
+  ] = useState<toggleState>({
+    status: true,
+  });
+  const [background, setbackground]: [
+    colors: toggleState,
+    setColors: React.Dispatch<React.SetStateAction<toggleState>>
+  ] = useState<toggleState>({
+    status: true,
+  });
+  const [underline, setunderline]: [
+    colors: toggleState,
+    setColors: React.Dispatch<React.SetStateAction<toggleState>>
+  ] = useState<toggleState>({
+    status: true,
+  });
 
   useEffect(() => {
     chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
@@ -55,6 +74,30 @@ const Popup = () => {
   }, []);
   return (
     <div className="mainContainer">
+      <div className="userModes">
+        <div className="mode">
+          <Title title="Pen Mode" icon={true} />
+          <Toggler
+            type={"pen"}
+            state={{ state: pen, setState: setPen }}
+            sideText={"Highlighter"}
+          />
+        </div>
+        <div className="mode">
+          <Title title="Highlight style mode" icon={true} />
+          <Toggler
+            type={"background"}
+            state={{ state: background, setState: setbackground }}
+            sideText={"Activate Background"}
+          />
+          <Toggler
+            type={"underline"}
+            state={{ state: underline, setState: setunderline }}
+            sideText={"Underline"}
+          />
+        </div>
+      </div>
+
       <div className="colorsContainer">
         <Title title="Colors" icon={true} />
         <div className="colors">
