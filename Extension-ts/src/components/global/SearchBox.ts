@@ -364,6 +364,8 @@ function changeSearchResultUI(type: string, searchTerm: string) {
       });
     return;
   }
+
+  searchTerm = searchTerm.trim();
   chrome.runtime
     .sendMessage({ msg: "getSearchResults", type, searchTerm })
     .then((res) => {
@@ -451,6 +453,23 @@ function changeSearchResultUI(type: string, searchTerm: string) {
               result.innerText = topic;
               resultContainer.appendChild(result);
             });
+
+            // returning if there is no any search term
+            if (searchTerm.trim() === "") return;
+            // appending a add topic regardless of the present topics
+            const topic = searchTerm;
+            const result = createElement("div", "result-highlighter");
+            result.innerText = "Add " + topic + " to your topics list";
+            result.addEventListener("click", () => {
+              chrome.runtime.sendMessage({
+                msg: "addNewTopic",
+                topic,
+              });
+              closeSearchBox();
+            });
+
+            result.setAttribute("topic", topic);
+            resultContainer.appendChild(result);
           });
           break;
       }
