@@ -4,20 +4,24 @@ import { colorState } from "../types";
 // keyboard shortcuts
 const shortcuts = [
   {
-    shortcut: "Ctrl + Alt + H",
+    shortcut: "Ctrl + Alt + A",
     desc: "Activate the highlighter",
   },
   {
-    shortcut: "Ctrl + Alt + K",
+    shortcut: "Ctrl + Space",
     desc: "Search Content",
   },
   {
-    shortcut: "Ctrl + Alt + C",
+    shortcut: "Ctrl + Shift + Space",
     desc: "Switch highlight color",
   },
   {
-    shortcut: "Ctrl + Alt + T",
+    shortcut: "Ctrl + Alt + Space",
     desc: "Switch topic",
+  },
+  {
+    shortcut: "Ctrl + Alt + P",
+    desc: "Activate / Deactivate the pen",
   },
 ];
 
@@ -51,16 +55,6 @@ const Popup = () => {
   }, []);
   return (
     <div className="mainContainer">
-      <div className="shortcutContainer">
-        <Title title="Keyboard Shortcuts" icon={true} />
-      </div>
-
-      <div className="shortcuts">
-        {shortcuts.map(({ shortcut, desc }, index) => {
-          return <Shortcut shortcut={shortcut} desc={desc} key={index} />;
-        })}
-      </div>
-
       <div className="colorsContainer">
         <Title title="Colors" icon={true} />
         <div className="colors">
@@ -75,6 +69,16 @@ const Popup = () => {
             );
           })}
         </div>
+      </div>
+
+      <div className="shortcutContainer">
+        <Title title="Keyboard Shortcuts" icon={true} />
+      </div>
+
+      <div className="shortcuts">
+        {shortcuts.map(({ shortcut, desc }, index) => {
+          return <Shortcut shortcut={shortcut} desc={desc} key={index} />;
+        })}
       </div>
     </div>
   );
