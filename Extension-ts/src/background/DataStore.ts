@@ -2,9 +2,11 @@ import { create, insert, insertMultiple, search } from "./orama";
 
 // creating a default value of the state
 export const globalState = {
-  activeColor: "#E9FF32",
-  popupMode: "hidden",
+  activeColor: "#FF9C35",
   activeTopic: "Global",
+  penState: true,
+  backgroundState: true,
+  underlineState: true,
 };
 
 export const colorDb = await create({

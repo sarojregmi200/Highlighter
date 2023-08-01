@@ -162,5 +162,17 @@ export function handleMessage(request, sender, response) {
       });
       return true;
       break;
+
+    case "changePenState":
+      globalState.penState = request.state;
+      break;
+
+    case "changeBackgroundState":
+      globalState.backgroundState = request.state;
+      break;
+
+    case "changeUnderlineState":
+      globalState.underlineState = request.state;
+      break;
   }
 }

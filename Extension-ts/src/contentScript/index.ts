@@ -32,8 +32,16 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
       ).singleNodeValue;
 
       if (!element) return;
+      chrome.runtime
+        .sendMessage({ msg: "getGlobalState" })
+        .then(({ state }) => {
+          const globalState = state;
 
-      highlightTrackedData(data, element);
+          highlightTrackedData(data, element, {
+            backgroundState: globalState.backgroundState,
+            underlineState: globalState.underlineState,
+          });
+        });
       break;
   }
 });
@@ -55,13 +63,25 @@ function loadPreviousHighlights() {
         ).singleNodeValue;
 
         if (!element) return;
+        chrome.runtime
+          .sendMessage({ msg: "getGlobalState" })
+          .then(({ state }) => {
+            const globalState = state;
 
-        highlightTrackedData(data, element);
+            highlightTrackedData(data, element, {
+              backgroundState: globalState.backgroundState,
+              underlineState: globalState.underlineState,
+            });
+          });
       });
     });
 }
 
-function highlightTrackedData(data, element: Node) {
+function highlightTrackedData(
+  data,
+  element: Node,
+  globalState: { backgroundState: boolean; underlineState: boolean }
+) {
   // if it is previously style then leaving it as it is
   if (
     (element as HTMLElement).querySelector(`.wrapper-highlighter-highlight`)
@@ -73,13 +93,16 @@ function highlightTrackedData(data, element: Node) {
 
   const highlightedMarkup = data.htmlMarkup;
   const currentInnerHtml = (element as HTMLElement).innerHTML;
-  const replacementElement = styleHighlightedData({
-    id,
-    color,
-    topic,
-    time,
-    highlightedMarkup,
-  });
+  const replacementElement = styleHighlightedData(
+    {
+      id,
+      color,
+      topic,
+      time,
+      highlightedMarkup,
+    },
+    globalState
+  );
 
   const newInnerHtml = currentInnerHtml.replace(
     highlightedMarkup,
@@ -90,13 +113,21 @@ function highlightTrackedData(data, element: Node) {
   document.querySelector(`#id_${id}`).appendChild(replacementElement);
 }
 
-function styleHighlightedData({ id, color, topic, time, highlightedMarkup }) {
+function styleHighlightedData(
+  { id, color, topic, time, highlightedMarkup },
+  globalState: { backgroundState: boolean; underlineState: boolean }
+) {
   // creating a wrapper
   const span = document.createElement("span");
   span.classList.add(`wrapper-highlighter-highlight`);
   span.setAttribute("insertionId", id);
 
-  span.style.textDecorationColor = color;
+  if (globalState.underlineState) {
+    span.style.textDecorationColor = color;
+  } else {
+    span.style.textDecoration = "none";
+  }
+
   span.innerHTML = highlightedMarkup;
 
   // creating a temp div to apply color
@@ -108,7 +139,9 @@ function styleHighlightedData({ id, color, topic, time, highlightedMarkup }) {
     .getComputedStyle(temp)
     .getPropertyValue("background");
   const rgbArr = colorInRGB.match(/\d+/g).map(Number);
-  span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
+  if (globalState.backgroundState) {
+    span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
+  }
 
   const hoverEffectChild = createHoverElement({ topic, color, time });
   hoverEffectChild.style.opacity = "0";

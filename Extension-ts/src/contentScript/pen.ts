@@ -1,6 +1,8 @@
 export function initializePen() {
   chrome.runtime.sendMessage({ msg: "getGlobalState" }).then(({ state }) => {
     const globalState = state;
+    // the pen is not on
+    if (!globalState.penState) return;
 
     const highlightedData = getHighlitedText();
     if (highlightedData.empty) return; // if nothings is highlited
@@ -12,7 +14,11 @@ export function initializePen() {
         text: highlightedData.text,
         location: highlightedData.location,
       },
-      highlightedData.range
+      highlightedData.range,
+      {
+        backgroundState: globalState.backgroundState,
+        underlineState: globalState.underlineState,
+      }
     );
   });
 }
@@ -55,7 +61,8 @@ function processHighlitedText(
   color: string,
   topic: string,
   highlightedData: { text: string; location: string },
-  range: Range
+  range: Range,
+  globalState: { backgroundState: boolean; underlineState: boolean }
 ) {
   const domain = window.location.origin + window.location.pathname;
   const textContainer = range.commonAncestorContainer;
@@ -86,7 +93,7 @@ function processHighlitedText(
     })
     .then((res) => {
       const id = res.id;
-      styleHighlightedData(id, range, color, topic, timeNow);
+      styleHighlightedData(id, range, color, topic, timeNow, globalState);
 
       const xpath = getXpath(id);
 
@@ -164,7 +171,8 @@ function styleHighlightedData(
   range: Range,
   color: string,
   topic: string,
-  time: string
+  time: string,
+  globalState: { backgroundState: boolean; underlineState: boolean }
 ) {
   const selectedText = range.toString();
   if (selectedText.trim() === "") return;
@@ -181,7 +189,11 @@ function styleHighlightedData(
   } else {
     span.innerHTML = selectedText;
   }
-  span.style.textDecorationColor = color;
+  if (globalState.underlineState) {
+    span.style.textDecorationColor = color; 
+  } else {
+    span.style.textDecoration = "none";
+  }
 
   // creating a temp div to apply color
   const temp = document.createElement("div");
@@ -192,7 +204,9 @@ function styleHighlightedData(
     .getComputedStyle(temp)
     .getPropertyValue("background");
   const rgbArr = colorInRGB.match(/\d+/g).map(Number);
-  span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
+  if (globalState.backgroundState) {
+    span.style.background = `rgba(${rgbArr[0]},${rgbArr[1]},${rgbArr[2]},0.2)`;
+  }
 
   const hoverEffectChild = createHoverElement({ topic, color, time });
   hoverEffectChild.style.opacity = "0";

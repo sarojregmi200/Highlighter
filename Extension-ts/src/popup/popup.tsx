@@ -62,16 +62,20 @@ const Popup = () => {
         };
       });
     });
-
     chrome.runtime.sendMessage({ msg: "getGlobalState" }).then((res) => {
+      const globalState = res.state;
+      setPen({ status: globalState.penState });
+      setbackground({ status: globalState.backgroundState });
+      setunderline({ status: globalState.underlineState });
       setColors((prev) => {
         return {
           ...prev,
-          active: res.state.activeColor,
+          active: globalState.activeColor,
         };
       });
     });
   }, []);
+
   return (
     <div className="mainContainer">
       <div className="userModes">
@@ -116,12 +120,12 @@ const Popup = () => {
 
       <div className="shortcutContainer">
         <Title title="Keyboard Shortcuts" icon={true} />
-      </div>
 
-      <div className="shortcuts">
-        {shortcuts.map(({ shortcut, desc }, index) => {
-          return <Shortcut shortcut={shortcut} desc={desc} key={index} />;
-        })}
+        <div className="shortcuts">
+          {shortcuts.map(({ shortcut, desc }, index) => {
+            return <Shortcut shortcut={shortcut} desc={desc} key={index} />;
+          })}
+        </div>
       </div>
     </div>
   );
