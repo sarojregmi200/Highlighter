@@ -39,6 +39,11 @@
       "suggested_key": {
         "default": "Ctrl+Alt+Space"
       }
+    },
+    "pen": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+P"
+      }
     }
   },
   "content_security_policy": {

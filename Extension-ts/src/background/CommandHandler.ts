@@ -1,3 +1,5 @@
+import { globalState } from "./DataStore";
+
 export function initializeShortcuts() {
   chrome.commands.onCommand.addListener((command) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (response) => {
@@ -21,6 +23,9 @@ export function initializeShortcuts() {
             msg: "activateSearch",
             type: "colors",
           });
+          break;
+        case "pen":
+          globalState.penState = !globalState.penState;
           break;
       }
     });

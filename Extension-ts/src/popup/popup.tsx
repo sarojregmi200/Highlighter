@@ -97,7 +97,7 @@ const Popup = () => {
           <Toggler
             type={"underline"}
             state={{ state: underline, setState: setunderline }}
-            sideText={"Underline"}
+            sideText={"Activate Underline"}
           />
         </div>
       </div>
