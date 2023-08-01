@@ -79,9 +79,7 @@ export default function NewForm1(props) {
             resetStateValues();
           }}
           {...getOverrideProps(overrides, "ClearButton")}
-        >
-          click me
-        </Button>
+        ></Button>
         <Flex
           gap="15px"
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
@@ -92,9 +90,7 @@ export default function NewForm1(props) {
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
-          >
-            also me
-          </Button>
+          ></Button>
         </Flex>
       </Flex>
     </Grid>
