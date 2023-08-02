@@ -26,8 +26,10 @@ function Home() {
   };
 
   useEffect(() => {
-    const cookie = getCookie();
-    if (!cookie) navigate("/auth");
+    const userId = getCookie();
+    if (!userId) navigate("/auth");
+
+    console.log(userId);
   }, []);
   return (
     <div className="mainContainer">
