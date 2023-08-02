@@ -14,12 +14,8 @@ const router = createBrowserRouter([
   },
   {
     index: true,
-    path: "login/",
-    element: <AuthPage type="login" />,
-  },
-  {
-    path: "register/",
-    element: <AuthPage type="register" />,
+    path: "auth/",
+    element: <AuthPage />,
   },
 
   {

@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 import { useEffect } from "react";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function Home() {
 
   useEffect(() => {
     const cookie = getCookie();
-    if (!cookie) navigate("/login");
+    if (!cookie) navigate("/auth");
   }, []);
   return (
     <div className="mainContainer">

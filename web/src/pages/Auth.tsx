@@ -1,9 +1,9 @@
-import { Authenticator, Button } from "@aws-amplify/ui-react";
+import { Authenticator } from "@aws-amplify/ui-react";
 
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Hub } from "aws-amplify";
 
-function AuthPage({ type }: { type: string }) {
+function AuthPage() {
   const navigate = useNavigate();
 
   Hub.listen("auth", (event) => {
