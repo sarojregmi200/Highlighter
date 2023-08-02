@@ -25,6 +25,7 @@ export const createHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -37,6 +38,7 @@ export const createHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -47,11 +49,13 @@ export const createHighlight = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       userHighlightsId
+      owner
       __typename
     }
   }
@@ -79,6 +83,7 @@ export const updateHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -91,6 +96,7 @@ export const updateHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -101,11 +107,13 @@ export const updateHighlight = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       userHighlightsId
+      owner
       __typename
     }
   }
@@ -133,6 +141,7 @@ export const deleteHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -145,6 +154,7 @@ export const deleteHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -155,11 +165,13 @@ export const deleteHighlight = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       userHighlightsId
+      owner
       __typename
     }
   }
@@ -181,11 +193,13 @@ export const createUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       active {
@@ -201,11 +215,13 @@ export const createUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       highlights {
@@ -221,6 +237,7 @@ export const createUser = /* GraphQL */ `
           createdAt
           updatedAt
           userHighlightsId
+          owner
           __typename
         }
         nextToken
@@ -230,6 +247,7 @@ export const createUser = /* GraphQL */ `
       updatedAt
       userSettingsId
       userActiveId
+      owner
       __typename
     }
   }
@@ -251,11 +269,13 @@ export const updateUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       active {
@@ -271,11 +291,13 @@ export const updateUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       highlights {
@@ -291,6 +313,7 @@ export const updateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userHighlightsId
+          owner
           __typename
         }
         nextToken
@@ -300,6 +323,7 @@ export const updateUser = /* GraphQL */ `
       updatedAt
       userSettingsId
       userActiveId
+      owner
       __typename
     }
   }
@@ -321,11 +345,13 @@ export const deleteUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       active {
@@ -341,11 +367,13 @@ export const deleteUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       highlights {
@@ -361,6 +389,7 @@ export const deleteUser = /* GraphQL */ `
           createdAt
           updatedAt
           userHighlightsId
+          owner
           __typename
         }
         nextToken
@@ -370,6 +399,7 @@ export const deleteUser = /* GraphQL */ `
       updatedAt
       userSettingsId
       userActiveId
+      owner
       __typename
     }
   }
@@ -395,6 +425,7 @@ export const createActive = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -407,6 +438,7 @@ export const createActive = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -417,11 +449,13 @@ export const createActive = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       activeUserId
+      owner
       __typename
     }
   }
@@ -447,6 +481,7 @@ export const updateActive = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -459,6 +494,7 @@ export const updateActive = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -469,11 +505,13 @@ export const updateActive = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       activeUserId
+      owner
       __typename
     }
   }
@@ -499,6 +537,7 @@ export const deleteActive = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -511,6 +550,7 @@ export const deleteActive = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -521,11 +561,13 @@ export const deleteActive = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       activeUserId
+      owner
       __typename
     }
   }
@@ -548,6 +590,7 @@ export const createSettings = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -560,6 +603,7 @@ export const createSettings = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -570,11 +614,13 @@ export const createSettings = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       settingsUserId
+      owner
       __typename
     }
   }
@@ -597,6 +643,7 @@ export const updateSettings = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -609,6 +656,7 @@ export const updateSettings = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -619,11 +667,13 @@ export const updateSettings = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       settingsUserId
+      owner
       __typename
     }
   }
@@ -646,6 +696,7 @@ export const deleteSettings = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -658,6 +709,7 @@ export const deleteSettings = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -668,11 +720,13 @@ export const deleteSettings = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       settingsUserId
+      owner
       __typename
     }
   }

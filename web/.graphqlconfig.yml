@@ -2,11 +2,11 @@ projects:
   highlighter:
     schemaPath: src/graphql/schema.json
     includes:
-      - ''
+      - src/graphql/**/*.ts
     excludes:
       - ./amplify/**
     extensions:
       amplify:
         codeGenTarget: typescript
         generatedFileName: src/API.ts
-        docsFilePath: .
+        docsFilePath: src/graphql

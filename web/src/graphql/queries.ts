@@ -22,6 +22,7 @@ export const getHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -34,6 +35,7 @@ export const getHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -44,11 +46,13 @@ export const getHighlight = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       userHighlightsId
+      owner
       __typename
     }
   }
@@ -75,11 +79,13 @@ export const listHighlights = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         userHighlightsId
+        owner
         __typename
       }
       nextToken
@@ -101,11 +107,13 @@ export const getUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       active {
@@ -121,11 +129,13 @@ export const getUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       highlights {
@@ -141,6 +151,7 @@ export const getUser = /* GraphQL */ `
           createdAt
           updatedAt
           userHighlightsId
+          owner
           __typename
         }
         nextToken
@@ -150,6 +161,7 @@ export const getUser = /* GraphQL */ `
       updatedAt
       userSettingsId
       userActiveId
+      owner
       __typename
     }
   }
@@ -170,6 +182,7 @@ export const listUsers = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -182,6 +195,7 @@ export const listUsers = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -192,6 +206,7 @@ export const listUsers = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       nextToken
@@ -217,6 +232,7 @@ export const getActive = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -229,6 +245,7 @@ export const getActive = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -239,11 +256,13 @@ export const getActive = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       activeUserId
+      owner
       __typename
     }
   }
@@ -268,11 +287,13 @@ export const listActives = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       nextToken
@@ -295,6 +316,7 @@ export const getSettings = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -307,6 +329,7 @@ export const getSettings = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -317,11 +340,13 @@ export const getSettings = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       settingsUserId
+      owner
       __typename
     }
   }
@@ -343,11 +368,13 @@ export const listSettings = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       nextToken

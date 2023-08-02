@@ -10,8 +10,7 @@ function AuthPage() {
     const type = event.payload.event;
     switch (type) {
       case "signIn":
-        setCookie(event.payload.data.username);
-        createUser();
+        setCookie(event.payload.data.signInUserSession.accessToken.jwtToken);
         navigate("/home");
         break;
     }
@@ -23,8 +22,6 @@ function AuthPage() {
     const expires = "expires=" + date.toUTCString();
     document.cookie = "user=" + userName + ";" + expires + ";path=/";
   }
-
-  function createUser() {}
 
   return (
     <Authenticator>

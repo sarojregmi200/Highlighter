@@ -5,8 +5,9 @@
 export const onCreateHighlight = /* GraphQL */ `
   subscription OnCreateHighlight(
     $filter: ModelSubscriptionHighlightFilterInput
+    $owner: String
   ) {
-    onCreateHighlight(filter: $filter) {
+    onCreateHighlight(filter: $filter, owner: $owner) {
       id
       xpath
       data
@@ -24,6 +25,7 @@ export const onCreateHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -36,6 +38,7 @@ export const onCreateHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -46,11 +49,13 @@ export const onCreateHighlight = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       userHighlightsId
+      owner
       __typename
     }
   }
@@ -58,8 +63,9 @@ export const onCreateHighlight = /* GraphQL */ `
 export const onUpdateHighlight = /* GraphQL */ `
   subscription OnUpdateHighlight(
     $filter: ModelSubscriptionHighlightFilterInput
+    $owner: String
   ) {
-    onUpdateHighlight(filter: $filter) {
+    onUpdateHighlight(filter: $filter, owner: $owner) {
       id
       xpath
       data
@@ -77,6 +83,7 @@ export const onUpdateHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -89,6 +96,7 @@ export const onUpdateHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -99,11 +107,13 @@ export const onUpdateHighlight = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       userHighlightsId
+      owner
       __typename
     }
   }
@@ -111,8 +121,9 @@ export const onUpdateHighlight = /* GraphQL */ `
 export const onDeleteHighlight = /* GraphQL */ `
   subscription OnDeleteHighlight(
     $filter: ModelSubscriptionHighlightFilterInput
+    $owner: String
   ) {
-    onDeleteHighlight(filter: $filter) {
+    onDeleteHighlight(filter: $filter, owner: $owner) {
       id
       xpath
       data
@@ -130,6 +141,7 @@ export const onDeleteHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -142,6 +154,7 @@ export const onDeleteHighlight = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -152,18 +165,23 @@ export const onDeleteHighlight = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       userHighlightsId
+      owner
       __typename
     }
   }
 `;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
       id
       settings {
         id
@@ -175,11 +193,13 @@ export const onCreateUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       active {
@@ -195,11 +215,13 @@ export const onCreateUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       highlights {
@@ -215,6 +237,7 @@ export const onCreateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userHighlightsId
+          owner
           __typename
         }
         nextToken
@@ -224,13 +247,17 @@ export const onCreateUser = /* GraphQL */ `
       updatedAt
       userSettingsId
       userActiveId
+      owner
       __typename
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
       id
       settings {
         id
@@ -242,11 +269,13 @@ export const onUpdateUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       active {
@@ -262,11 +291,13 @@ export const onUpdateUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       highlights {
@@ -282,6 +313,7 @@ export const onUpdateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userHighlightsId
+          owner
           __typename
         }
         nextToken
@@ -291,13 +323,17 @@ export const onUpdateUser = /* GraphQL */ `
       updatedAt
       userSettingsId
       userActiveId
+      owner
       __typename
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
       id
       settings {
         id
@@ -309,11 +345,13 @@ export const onDeleteUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         settingsUserId
+        owner
         __typename
       }
       active {
@@ -329,11 +367,13 @@ export const onDeleteUser = /* GraphQL */ `
           updatedAt
           userSettingsId
           userActiveId
+          owner
           __typename
         }
         createdAt
         updatedAt
         activeUserId
+        owner
         __typename
       }
       highlights {
@@ -349,6 +389,7 @@ export const onDeleteUser = /* GraphQL */ `
           createdAt
           updatedAt
           userHighlightsId
+          owner
           __typename
         }
         nextToken
@@ -358,13 +399,17 @@ export const onDeleteUser = /* GraphQL */ `
       updatedAt
       userSettingsId
       userActiveId
+      owner
       __typename
     }
   }
 `;
 export const onCreateActive = /* GraphQL */ `
-  subscription OnCreateActive($filter: ModelSubscriptionActiveFilterInput) {
-    onCreateActive(filter: $filter) {
+  subscription OnCreateActive(
+    $filter: ModelSubscriptionActiveFilterInput
+    $owner: String
+  ) {
+    onCreateActive(filter: $filter, owner: $owner) {
       id
       topic
       color
@@ -380,6 +425,7 @@ export const onCreateActive = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -392,6 +438,7 @@ export const onCreateActive = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -402,18 +449,23 @@ export const onCreateActive = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       activeUserId
+      owner
       __typename
     }
   }
 `;
 export const onUpdateActive = /* GraphQL */ `
-  subscription OnUpdateActive($filter: ModelSubscriptionActiveFilterInput) {
-    onUpdateActive(filter: $filter) {
+  subscription OnUpdateActive(
+    $filter: ModelSubscriptionActiveFilterInput
+    $owner: String
+  ) {
+    onUpdateActive(filter: $filter, owner: $owner) {
       id
       topic
       color
@@ -429,6 +481,7 @@ export const onUpdateActive = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -441,6 +494,7 @@ export const onUpdateActive = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -451,18 +505,23 @@ export const onUpdateActive = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       activeUserId
+      owner
       __typename
     }
   }
 `;
 export const onDeleteActive = /* GraphQL */ `
-  subscription OnDeleteActive($filter: ModelSubscriptionActiveFilterInput) {
-    onDeleteActive(filter: $filter) {
+  subscription OnDeleteActive(
+    $filter: ModelSubscriptionActiveFilterInput
+    $owner: String
+  ) {
+    onDeleteActive(filter: $filter, owner: $owner) {
       id
       topic
       color
@@ -478,6 +537,7 @@ export const onDeleteActive = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -490,6 +550,7 @@ export const onDeleteActive = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -500,18 +561,23 @@ export const onDeleteActive = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       activeUserId
+      owner
       __typename
     }
   }
 `;
 export const onCreateSettings = /* GraphQL */ `
-  subscription OnCreateSettings($filter: ModelSubscriptionSettingsFilterInput) {
-    onCreateSettings(filter: $filter) {
+  subscription OnCreateSettings(
+    $filter: ModelSubscriptionSettingsFilterInput
+    $owner: String
+  ) {
+    onCreateSettings(filter: $filter, owner: $owner) {
       id
       colors
       topics
@@ -524,6 +590,7 @@ export const onCreateSettings = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -536,6 +603,7 @@ export const onCreateSettings = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -546,18 +614,23 @@ export const onCreateSettings = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       settingsUserId
+      owner
       __typename
     }
   }
 `;
 export const onUpdateSettings = /* GraphQL */ `
-  subscription OnUpdateSettings($filter: ModelSubscriptionSettingsFilterInput) {
-    onUpdateSettings(filter: $filter) {
+  subscription OnUpdateSettings(
+    $filter: ModelSubscriptionSettingsFilterInput
+    $owner: String
+  ) {
+    onUpdateSettings(filter: $filter, owner: $owner) {
       id
       colors
       topics
@@ -570,6 +643,7 @@ export const onUpdateSettings = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -582,6 +656,7 @@ export const onUpdateSettings = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -592,18 +667,23 @@ export const onUpdateSettings = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       settingsUserId
+      owner
       __typename
     }
   }
 `;
 export const onDeleteSettings = /* GraphQL */ `
-  subscription OnDeleteSettings($filter: ModelSubscriptionSettingsFilterInput) {
-    onDeleteSettings(filter: $filter) {
+  subscription OnDeleteSettings(
+    $filter: ModelSubscriptionSettingsFilterInput
+    $owner: String
+  ) {
+    onDeleteSettings(filter: $filter, owner: $owner) {
       id
       colors
       topics
@@ -616,6 +696,7 @@ export const onDeleteSettings = /* GraphQL */ `
           createdAt
           updatedAt
           settingsUserId
+          owner
           __typename
         }
         active {
@@ -628,6 +709,7 @@ export const onDeleteSettings = /* GraphQL */ `
           createdAt
           updatedAt
           activeUserId
+          owner
           __typename
         }
         highlights {
@@ -638,11 +720,13 @@ export const onDeleteSettings = /* GraphQL */ `
         updatedAt
         userSettingsId
         userActiveId
+        owner
         __typename
       }
       createdAt
       updatedAt
       settingsUserId
+      owner
       __typename
     }
   }

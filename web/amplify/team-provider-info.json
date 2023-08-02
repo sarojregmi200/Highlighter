@@ -12,10 +12,10 @@
       "AmplifyAppId": "d2a7w27zjiogab"
     },
     "categories": {
-      "api": {
-        "highlighter": {}
-      },
       "auth": {
+        "highlighterd7e2da44": {}
+      },
+      "api": {
         "highlighter": {}
       }
     }

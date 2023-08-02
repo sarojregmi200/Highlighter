@@ -1,12 +1,11 @@
 import { Amplify } from "aws-amplify";
-import aws_config from "./aws-exports.ts";
+import aws_config from "./aws-exports";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Landing from "./pages/Landing.tsx";
-import Home from "./pages/Home.tsx";
-import AuthPage from "./pages/Auth.tsx";
-  import  ErrorPage from "./pages/ErrorPage.tsx";
-  
-     
+import Landing from "./pages/Landing";
+import Home from "./pages/Home";
+import AuthPage from "./pages/Auth";
+import ErrorPage from "./pages/ErrorPage";
+
 Amplify.configure(aws_config);
 
 const router = createBrowserRouter([
