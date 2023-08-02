@@ -1,16 +1,24 @@
+import { Auth } from "aws-amplify";
 import { useEffect } from "react";
 import { useNavigate, useNavigation } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
   const signout = () => {
-    const userCookie = document.cookie
-      .split(";")
-      .filter((cookie) => cookie.includes("user="))[0];
+    document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-    document.cookie.replace(userCookie, "");
+    Auth.signOut().then(() => {
+      navigate("/");
+    });
   };
   const getCookie = (): string => {
+    if (
+      !document.cookie ||
+      !document.cookie
+        .split(";")
+        .filter((cookie) => cookie.includes("user="))[0]
+    )
+      return "";
     return document.cookie
       .split(";")
       .filter((cookie) => cookie.includes("user="))[0]
@@ -19,7 +27,6 @@ function Home() {
 
   useEffect(() => {
     const cookie = getCookie();
-    console.log("the cookie is ", cookie);
     if (!cookie) navigate("/login");
   }, []);
   return (
