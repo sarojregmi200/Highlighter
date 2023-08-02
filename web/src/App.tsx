@@ -1,10 +1,9 @@
 import { Amplify } from "aws-amplify";
 import aws_config from "./aws-exports.ts";
-import { useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Landing from "./pages/Landing.tsx";
-import Auth from "./pages/Auth.tsx";
 import Home from "./pages/Home.tsx";
+import AuthPage from "./pages/Auth.tsx";
 
 Amplify.configure(aws_config);
 
@@ -14,18 +13,15 @@ const router = createBrowserRouter([
     element: <Landing />,
   },
   {
-    path: "/auth",
-    children: [
-      {
-        path: "login/",
-        element: <Auth type="login" />,
-      },
-      {
-        path: "register/",
-        element: <Auth type="register" />,
-      },
-    ],
+    index: true,
+    path: "login/",
+    element: <AuthPage type="login" />,
   },
+  {
+    path: "register/",
+    element: <AuthPage type="register" />,
+  },
+
   {
     path: "/home",
     element: <Home />,

@@ -1,16 +1,32 @@
-import { useContext, useEffect } from "react";
-import Context from "../Context";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useNavigation } from "react-router-dom";
 
 function Home() {
-  const { user } = useContext(Context);
   const navigate = useNavigate();
+  const signout = () => {
+    const userCookie = document.cookie
+      .split(";")
+      .filter((cookie) => cookie.includes("user="))[0];
+
+    document.cookie.replace(userCookie, "");
+  };
+  const getCookie = (): string => {
+    return document.cookie
+      .split(";")
+      .filter((cookie) => cookie.includes("user="))[0]
+      .replace("user=", "");
+  };
+
   useEffect(() => {
-    if (!user.id) {
-      navigate("/auth/login");
-    }
-  }, [user]);
-  return <div>Home</div>;
+    const cookie = getCookie();
+    console.log("the cookie is ", cookie);
+    if (!cookie) navigate("/login");
+  }, []);
+  return (
+    <div className="mainContainer">
+      <button onClick={signout}>Sign out</button>
+    </div>
+  );
 }
 
 export default Home;
