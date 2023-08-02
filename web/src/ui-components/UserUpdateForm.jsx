@@ -6,15 +6,15 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Comment } from "../models";
+import { User } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function CommentUpdateForm(props) {
+export default function UserUpdateForm(props) {
   const {
     id: idProp,
-    comment: commentModelProp,
+    user: userModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -23,32 +23,26 @@ export default function CommentUpdateForm(props) {
     overrides,
     ...rest
   } = props;
-  const initialValues = {
-    content: "",
-  };
-  const [content, setContent] = React.useState(initialValues.content);
+  const initialValues = {};
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = commentRecord
-      ? { ...initialValues, ...commentRecord }
+    const cleanValues = userRecord
+      ? { ...initialValues, ...userRecord }
       : initialValues;
-    setContent(cleanValues.content);
     setErrors({});
   };
-  const [commentRecord, setCommentRecord] = React.useState(commentModelProp);
+  const [userRecord, setUserRecord] = React.useState(userModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Comment, idProp)
-        : commentModelProp;
-      setCommentRecord(record);
+        ? await DataStore.query(User, idProp)
+        : userModelProp;
+      setUserRecord(record);
     };
     queryData();
-  }, [idProp, commentModelProp]);
-  React.useEffect(resetStateValues, [commentRecord]);
-  const validations = {
-    content: [{ type: "Required" }],
-  };
+  }, [idProp, userModelProp]);
+  React.useEffect(resetStateValues, [userRecord]);
+  const validations = {};
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -74,9 +68,7 @@ export default function CommentUpdateForm(props) {
       padding="20px"
       onSubmit={async (event) => {
         event.preventDefault();
-        let modelFields = {
-          content,
-        };
+        let modelFields = {};
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
@@ -106,7 +98,7 @@ export default function CommentUpdateForm(props) {
             }
           });
           await DataStore.save(
-            Comment.copyOf(commentRecord, (updated) => {
+            User.copyOf(userRecord, (updated) => {
               Object.assign(updated, modelFields);
             })
           );
@@ -119,33 +111,9 @@ export default function CommentUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "CommentUpdateForm")}
+      {...getOverrideProps(overrides, "UserUpdateForm")}
       {...rest}
     >
-      <TextField
-        label="Content"
-        isRequired={true}
-        isReadOnly={false}
-        value={content}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              content: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.content ?? value;
-          }
-          if (errors.content?.hasError) {
-            runValidationTasks("content", value);
-          }
-          setContent(value);
-        }}
-        onBlur={() => runValidationTasks("content", content)}
-        errorMessage={errors.content?.errorMessage}
-        hasError={errors.content?.hasError}
-        {...getOverrideProps(overrides, "content")}
-      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -157,7 +125,7 @@ export default function CommentUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || commentModelProp)}
+          isDisabled={!(idProp || userModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -169,7 +137,7 @@ export default function CommentUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || commentModelProp) ||
+              !(idProp || userModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

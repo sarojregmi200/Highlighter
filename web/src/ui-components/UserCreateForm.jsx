@@ -6,12 +6,12 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Blog } from "../models";
+import { User } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function BlogCreateForm(props) {
+export default function UserCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -22,18 +22,12 @@ export default function BlogCreateForm(props) {
     overrides,
     ...rest
   } = props;
-  const initialValues = {
-    name: "",
-  };
-  const [name, setName] = React.useState(initialValues.name);
+  const initialValues = {};
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setName(initialValues.name);
     setErrors({});
   };
-  const validations = {
-    name: [{ type: "Required" }],
-  };
+  const validations = {};
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -59,9 +53,7 @@ export default function BlogCreateForm(props) {
       padding="20px"
       onSubmit={async (event) => {
         event.preventDefault();
-        let modelFields = {
-          name,
-        };
+        let modelFields = {};
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
@@ -90,7 +82,7 @@ export default function BlogCreateForm(props) {
               modelFields[key] = undefined;
             }
           });
-          await DataStore.save(new Blog(modelFields));
+          await DataStore.save(new User(modelFields));
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -103,33 +95,9 @@ export default function BlogCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "BlogCreateForm")}
+      {...getOverrideProps(overrides, "UserCreateForm")}
       {...rest}
     >
-      <TextField
-        label="Name"
-        isRequired={true}
-        isReadOnly={false}
-        value={name}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.name ?? value;
-          }
-          if (errors.name?.hasError) {
-            runValidationTasks("name", value);
-          }
-          setName(value);
-        }}
-        onBlur={() => runValidationTasks("name", name)}
-        errorMessage={errors.name?.errorMessage}
-        hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
-      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
