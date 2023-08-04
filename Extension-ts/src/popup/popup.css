@@ -6,6 +6,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Akatab:wght@400;500;600;700;800;900&display=swap");
 /* stylish cut type cursive font */
 
+/* inter font  */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 /* variables */
 :root {
   /* stylish font is for title */
@@ -30,6 +33,15 @@
   --toggle-inactive-bg: #b8b8b8;
   --toggle-active-knob: #85e190;
   --toggle-inactive-knob: #ababab;
+
+  --auth-main-ctabtn: rgba(253, 187, 52, 0.71);
+  --auth-main-ctabtn-text: rgba(102, 86, 53, 1);
+
+  --auth-secondary-btn: rgba(237, 237, 237, 1);
+  --auth-secondary-btn-text: rgba(153, 153, 153, 1);
+
+  --auth-txt-desc-color: rgba(14, 67, 83, 0.67);
+  --auth-txt-title-color: rgba(14, 67, 83, 1);
 }
 html {
   font-size: 4px;
@@ -45,6 +57,7 @@ html {
   width: 550px;
   overflow: hidden;
   overflow-y: scroll;
+  position: relative;
 }
 .title {
   font-family: var(--stylish-font);
@@ -198,4 +211,74 @@ html {
 
 .mode {
   margin-top: var(--standard-m-p);
+}
+
+.authContainer {
+  width: calc(100% - 60px);
+  height: min-content;
+  font-family: "Inter", sans-serif;
+  padding: 0px 30px;
+  margin-top: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.logo-auth {
+  height: 120px;
+  width: 120px;
+  margin: 0 auto;
+}
+.logo-auth img {
+  height: 100%;
+  width: 100%;
+}
+.auth-txt .title-auth {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--auth-txt-title-color);
+  text-align: center;
+  margin-top: 50px;
+}
+
+.auth-txt .desc-auth {
+  color: var(--auth-txt-desc-color);
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  margin-top: 20px;
+}
+.auth-buttons {
+  margin-top: 50px;
+}
+.button-auth {
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.7;
+  cursor: pointer;
+}
+.cta-ignite {
+  background-color: var(--auth-main-ctabtn);
+  color: var(--auth-main-ctabtn-text);
+  opacity: 0.9;
+}
+.secondary-btn {
+  margin-top: 20px;
+  background-color: var(--auth-secondary-btn);
+  color: var(--auth-main-ctabtn-text);
+}
+.button-auth:hover {
+  opacity: 1;
 }

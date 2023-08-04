@@ -76,57 +76,81 @@ const Popup = () => {
     });
   }, []);
 
+  const authenticated = false;
+  const siteUrl = 
+
   return (
     <div className="mainContainer">
-      <div className="userModes">
-        <div className="mode">
-          <Title title="Pen Mode" icon={true} />
-          <Toggler
-            type={"pen"}
-            state={{ state: pen, setState: setPen }}
-            sideText={"Highlighter"}
-          />
-        </div>
-        <div className="mode">
-          <Title title="Highlight style mode" icon={true} />
-          <Toggler
-            type={"background"}
-            state={{ state: background, setState: setbackground }}
-            sideText={"Activate Background"}
-          />
-          <Toggler
-            type={"underline"}
-            state={{ state: underline, setState: setunderline }}
-            sideText={"Activate Underline"}
-          />
-        </div>
-      </div>
+      {authenticated ? (
+        <>
+          <div className="userModes">
+            <div className="mode">
+              <Title title="Pen Mode" icon={true} />
+              <Toggler
+                type={"pen"}
+                state={{ state: pen, setState: setPen }}
+                sideText={"Highlighter"}
+              />
+            </div>
+            <div className="mode">
+              <Title title="Highlight style mode" icon={true} />
+              <Toggler
+                type={"background"}
+                state={{ state: background, setState: setbackground }}
+                sideText={"Activate Background"}
+              />
+              <Toggler
+                type={"underline"}
+                state={{ state: underline, setState: setunderline }}
+                sideText={"Activate Underline"}
+              />
+            </div>
+          </div>
 
-      <div className="colorsContainer">
-        <Title title="Colors" icon={true} />
-        <div className="colors">
-          {colors.all.map((color, index) => {
-            return (
-              <Color
-                active={color === colors.active}
-                color={color}
-                key={index}
-                setColor={setColors}
-              ></Color>
-            );
-          })}
-        </div>
-      </div>
+          <div className="colorsContainer">
+            <Title title="Colors" icon={true} />
+            <div className="colors">
+              {colors.all.map((color, index) => {
+                return (
+                  <Color
+                    active={color === colors.active}
+                    color={color}
+                    key={index}
+                    setColor={setColors}
+                  ></Color>
+                );
+              })}
+            </div>
+          </div>
 
-      <div className="shortcutContainer">
-        <Title title="Keyboard Shortcuts" icon={true} />
+          <div className="shortcutContainer">
+            <Title title="Keyboard Shortcuts" icon={true} />
 
-        <div className="shortcuts">
-          {shortcuts.map(({ shortcut, desc }, index) => {
-            return <Shortcut shortcut={shortcut} desc={desc} key={index} />;
-          })}
+            <div className="shortcuts">
+              {shortcuts.map(({ shortcut, desc }, index) => {
+                return <Shortcut shortcut={shortcut} desc={desc} key={index} />;
+              })}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="authContainer">
+          <div className="logo-auth">
+            <img src="./logo.png" alt="logoImg" />
+          </div>
+          <div className="auth-txt">
+            <div className="title-auth">Highlighter</div>
+            <div className="desc-auth">
+              Learn everything and forget nothing. <br /> Highlight the
+              important stuff and let us remember it for you.
+            </div>
+          </div>
+          <div className="auth-buttons">
+            <div className="cta-ignite button-auth" onClick={()=>{window.open(loginUrl)}}>Ignite your Learning</div>
+            <div className="secondary-btn button-auth" onClick={()=>{window.open(siteUrl)}}>Learn More</div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
