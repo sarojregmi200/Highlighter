@@ -1,5 +1,13 @@
+import { data } from "autoprefixer";
 import { colorDb, globalState, highlightedDataDb, topicDb } from "./DataStore";
+import {
+  addSettings,
+  createHighlight,
+  updateActiveState,
+  updateHighlight,
+} from "./graphQL";
 import { insert, remove, search } from "./orama";
+import { refreshSecrets, secrets } from "./secrets";
 
 export function initMessages() {
   chrome.runtime.onMessage.addListener(handleMessage);
@@ -15,14 +23,21 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "changeActiveColor":
+      updateActiveState("color", request.color);
       globalState.activeColor = request.color;
       break;
 
     case "addNewColor":
       insert(colorDb, {
         color: request.color,
+      }).then(() => {
+        search(colorDb, { term: "", properties: "*" }).then((res) => {
+          const colors = res.hits.map((hit) => hit.document.color);
+          addSettings("colors", JSON.stringify(colors));
+        });
       });
       globalState.activeColor = request.color;
+      updateActiveState("color", request.color);
       break;
 
     case "getAllColors":
@@ -66,15 +81,21 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "changeActiveTopic":
+      updateActiveState("topic", request.topic);
       globalState.activeTopic = request.topic;
       break;
 
     case "addNewTopic":
       insert(topicDb, {
         topic: request.topic,
+      }).then(() => {
+        search(topicDb, { term: "", properties: "*" }).then((res) => {
+          const topics = res.hits.map((hit) => hit.document.topic);
+          addSettings("topics", JSON.stringify(topics));
+        });
       });
-
       globalState.activeTopic = request.topic;
+      updateActiveState("topic", request.topic);
       break;
 
     case "searchHighlightedData":
@@ -102,16 +123,38 @@ export function handleMessage(request, sender, response) {
         time: request.time,
         topic: request.topic,
         htmlMarkup: request.htmlMarkup,
-      }).then((res) => response({ id: res }));
+      }).then((res) => {
+        createHighlight({
+          xpath: request.location,
+          data: request.text,
+          color: request.color,
+          domain: request.domain,
+          time: request.time,
+          topic: request.topic,
+          htmlMarkup: request.htmlMarkup,
+        }).then((dbres) => {
+          if (!dbres || typeof dbres === "boolean") return;
+
+          response({ id: dbres.id, oramaId: res });
+        });
+      });
 
       return true;
       break;
 
     case "updateXpath":
-      const { id, xpath } = request;
+      const {
+        oramaId,
+        id,
+        xpath,
+      }: {
+        id: string;
+        xpath: string;
+        oramaId: string;
+      } = request;
       const { text, color, domain, time, topic, htmlMarkup } = request.data;
 
-      remove(highlightedDataDb, id).then((res) => {
+      remove(highlightedDataDb, oramaId).then((res) => {
         insert(highlightedDataDb, {
           data: text,
           xpath,
@@ -120,6 +163,8 @@ export function handleMessage(request, sender, response) {
           time,
           topic,
           htmlMarkup,
+        }).then(() => {
+          updateHighlight({ id, xpath });
         });
       });
 
@@ -164,15 +209,55 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "changePenState":
+      updateActiveState("pen", request.state);
       globalState.penState = request.state;
       break;
 
     case "changeBackgroundState":
+      updateActiveState("background", request.state);
       globalState.backgroundState = request.state;
       break;
 
     case "changeUnderlineState":
+      updateActiveState("underline", request.state);
       globalState.underlineState = request.state;
       break;
+
+    case "extractCookie":
+      const cookies = request.cookie;
+      storeCookiesIntoStorage(cookies);
+      refreshSecrets().then((res) => {
+        response("Welcome user!!");
+      });
+      return true;
+      break;
   }
+}
+
+async function storeCookiesIntoStorage(cookies: string) {
+  const cookiesArr = cookies.split(";");
+  cookiesArr.forEach((cookie) => {
+    if (cookie.includes("activeId=")) {
+      return browser.storage.local.set({
+        activeId: cookie.replace("activeId=", ""),
+      });
+    }
+    if (cookie.includes("authToken=")) {
+      return browser.storage.local.set({
+        authToken: cookie.replace("authToken=", ""),
+      });
+    }
+    if (cookie.includes("settingsId=")) {
+      return browser.storage.local.set({
+        settingsId: cookie.replace("settingsId=", ""),
+      });
+    }
+    if (cookie.includes("userId=")) {
+      return browser.storage.local.set({
+        userId: cookie.replace("userId=", ""),
+      });
+    }
+  });
+
+  return "Done";
 }

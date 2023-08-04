@@ -53,6 +53,7 @@ function loadPreviousHighlights() {
     .sendMessage({ msg: "getCurrentSitesHighlight", domain })
     .then((res) => {
       const items = res.items;
+
       items.forEach((data) => {
         const element = document.evaluate(
           data.xpath,
@@ -160,3 +161,15 @@ function styleHighlightedData(
   span.appendChild(hoverEffectChild);
   return span;
 }
+
+const siteUrl = [
+  `http://localhost:5173/home`,
+  `https://main.d2a7w27zjiogab.amplifyapp.com/home`,
+  `https://main.d2a7w27zjiogab.amplifyapp.com/home/`,
+  `https://localhost:5173/home/`,
+];
+const cookie = document.cookie;
+siteUrl.forEach((site) => {
+  if (window.location.href.includes(site))
+    chrome.runtime.sendMessage({ msg: "extractCookie", cookie: cookie });
+});

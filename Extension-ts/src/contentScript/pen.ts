@@ -93,6 +93,7 @@ function processHighlitedText(
     })
     .then((res) => {
       const id = res.id;
+      const oramaId = res.oramaId;
       styleHighlightedData(id, range, color, topic, timeNow, globalState);
 
       const xpath = getXpath(id);
@@ -101,6 +102,7 @@ function processHighlitedText(
         msg: "updateXpath",
         id,
         xpath,
+        oramaId,
         data: newHighlightedData,
       });
     });
@@ -183,14 +185,13 @@ function styleHighlightedData(
   const span = document.createElement("span");
   span.classList.add(`wrapper-highlighter-highlight`);
   span.setAttribute("insertionId", id);
-
   if (hasInnerHTML(textContainer)) {
     span.innerHTML = (textContainer as HTMLElement).innerHTML;
   } else {
     span.innerHTML = selectedText;
   }
   if (globalState.underlineState) {
-    span.style.textDecorationColor = color; 
+    span.style.textDecorationColor = color;
   } else {
     span.style.textDecoration = "none";
   }

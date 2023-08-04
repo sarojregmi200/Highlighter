@@ -1,4 +1,4 @@
-import { create, insert, insertMultiple, search } from "./orama";
+import { create, insertMultiple, removeMultiple, search } from "./orama";
 
 // creating a default value of the state
 export const globalState = {
@@ -20,7 +20,6 @@ const defaultColors = [
   { color: "#E9FF32" },
   { color: "#FF9C35" },
   { color: "#AEE2FF" },
-  { color: "wheat" },
 ];
 
 await insertMultiple(colorDb, defaultColors);
@@ -37,6 +36,42 @@ const defaultTopics = [
 ];
 
 await insertMultiple(topicDb, defaultTopics);
+
+export async function loadDbSettings(
+  topics: { topic: string }[],
+  colors: { color: string }[]
+) {
+  const allTopics = await search(topicDb, { term: "", properties: "*" });
+  const topicIds = allTopics.hits.map((item) => item.id);
+  const allColors = await search(colorDb, { term: "", properties: "*" });
+  const colorsIds = allColors.hits.map((item) => item.id);
+
+  await removeMultiple(topicDb, topicIds);
+  await removeMultiple(colorDb, colorsIds);
+
+  await insertMultiple(topicDb, topics);
+  await insertMultiple(colorDb, colors);
+}
+
+export async function loadHighlights(
+  highlights: {
+    xpath: string;
+    data: string;
+    color: string;
+    domain: string;
+    time: string;
+    topic: string;
+    htmlMarkup: string;
+  }[]
+) {
+  const allHighlights = await search(highlightedDataDb, {
+    term: "",
+    properties: "*",
+  });
+  const highlightsIds = allHighlights.hits.map((item) => item.id);
+  removeMultiple(highlightedDataDb, highlightsIds);
+  insertMultiple(highlightedDataDb, highlights);
+}
 
 export const highlightedDataDb = await create({
   schema: {
