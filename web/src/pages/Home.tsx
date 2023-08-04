@@ -127,7 +127,7 @@ function Home({ from }: { from: "auth" | "route" }) {
       let authToken = getCookie("authToken");
       if (!authToken) return navigate("/auth");
 
-      const user = await checkUserExistance(); 
+      const user = await checkUserExistance();
       if (!user) return addNewUser(authToken);
 
       const { userId, settingsId, activeId } = user;

@@ -77,7 +77,8 @@ const Popup = () => {
   }, []);
 
   const authenticated = false;
-  const siteUrl = 
+  const siteUrl = `http://localhost:5173`;
+  const loginUrl = siteUrl + "/auth";
 
   return (
     <div className="mainContainer">
@@ -146,8 +147,22 @@ const Popup = () => {
             </div>
           </div>
           <div className="auth-buttons">
-            <div className="cta-ignite button-auth" onClick={()=>{window.open(loginUrl)}}>Ignite your Learning</div>
-            <div className="secondary-btn button-auth" onClick={()=>{window.open(siteUrl)}}>Learn More</div>
+            <div
+              className="cta-ignite button-auth"
+              onClick={() => {
+                window.open(loginUrl, "_");
+              }}
+            >
+              Ignite your Learning
+            </div>
+            <div
+              className="secondary-btn button-auth"
+              onClick={() => {
+                window.open(siteUrl, "_");
+              }}
+            >
+              Learn More
+            </div>
           </div>
         </div>
       )}
