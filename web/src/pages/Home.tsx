@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createActive, createSettings, createUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
 
-function Home() {
+function Home({ from }: { from: "auth" | "route" }) {
   const navigate = useNavigate();
   const signout = () => {
     document.cookie =
@@ -27,7 +27,6 @@ function Home() {
     const expires = "expires=" + date.toUTCString();
 
     const authToken = getCookie("authToken");
-    console.log(userId);
 
     document.cookie = `authToken=${authToken};expires=${expires};path=/;`;
     document.cookie = `userId=${userId};expires=${expires};path=/;`;
@@ -91,13 +90,7 @@ function Home() {
       const dbUserActiveId = data.createUser.active.id;
       const dbSettingId = data.createUser.settings.id;
 
-      console.log({
-        dbSettingId,
-        dbUserActiveId,
-        dbUserId,
-      });
-
-      setCookie(dbUserId, dbUserActiveId, dbUserId);
+      setCookie(dbUserId, dbUserActiveId, dbSettingId);
     } catch (error) {
       console.log(error);
     }
@@ -126,16 +119,24 @@ function Home() {
   }
 
   useEffect(() => {
-    (async () => {
+    if (from === "auth") {
+      return navigate("/home");
+    }
+
+    const authenticate = async () => {
       let authToken = getCookie("authToken");
       if (!authToken) return navigate("/auth");
 
-      const user = await checkUserExistance();
+      const user = await checkUserExistance(); 
       if (!user) return addNewUser(authToken);
 
       const { userId, settingsId, activeId } = user;
-      return setCookie(userId, settingsId, activeId);
-    })();
+      return setCookie(userId, activeId, settingsId);
+    };
+
+    return () => {
+      authenticate();
+    };
   }, []);
   return (
     <div className="mainContainer">
