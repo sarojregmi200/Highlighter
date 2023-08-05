@@ -8,6 +8,7 @@ function AuthPage() {
   const navigate = useNavigate();
   useEffect(() => {
     getToken().then((token) => {
+      console.log(token);
       if (token) return navigate("/home");
     });
   }, []);
