@@ -1,25 +1,15 @@
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-
-import { Auth, Hub } from "aws-amplify";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-Hub.listen("auth", (data) => {
-  console.log({ data: data.payload.event });
-  switch (data.payload.event) {
-    case "configured":
-
-      break;
-    case "signIn":
-      console.log("new Signin");
-      break;
-  }
-});
+import { getToken } from "../Authhandler";
 
 function AuthPage() {
+  const navigate = useNavigate();
   useEffect(() => {
-    console.log("loaded");
+    getToken().then((token) => {
+      if (token) return navigate("/home");
+    });
   }, []);
   return <Authenticator></Authenticator>;
 }
