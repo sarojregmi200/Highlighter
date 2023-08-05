@@ -5,6 +5,38 @@ import { useNavigate } from "react-router-dom";
 import { createActive, createSettings, createUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
 
+const setCookie = async (
+  userId: string,
+  activeId: string,
+  settingsId: string
+) => {
+  const date = new Date();
+  date.setTime(date.getTime() + 3 * 24 * 60 * 60 * 1000);
+  const expires = "expires=" + date.toUTCString();
+
+  const authToken = (await Auth.currentSession())
+    .getAccessToken()
+    .getJwtToken();
+
+  document.cookie = `authToken=${authToken};expires=${expires};path=/;`;
+  document.cookie = `userId=${userId};expires=${expires};path=/;`;
+  document.cookie = `activeId=${activeId};expires=${expires};path=/;`;
+  document.cookie = `settingsId=${settingsId};expires=${expires};path=/;`;
+};
+const getCookie = (cookieName: string): string => {
+  if (
+    !document.cookie ||
+    !document.cookie
+      .split(";")
+      .filter((cookie) => cookie.includes(`${cookieName}=`))[0]
+  )
+    return "";
+  return document.cookie
+    .split(";")
+    .filter((cookie) => cookie.includes(`${cookieName}=`))[0]
+    .replace(`${cookieName}=`, "");
+};
+
 function Home({ from }: { from: "auth" | "route" }) {
   const navigate = useNavigate();
   const signout = () => {
@@ -20,31 +52,6 @@ function Home({ from }: { from: "auth" | "route" }) {
     Auth.signOut().then(() => {
       navigate("/");
     });
-  };
-  const setCookie = (userId: string, activeId: string, settingsId: string) => {
-    const date = new Date();
-    date.setTime(date.getTime() + 3 * 24 * 60 * 60 * 1000);
-    const expires = "expires=" + date.toUTCString();
-
-    const authToken = getCookie("authToken");
-
-    document.cookie = `authToken=${authToken};expires=${expires};path=/;`;
-    document.cookie = `userId=${userId};expires=${expires};path=/;`;
-    document.cookie = `activeId=${activeId};expires=${expires};path=/;`;
-    document.cookie = `settingsId=${settingsId};expires=${expires};path=/;`;
-  };
-  const getCookie = (cookieName: string): string => {
-    if (
-      !document.cookie ||
-      !document.cookie
-        .split(";")
-        .filter((cookie) => cookie.includes(`${cookieName}=`))[0]
-    )
-      return "";
-    return document.cookie
-      .split(";")
-      .filter((cookie) => cookie.includes(`${cookieName}=`))[0]
-      .replace(`${cookieName}=`, "");
   };
 
   async function addNewUser(authToken: string) {
@@ -119,13 +126,11 @@ function Home({ from }: { from: "auth" | "route" }) {
   }
 
   useEffect(() => {
-    if (from === "auth") {
-      return navigate("/home");
-    }
-
     const authenticate = async () => {
-      let authToken = getCookie("authToken");
-      if (!authToken) return navigate("/auth");
+      let authToken = (await Auth.currentSession())
+        .getAccessToken()
+        .getJwtToken();
+      // if (!authToken) return navigate("/auth");
 
       const user = await checkUserExistance();
       if (!user) return addNewUser(authToken);
@@ -135,9 +140,13 @@ function Home({ from }: { from: "auth" | "route" }) {
     };
 
     return () => {
+      if (from === "auth") {
+        return navigate("/home");
+      }
       authenticate();
     };
   }, []);
+
   return (
     <div className="mainContainer">
       <button onClick={signout}>Sign out</button>
