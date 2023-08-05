@@ -76,7 +76,7 @@ const Popup = () => {
     });
   }, []);
 
-  const authenticated = false;
+  const authenticated = true;
   const siteUrl = `http://localhost:5173`;
   const loginUrl = siteUrl + "/auth";
 

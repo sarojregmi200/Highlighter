@@ -1,10 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
+import "../styles/landingpage.css";
 function Landing() {
+  useEffect(() => {});
   return (
-    <div>
-      Landing
-      <NavLink to={"/home"}>Go to home</NavLink>
+    <div className="landingContainer">
+      <motion.div
+        className="animationContainer"
+        animate={{ opacity: [1, 1, 1, 0] }}
+        transition={{ duration: 2 }}
+      >
+        <div className="logo">
+          <img src="/logo.png" />
+        </div>
+      </motion.div>
+
+
+
+
     </div>
   );
 }
