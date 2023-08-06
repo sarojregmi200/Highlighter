@@ -6,34 +6,34 @@ import { createActive, createSettings, createUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
 import { getToken } from "../Authhandler";
 
-const setCookie = async (
-  userId: string,
-  activeId: string,
-  settingsId: string
-) => {
-  const date = new Date();
-  date.setTime(date.getTime() + 3 * 24 * 60 * 60 * 1000);
-  const expires = "expires=" + date.toUTCString();
-
-  const authToken = (await Auth.currentSession())
-    .getAccessToken()
-    .getJwtToken();
-
-  console.log({
-    authToken: `authToken=${authToken};expires=${expires};path=/;`,
-    userId: `userId=${userId};expires=${expires};path=/;`,
-    activeId: `activeId=${activeId};expires=${expires};path=/;`,
-    settingsId: `settingsId=${settingsId};expires=${expires};path=/;`,
-  });
-
-  document.cookie = `authToken=${authToken};expires=${expires};path=/;`;
-  document.cookie = `userId=${userId};expires=${expires};path=/;`;
-  document.cookie = `activeId=${activeId};expires=${expires};path=/;`;
-  document.cookie = `settingsId=${settingsId};expires=${expires};path=/;`;
-};
-
 function Home() {
   const navigate = useNavigate();
+
+  const setCookie = async (
+    userId: string,
+    activeId: string,
+    settingsId: string
+  ) => {
+    const date = new Date();
+    date.setTime(date.getTime() + 3 * 24 * 60 * 60 * 1000);
+    const expires = "expires=" + date.toUTCString();
+
+    const authToken = (await Auth.currentSession())
+      .getAccessToken()
+      .getJwtToken();
+
+    console.log({
+      authToken: `authToken=${authToken};expires=${expires};path=/;`,
+      userId: `userId=${userId};expires=${expires};path=/;`,
+      activeId: `activeId=${activeId};expires=${expires};path=/;`,
+      settingsId: `settingsId=${settingsId};expires=${expires};path=/;`,
+    });
+
+    document.cookie = `authToken=${authToken};expires=${expires};path=/;`;
+    document.cookie = `userId=${userId};expires=${expires};path=/;`;
+    document.cookie = `activeId=${activeId};expires=${expires};path=/;`;
+    document.cookie = `settingsId=${settingsId};expires=${expires};path=/;`;
+  };
   const signout = () => {
     document.cookie =
       "authToken=; userId=; activeId=; settingsId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -126,6 +126,7 @@ function Home() {
         if (!authToken) return navigate("/auth");
 
         checkUserExistance().then((user) => {
+          console.log(user);
           if (!user) return addNewUser(authToken);
           const { userId, settingsId, activeId } = user;
           return setCookie(userId, activeId, settingsId);

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import awsmobile from "./safeAwsExports";
 import { useEffect } from "react";
+// import awsmobile from "./aws-exports";
 
 export function App() {
   useEffect(() => {
