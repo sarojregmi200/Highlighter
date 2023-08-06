@@ -4,13 +4,10 @@ import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import awsmobile from "./safeAwsExports";
-import { useEffect } from "react";
 // import awsmobile from "./aws-exports";
 
+Amplify.configure(awsmobile);
 export function App() {
-  useEffect(() => {
-    Amplify.configure(awsmobile);
-  }, []);
   return (
     <Routes>
       <Route element={<Landing />} path="/" />

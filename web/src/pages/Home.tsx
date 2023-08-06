@@ -121,7 +121,9 @@ function Home() {
   }
 
   useEffect(() => {
+    console.log("hlo how are you I am home");
     const authenticate = async () => {
+      console.log("authenticated called");
       getToken().then((authToken) => {
         console.log("auth Token", authToken);
         if (!authToken) return navigate("/auth");
