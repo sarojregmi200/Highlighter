@@ -116,7 +116,6 @@ function Home() {
   useEffect(() => {
     const authenticate = async () => {
       getToken().then((authToken) => {
-        console.log(authToken);
         if (!authToken) return navigate("/auth");
 
         checkUserExistance().then((user) => {
