@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 import "../styles/landingpage.css";
+import { NavLink } from "react-router-dom";
 function Landing() {
   useEffect(() => {});
   return (
