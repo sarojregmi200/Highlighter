@@ -85,6 +85,7 @@ export async function getUser(): Promise<any | boolean> {
     };
   } catch (e) {
     console.log("Error while fetching the user", e);
+    return false;
   }
 }
 

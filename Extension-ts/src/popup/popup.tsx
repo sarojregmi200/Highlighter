@@ -52,7 +52,7 @@ const Popup = () => {
   ] = useState<toggleState>({
     status: true,
   });
-
+  const [authenticated, setAuthenticated] = useState(true);
   useEffect(() => {
     chrome.runtime.sendMessage({ msg: "getAllColors" }).then((res) => {
       setColors((prev) => {
@@ -74,9 +74,13 @@ const Popup = () => {
         };
       });
     });
+
+    // checking for authentication
+    chrome.runtime.sendMessage({ msg: "checkAuthStatus" }).then((res) => {
+      setAuthenticated(res);
+    });
   }, []);
 
-  const authenticated = true;
   const siteUrl = `http://localhost:5173`;
   const loginUrl = siteUrl + "/auth";
 

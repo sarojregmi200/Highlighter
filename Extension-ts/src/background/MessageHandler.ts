@@ -8,6 +8,7 @@ import {
 } from "./graphQL";
 import { insert, remove, search } from "./orama";
 import { refreshSecrets, secrets } from "./secrets";
+import { activateApp, checkAuthStatus } from ".";
 
 export function initMessages() {
   chrome.runtime.onMessage.addListener(handleMessage);
@@ -224,10 +225,18 @@ export function handleMessage(request, sender, response) {
       break;
 
     case "extractCookie":
-      const cookies = request.cookie;
+      const cookies = request.cookie as string;
       storeCookiesIntoStorage(cookies);
       refreshSecrets().then((res) => {
         response("Welcome user!!");
+      });
+      return true;
+      break;
+
+    case "checkAuthStatus":
+      checkAuthStatus().then((res) => {
+        console.log("sending response to the popup script", res);
+        response(res);
       });
       return true;
       break;
@@ -235,6 +244,21 @@ export function handleMessage(request, sender, response) {
 }
 
 async function storeCookiesIntoStorage(cookies: string) {
+  if (!cookies.trim()) {
+    browser.storage.local
+      .set({
+        activeId: "",
+        authToken: "",
+        settingsId: "",
+        userId: "",
+      })
+      .then(() => console.log("logging out"));
+    return;
+  }
+
+  // activating the app
+  activateApp();
+  console.log("the application is activated ");
   const cookiesArr = cookies.split(";");
   cookiesArr.forEach((cookie) => {
     if (cookie.includes("activeId=")) {

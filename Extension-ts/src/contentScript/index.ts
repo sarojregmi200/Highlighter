@@ -163,10 +163,8 @@ function styleHighlightedData(
 }
 
 const siteUrl = [
-  `http://localhost:5173/home`,
-  `https://main.d2a7w27zjiogab.amplifyapp.com/home`,
-  `https://main.d2a7w27zjiogab.amplifyapp.com/home/`,
-  `https://localhost:5173/home/`,
+  `http://localhost:5173`,
+  `https://main.d2a7w27zjiogab.amplifyapp.com`,
 ];
 const cookie = document.cookie;
 siteUrl.forEach((site) => {

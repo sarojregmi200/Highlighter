@@ -1,19 +1,20 @@
 import { initializeShortcuts } from "./CommandHandler";
 import { globalState, loadDbSettings, loadHighlights } from "./DataStore";
 import { initMessages } from "./MessageHandler";
-import { getUser, getHighlights, deleteAllHighlights } from "./graphQL";
+import { getUser, getHighlights } from "./graphQL";
 
-// // listining to the incomming messages
+//  listining to the incomming messages
 initMessages();
 
 // listening for shortcuts
 initializeShortcuts();
 
 // refreshes the secrets and initializes the app
-async function activateApp() {
+let interval: boolean | NodeJS.Timeout = false;
+
+export async function activateApp() {
   const user = await getUser();
   if (!user) {
-    // turn off the app or print error
     return;
   }
 
@@ -50,8 +51,23 @@ async function activateApp() {
   const highlights = await getHighlights();
 
   if (!highlights) return;
-
   loadHighlights(highlights);
+}
+
+// checks and validates the auth tokens and sets a boolean used by popup script to render the different screen
+// activates the app if authenticated if not authenticated.
+export async function checkAuthStatus(): Promise<boolean> {
+  const user = await getUser();
+  console.log("checking auth status");
+
+  if (!user) {
+    console.log("The user is not authenticated and I will log back in 5 sec");
+    globalState.authStatus = false;
+    return false;
+  }
+  console.log("the user is authenticaed ", user);
+  globalState.authStatus = true;
+  return true;
 }
 
 activateApp();

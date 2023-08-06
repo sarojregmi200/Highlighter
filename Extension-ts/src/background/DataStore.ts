@@ -7,6 +7,7 @@ export const globalState = {
   penState: true,
   backgroundState: true,
   underlineState: true,
+  authStatus: false,
 };
 
 export const colorDb = await create({
