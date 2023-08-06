@@ -1,18 +1,26 @@
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import { useNavigate } from "react-router-dom";
 
 import "../styles/customLogin.css";
+import { useEffect } from "react";
+import { getToken } from "../Authhandler";
+import { useNavigate } from "react-router-dom";
 
 function AuthPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getToken().then((authToken) => {
+      if (!authToken) return navigate("/auth");
+    });
+  }, []);
 
   return (
     <div className="loginContainer">
       <Authenticator>
         {() => {
           setTimeout(() => {
-            navigate("/home");
+            window.location.reload();
           }, 1000);
 
           return <div> Redirecting to home......</div>;

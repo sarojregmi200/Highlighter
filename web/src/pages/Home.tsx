@@ -114,7 +114,7 @@ function Home() {
   }
   const authenticate = async () => {
     getToken().then((authToken) => {
-      if (!authToken) return navigate("/auth");
+      if (!authToken) return (window.location.pathname = "/auth");
       checkUserExistance().then((user) => {
         if (!user) return addNewUser(authToken);
         const { userId, settingsId, activeId } = user;
