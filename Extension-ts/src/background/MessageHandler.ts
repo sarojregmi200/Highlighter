@@ -235,7 +235,6 @@ export function handleMessage(request, sender, response) {
 
     case "checkAuthStatus":
       checkAuthStatus().then((res) => {
-        console.log("sending response to the popup script", res);
         response(res);
       });
       return true;
@@ -258,7 +257,6 @@ async function storeCookiesIntoStorage(cookies: string) {
 
   // activating the app
   activateApp();
-  console.log("the application is activated ");
   const cookiesArr = cookies.split(";");
   cookiesArr.forEach((cookie) => {
     if (cookie.includes("activeId=")) {

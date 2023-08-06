@@ -166,8 +166,23 @@ const siteUrl = [
   `http://localhost:5173`,
   `https://main.d2a7w27zjiogab.amplifyapp.com`,
 ];
-const cookie = document.cookie;
-siteUrl.forEach((site) => {
-  if (window.location.href.includes(site))
-    chrome.runtime.sendMessage({ msg: "extractCookie", cookie: cookie });
-});
+
+const sendCookies = () => { 
+  const cookie = document.cookie;
+  chrome.runtime.sendMessage({ msg: "extractCookie", cookie: cookie });
+};
+
+let interval: boolean | NodeJS.Timeout = false;
+
+for (let i in siteUrl) {
+  const site = siteUrl[i];
+ 
+  if (window.location.href.includes(site)) {
+    sendCookies();
+    interval = setInterval(() => {
+      sendCookies();
+    }, 1000);
+    break;
+  }
+  if (typeof interval !== "boolean") clearInterval(interval);
+}

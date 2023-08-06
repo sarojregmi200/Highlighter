@@ -58,14 +58,10 @@ export async function activateApp() {
 // activates the app if authenticated if not authenticated.
 export async function checkAuthStatus(): Promise<boolean> {
   const user = await getUser();
-  console.log("checking auth status");
-
   if (!user) {
-    console.log("The user is not authenticated and I will log back in 5 sec");
     globalState.authStatus = false;
     return false;
   }
-  console.log("the user is authenticaed ", user);
   globalState.authStatus = true;
   return true;
 }
