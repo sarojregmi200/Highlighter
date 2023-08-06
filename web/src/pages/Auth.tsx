@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getToken } from "../Authhandler";
 
+import "../styles/customLogin.css";
+
 function AuthPage() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -12,7 +14,11 @@ function AuthPage() {
       if (token) return navigate("/home");
     });
   }, []);
-  return <Authenticator></Authenticator>;
+  return (
+    <div className="loginContainer">
+      <Authenticator></Authenticator>
+    </div>
+  );
 }
 
 export default AuthPage;

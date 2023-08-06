@@ -1,0 +1,71 @@
+.amplify-input:active {
+  border: none;
+}
+.loginContainer {
+  min-height: 100vh;
+}
+
+.loginContainer > div {
+  height: 100% !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.amplify-button--primary {
+  background-color: rgba(253, 187, 52, 0.71);
+  color: rgba(102, 86, 53, 1);
+  opacity: 0.8;
+  margin-top: 50px;
+}
+
+.amplify-button--primary:hover {
+  opacity: 1;
+  background-color: rgba(253, 187, 52, 0.71);
+  color: rgba(102, 86, 53, 1);
+}
+
+.amplify-tabs-item[data-state="active"] {
+  border-color: rgba(14, 67, 83, 1);
+  color: rgba(14, 67, 83, 1);
+  opacity: 1;
+}
+.amplify-tabs-item {
+  opacity: 0.5;
+}
+
+secondary {
+}
+.amplify-input {
+  border: none;
+  background: #ededed;
+}
+.amplify-field__show-password {
+  border: none;
+  color: rgba(14, 67, 83, 1);
+  background: rgb(206, 202, 169);
+  opacity: 0.5 !important;
+}
+.amplify-field__show-password[aria-checked="true"] {
+  border: none;
+  background-color: rgba(198, 147, 44, 0.71);
+  color: rgba(14, 67, 83, 1);
+  opacity: 1 !important;
+}
+.amplify-button--link {
+  padding: 10px 0px;
+  width: 100%;
+  background: #ededed;
+  color: rgba(14, 67, 83, 1);
+  opacity: 0.7;
+}
+
+[data-amplify-footer] {
+  padding: 0px var(--amplify-components-authenticator-form-padding);
+  margin-top: -20px;
+}
+
+.loginContainer > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) {
+  padding-bottom: 50px;
+  border: none;
+}

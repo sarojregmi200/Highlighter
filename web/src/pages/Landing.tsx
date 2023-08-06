@@ -15,10 +15,6 @@ function Landing() {
           <img src="/logo.png" />
         </div>
       </motion.div>
-
-
-
-
     </div>
   );
 }
