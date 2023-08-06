@@ -121,7 +121,6 @@ function Home() {
   }
 
   useEffect(() => {
-    console.log("hlo how are you I am home");
     const authenticate = async () => {
       console.log("authenticated called");
       getToken().then((authToken) => {
@@ -136,9 +135,9 @@ function Home() {
       });
     };
 
-    return () => {
-      authenticate();
-    };
+    authenticate().then(() => {
+      console.log(" I am complete processing");
+    });
   }, []);
 
   return (
