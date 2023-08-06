@@ -19,6 +19,13 @@ const setCookie = async (
     .getAccessToken()
     .getJwtToken();
 
+  console.log({
+    authToken: `authToken=${authToken};expires=${expires};path=/;`,
+    userId: `userId=${userId};expires=${expires};path=/;`,
+    activeId: `activeId=${activeId};expires=${expires};path=/;`,
+    settingsId: `settingsId=${settingsId};expires=${expires};path=/;`,
+  });
+
   document.cookie = `authToken=${authToken};expires=${expires};path=/;`;
   document.cookie = `userId=${userId};expires=${expires};path=/;`;
   document.cookie = `activeId=${activeId};expires=${expires};path=/;`;
