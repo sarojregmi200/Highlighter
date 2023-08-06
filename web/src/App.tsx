@@ -30,6 +30,7 @@ const router = createBrowserRouter([
 export function App() {
   useEffect(() => {
     Amplify.configure(awsmobile);
+    console.log({ awsmobile });
   }, []);
   return (
     <>
