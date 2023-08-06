@@ -123,8 +123,8 @@ function Home() {
   useEffect(() => {
     const authenticate = async () => {
       getToken().then((authToken) => {
+        console.log("auth Token", authToken);
         if (!authToken) return navigate("/auth");
-
         checkUserExistance().then((user) => {
           console.log(user);
           if (!user) return addNewUser(authToken);
