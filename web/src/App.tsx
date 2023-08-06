@@ -3,8 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
-import awsmobile from "./safeAwsExports";
-// import awsmobile from "./aws-exports";
+import awsmobile from "./aws-exports";
 
 Amplify.configure(awsmobile);
 export function App() {

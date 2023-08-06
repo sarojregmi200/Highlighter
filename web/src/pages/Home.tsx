@@ -22,13 +22,6 @@ function Home() {
       .getAccessToken()
       .getJwtToken();
 
-    console.log({
-      authToken: `authToken=${authToken};expires=${expires};path=/;`,
-      userId: `userId=${userId};expires=${expires};path=/;`,
-      activeId: `activeId=${activeId};expires=${expires};path=/;`,
-      settingsId: `settingsId=${settingsId};expires=${expires};path=/;`,
-    });
-
     document.cookie = `authToken=${authToken};expires=${expires};path=/;`;
     document.cookie = `userId=${userId};expires=${expires};path=/;`;
     document.cookie = `activeId=${activeId};expires=${expires};path=/;`;
@@ -119,25 +112,18 @@ function Home() {
       activeId: items[0].active.id,
     };
   }
-
-  useEffect(() => {
-    const authenticate = async () => {
-      console.log("authenticated called");
-      getToken().then((authToken) => {
-        console.log("auth Token", authToken);
-        if (!authToken) return navigate("/auth");
-        checkUserExistance().then((user) => {
-          console.log(user);
-          if (!user) return addNewUser(authToken);
-          const { userId, settingsId, activeId } = user;
-          return setCookie(userId, activeId, settingsId);
-        });
+  const authenticate = async () => {
+    getToken().then((authToken) => {
+      if (!authToken) return navigate("/auth");
+      checkUserExistance().then((user) => {
+        if (!user) return addNewUser(authToken);
+        const { userId, settingsId, activeId } = user;
+        return setCookie(userId, activeId, settingsId);
       });
-    };
-
-    authenticate().then(() => {
-      console.log(" I am complete processing");
     });
+  };
+  useEffect(() => {
+    authenticate();
   }, []);
 
   return (
