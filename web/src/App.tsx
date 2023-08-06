@@ -1,12 +1,12 @@
 import { Amplify } from "aws-amplify";
-import aws_config from "./aws-exports";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import ErrorPage from "./pages/ErrorPage";
+import awsmobile from "./aws-exports";
 
-Amplify.configure(aws_config);
+Amplify.configure(awsmobile);
 
 const router = createBrowserRouter([
   {
