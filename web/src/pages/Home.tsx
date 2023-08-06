@@ -1,14 +1,11 @@
 import { API, Auth } from "aws-amplify";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { createActive, createSettings, createUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
 import { getToken } from "../Authhandler";
 
 function Home() {
-  const navigate = useNavigate();
-
   const setCookie = async (
     userId: string,
     activeId: string,
@@ -38,7 +35,7 @@ function Home() {
       " settingsId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     Auth.signOut().then(() => {
-      navigate("/");
+      window.location.pathname = "/";
     });
   };
 
