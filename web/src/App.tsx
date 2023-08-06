@@ -4,9 +4,8 @@ import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import ErrorPage from "./pages/ErrorPage";
-import awsmobile from "./aws-exports";
-
-Amplify.configure(awsmobile);
+import awsmobile from "./safeAwsExports";
+import { useEffect } from "react";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +28,9 @@ const router = createBrowserRouter([
 ]);
 
 export function App() {
+  useEffect(() => {
+    Amplify.configure(awsmobile);
+  }, []);
   return (
     <>
       <RouterProvider router={router} />
