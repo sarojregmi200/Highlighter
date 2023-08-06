@@ -11,7 +11,7 @@ function AuthPage() {
 
   useEffect(() => {
     getToken().then((authToken) => {
-      if (!authToken) return navigate("/auth");
+      if (authToken) return navigate("/home");
     });
   }, []);
 
