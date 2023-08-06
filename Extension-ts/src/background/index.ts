@@ -9,9 +9,6 @@ initMessages();
 // listening for shortcuts
 initializeShortcuts();
 
-// refreshes the secrets and initializes the app
-let interval: boolean | NodeJS.Timeout = false;
-
 export async function activateApp() {
   const user = await getUser();
   if (!user) {
@@ -57,13 +54,17 @@ export async function activateApp() {
 // checks and validates the auth tokens and sets a boolean used by popup script to render the different screen
 // activates the app if authenticated if not authenticated.
 export async function checkAuthStatus(): Promise<boolean> {
-  const user = await getUser();
-  if (!user) {
-    globalState.authStatus = false;
-    return false;
+  try {
+    const user = await getUser();
+    if (!user) {
+      globalState.authStatus = false;
+      return false;
+    }
+    globalState.authStatus = true;
+    return true;
+  } catch (e) {
+    console.log("Error while checking the auth", e);
   }
-  globalState.authStatus = true;
-  return true;
 }
 
 activateApp();

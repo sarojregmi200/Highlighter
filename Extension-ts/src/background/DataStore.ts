@@ -47,11 +47,13 @@ export async function loadDbSettings(
   const allColors = await search(colorDb, { term: "", properties: "*" });
   const colorsIds = allColors.hits.map((item) => item.id);
 
-  await removeMultiple(topicDb, topicIds);
-  await removeMultiple(colorDb, colorsIds);
+  removeMultiple(topicDb, topicIds).then(() => {
+    insertMultiple(topicDb, topics);
+  });
 
-  await insertMultiple(topicDb, topics);
-  await insertMultiple(colorDb, colors);
+  removeMultiple(colorDb, colorsIds).then((res) => {
+    insertMultiple(colorDb, colors);
+  });
 }
 
 export async function loadHighlights(
@@ -70,8 +72,9 @@ export async function loadHighlights(
     properties: "*",
   });
   const highlightsIds = allHighlights.hits.map((item) => item.id);
-  removeMultiple(highlightedDataDb, highlightsIds);
-  insertMultiple(highlightedDataDb, highlights);
+  removeMultiple(highlightedDataDb, highlightsIds).then(() => {
+    insertMultiple(highlightedDataDb, highlights);
+  });
 }
 
 export const highlightedDataDb = await create({

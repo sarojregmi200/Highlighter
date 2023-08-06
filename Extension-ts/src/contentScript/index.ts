@@ -2,8 +2,12 @@ import { createSearch, createSearchResultsUI } from "../components";
 import { createHoverElement, initializePen } from "./pen";
 
 document.addEventListener("mouseup", () => {
-  initializePen();
-  loadPreviousHighlights();
+  browser.runtime.sendMessage({ msg: "getGlobalState" }).then(({ state }) => {
+    if (!state.authStatus) return;
+
+    initializePen();
+    loadPreviousHighlights();
+  });
 });
 
 // listing for shortcuts
@@ -167,22 +171,16 @@ const siteUrl = [
   `https://main.d2a7w27zjiogab.amplifyapp.com`,
 ];
 
-const sendCookies = () => { 
+const sendCookies = () => {
   const cookie = document.cookie;
   chrome.runtime.sendMessage({ msg: "extractCookie", cookie: cookie });
 };
 
-let interval: boolean | NodeJS.Timeout = false;
-
 for (let i in siteUrl) {
   const site = siteUrl[i];
- 
+
   if (window.location.href.includes(site)) {
     sendCookies();
-    interval = setInterval(() => {
-      sendCookies();
-    }, 1000);
     break;
   }
-  if (typeof interval !== "boolean") clearInterval(interval);
 }
