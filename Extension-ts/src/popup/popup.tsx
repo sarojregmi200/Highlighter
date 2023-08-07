@@ -81,7 +81,7 @@ const Popup = () => {
     });
   }, []);
 
-  const siteUrl = `http://localhost:5173`;
+  const siteUrl = `https://main.d2a7w27zjiogab.amplifyapp.com`;
   const loginUrl = siteUrl + "/auth";
 
   return (
