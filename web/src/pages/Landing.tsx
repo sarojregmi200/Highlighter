@@ -2,8 +2,9 @@ import { motion } from "framer-motion";
 
 import "../styles/landingpage.css";
 import { Bolt } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 function Landing() {
-
+  const navigate = useNavigate();
   return (
     <div className="landingContainer">
       <motion.div
@@ -18,7 +19,12 @@ function Landing() {
 
       <div className="mainContainer">
         <div className="nav">
-          <div className="nav-logo">
+          <div
+            className="nav-logo"
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
             <svg
               width="60"
               height="60"
@@ -69,7 +75,12 @@ function Landing() {
           </div>
 
           <div className="buttons">
-            <div className="support">
+            <div
+              className="support"
+              onClick={() => {
+                window.open("https://www.buymeacoffee.com/sarojregmi200", "_");
+              }}
+            >
               <svg
                 width="24"
                 height="24"
@@ -113,7 +124,14 @@ function Landing() {
                 />
               </svg>
             </div>
-            <div className="button primary authenticate">Authenticate</div>
+            <div
+              className="button primary authenticate"
+              onClick={() => {
+                navigate("/auth");
+              }}
+            >
+              Authenticate
+            </div>
           </div>
         </div>
 
@@ -137,7 +155,12 @@ function Landing() {
             </div>
 
             <div className="buttons">
-              <div className="downloadExtension button primary">
+              <div
+                className="downloadExtension button primary"
+                onClick={() => {
+                  window.open("Extensionpage", "_");
+                }}
+              >
                 <div className="buttonIcon">
                   <svg
                     width="21"
@@ -157,7 +180,15 @@ function Landing() {
                 </div>
                 Download Extension
               </div>
-              <div className="button secondary contribute">
+              <div
+                className="button secondary contribute"
+                onClick={() => {
+                  window.open(
+                    "https://www.github.com/sarojregmi200/highlighter",
+                    "_"
+                  );
+                }}
+              >
                 <div className="buttonIcon">
                   <svg
                     width="20"
