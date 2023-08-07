@@ -39,3 +39,45 @@
 .goodThings .thing + .thing {
   margin-left: 40px;
 }
+.mainContainer {
+  width: 90%;
+  min-height: 100vh;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+.nav {
+  width: 100%;
+  display: flex;
+  padding: 60px;
+  justify-content: space-between;
+  align-items: center;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.primary,
+.secondary {
+  width: 275px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: #665635;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.primary {
+  background: rgba(253, 187, 52, 0.71);
+  margin-left: 20px;
+}
+.secondary {
+  background-color: rgba(237, 237, 237, 1);
+  margin: 0 20px;
+}
