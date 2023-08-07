@@ -54,5 +54,9 @@
       "resources": ["./arrow.svg", "./noSearch.png", "openExternalLink.svg"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "icons": {
+    "48": "./logo48.png",
+    "96": "./logo98.png"
+  }
 }
