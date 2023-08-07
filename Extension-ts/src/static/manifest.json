@@ -57,6 +57,11 @@
   ],
   "icons": {
     "48": "./logo48.png",
-    "96": "./logo98.png"
+    "96": "./logo96.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "afce128f-2d75-492a-ac3a-805cd0293ffc@Highlighter"
+    }
   }
 }
