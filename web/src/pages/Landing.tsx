@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 import "../styles/landingpage.css";
 import { Bolt } from "@mui/icons-material";
 function Landing() {
-  useEffect(() => {});
+
   return (
     <div className="landingContainer">
       <motion.div
@@ -70,6 +69,50 @@ function Landing() {
           </div>
 
           <div className="buttons">
+            <div className="support">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 10.5C7.5 10.5 8.33 17.43 8.5 19C8.67 20.57 10 21 11 21H13C14.5 21 15.875 19.86 16 19C16.125 18.14 17 7 17 7"
+                  stroke="#0C4B5C"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M16.5 6C16.5 3.5 14 3 12 3C10 3 9.1 3.43 8 4"
+                  stroke="#0C4B5C"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <mask
+                  id="mask0_131_67"
+                  maskUnits="userSpaceOnUse"
+                  x="5"
+                  y="5"
+                  width="14"
+                  height="4"
+                >
+                  <path
+                    d="M5 6C5 4 7 6 11.5 6C16 6 19 4 19 6V7C19 8.5 17 9 12.5 9C8 9 5 9 5 7V6Z"
+                    fill="white"
+                  />
+                </mask>
+                <g mask="url(#mask0_131_67)">
+                  <path d="M20 4H4V9H20V4Z" fill="#0C4B5C" />
+                </g>
+                <path
+                  d="M10.1249 18.15C10.0399 17.29 9.3999 11.98 9.3999 11.98C9.3999 11.98 11.3399 12.31 12.4999 11.73C13.6599 11.16 14.9799 11 14.9799 11C14.9799 11 14.3999 17.96 14.3499 18.46C14.2999 18.96 13.4499 19.3 12.9499 19.3H11.2299C10.7299 19.3 10.2099 19 10.1249 18.15Z"
+                  fill="#FF9E39"
+                />
+              </svg>
+            </div>
             <div className="button primary authenticate">Authenticate</div>
           </div>
         </div>
