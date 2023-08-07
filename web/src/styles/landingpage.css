@@ -31,6 +31,7 @@
 }
 .goodThings {
   display: flex;
+  color: rgba(120, 120, 120, 1);
 }
 .goodThings .thing {
   display: flex;
@@ -75,9 +76,45 @@
 
 .primary {
   background: rgba(253, 187, 52, 0.71);
-  margin-left: 20px;
 }
 .secondary {
   background-color: rgba(237, 237, 237, 1);
   margin: 0 20px;
+}
+.mainContents {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  min-height: calc(100vh - 400px);
+  padding: 60px;
+}
+.leftSide {
+  max-width: 75%;
+}
+.textContents {
+  max-width: 80%;
+}
+
+.title {
+  color: #0e4353;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.desc {
+  margin-top: 30px;
+  color: #666;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 25px;
+}
+
+.leftSide .buttons {
+  margin-top: 85px;
+}
+.goodThings {
+  margin-top: 30px;
 }
