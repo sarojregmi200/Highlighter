@@ -67,8 +67,8 @@ function Landing() {
                   y2="84.1667"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="white" />
-                  <stop offset="0.963537" stop-color="#F4D085" />
+                  <stop stopColor="white" />
+                  <stop offset="0.963537" stopColor="#F4D085" />
                 </linearGradient>
               </defs>
             </svg>
@@ -91,16 +91,16 @@ function Landing() {
                 <path
                   d="M7.5 10.5C7.5 10.5 8.33 17.43 8.5 19C8.67 20.57 10 21 11 21H13C14.5 21 15.875 19.86 16 19C16.125 18.14 17 7 17 7"
                   stroke="#0C4B5C"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M16.5 6C16.5 3.5 14 3 12 3C10 3 9.1 3.43 8 4"
                   stroke="#0C4B5C"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <mask
                   id="mask0_131_67"
@@ -142,15 +142,22 @@ function Landing() {
               <div className="desc">
                 There are a lot of things that we learn everyday. Most of which
                 are very important but not for now, so we tend to pretend like
-                you will remember those things. But the reality is we never
-                remember those things, and at the time we need those we are
-                prone to search those things again. This is why you should get a
-                highlighter and research or consume information all you want and
-                never ever forget a single thing. By highlighting the important
-                things you can remember those things for longer and In case you
-                forget those things you can always back track those information
-                with the built in full text search engine. Are you ready to join
-                the journey? Let’s change the way we read on the web.
+                you will remember those things.
+                <span className="Example-highlights ">
+                  But the reality is we never remember those things,
+                </span>
+                and at the time we need those we are prone to search those
+                things again. This is why you should get a highlighter and
+                research or consume information all you want and never ever
+                forget a single thing.
+                <span className="Example-highlights exmp2">
+                  By highlighting the important things you can remember those
+                  things for longer time
+                </span>
+                and In case you forget those things you can always back track
+                those information with the built in full text search engine. Are
+                you ready to join the journey? Let’s change the way we read on
+                the web.
               </div>
             </div>
 
@@ -172,9 +179,9 @@ function Landing() {
                     <path
                       d="M19.5 13V17C19.5 17.5304 19.2893 18.0391 18.9142 18.4142C18.5391 18.7893 18.0304 19 17.5 19H3.5C2.96957 19 2.46086 18.7893 2.08579 18.4142C1.71071 18.0391 1.5 17.5304 1.5 17V13M5.5 8L10.5 13M10.5 13L15.5 8M10.5 13V1"
                       stroke="#665635"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 </div>
@@ -266,8 +273,8 @@ function Landing() {
                     y2="398.95"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="white" />
-                    <stop offset="0.963537" stop-color="#F4D085" />
+                    <stop stopColor="white" />
+                    <stop offset="0.963537" stopColor="#F4D085" />
                   </linearGradient>
                 </defs>
               </svg>

@@ -58,6 +58,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.nav-logo {
+  cursor: pointer;
+}
 .buttons {
   display: flex;
   align-items: center;
@@ -151,4 +154,91 @@
 }
 .secondary:hover {
   opacity: 1;
+}
+.Example-highlights {
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: rgba(0, 200, 255, 0.2);
+  text-decoration-color: rgb(0, 200, 255);
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  line-height: 110%;
+  cursor: pointer;
+}
+.exmp2 {
+  background-color: rgba(255, 132, 0, 0.2);
+  text-decoration-color: rgb(255, 132, 0, 1);
+}
+.signout {
+  background-color: rgb(218, 102, 59);
+  color: #fff;
+  text-transform: capitalize;
+  opacity: 0.8;
+}
+.signout:hover {
+  background-color: rgb(218, 102, 59);
+  color: #fff;
+  text-transform: capitalize;
+  opacity: 1;
+}
+@media screen and (max-width: 800px) {
+  .mainContents {
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+  .textContents {
+    max-width: 100%;
+  }
+  .leftSide {
+    max-width: 100%;
+    margin-top: 50px;
+    text-align: center;
+  }
+  .goodThings {
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+  }
+  .thing {
+    margin-left: 0 !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .support {
+    width: 60px;
+    margin-right: 10px;
+  }
+
+  .leftSide .buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .leftSide .button {
+    width: 100%;
+  }
+  .leftSide .button + .button {
+    margin-top: 10px;
+  }
+
+  .nav,
+  .mainContents {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .title {
+    font-size: 50px;
+  }
+  .nav .primary {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .nav .primary {
+    width: 200px;
+  }
+  .support {
+    display: none;
+  }
 }
