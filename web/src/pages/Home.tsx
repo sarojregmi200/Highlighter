@@ -277,7 +277,10 @@ function Home() {
               <div
                 className="downloadExtension button primary"
                 onClick={() => {
-                  window.open("Extensionpage", "_");
+                  window.open(
+                    "https://addons.mozilla.org/en-US/firefox/addon/_highlighter/",
+                    "_"
+                  );
                 }}
               >
                 <div className="buttonIcon">
