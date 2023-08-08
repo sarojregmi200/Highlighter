@@ -197,9 +197,9 @@ export function handleMessage(request, sender, response) {
       search(highlightedDataDb, {
         term: site,
         properties: ["domain"],
-        threshold: 0,
-        exact: true,
+        tolerance: 10,
       }).then((res) => {
+        console.log(res);
         response({
           items: res.hits.map((item) => {
             return { ...item.document, id: item.id };

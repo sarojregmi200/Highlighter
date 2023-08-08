@@ -1,7 +1,13 @@
 import { initializeShortcuts } from "./CommandHandler";
-import { globalState, loadDbSettings, loadHighlights } from "./DataStore";
+import {
+  globalState,
+  highlightedDataDb,
+  loadDbSettings,
+  loadHighlights,
+} from "./DataStore";
 import { initMessages } from "./MessageHandler";
-import { getUser, getHighlights } from "./graphQL";
+import { getUser, getHighlights, deleteAllHighlights } from "./graphQL";
+import { refreshSecrets } from "./secrets";
 
 //  listining to the incomming messages
 initMessages();
@@ -10,10 +16,11 @@ initMessages();
 initializeShortcuts();
 
 export async function activateApp() {
+  const storedUser = await refreshSecrets();
+  if (!storedUser) return;
+
   const user = await getUser();
-  if (!user) {
-    return;
-  }
+  if (!user) return;
 
   const {
     topic,

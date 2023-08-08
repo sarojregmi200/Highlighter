@@ -10,6 +10,13 @@ document.addEventListener("mouseup", () => {
   });
 });
 
+// loading the highlights on page load
+browser.runtime.sendMessage({ msg: "getGlobalState" }).then(({ state }) => {
+  if (!state.authStatus) return;
+
+  loadPreviousHighlights();
+});
+
 // listing for shortcuts
 chrome.runtime.onMessage.addListener((req, sender, res) => {
   const msg = req.msg;
@@ -36,16 +43,38 @@ chrome.runtime.onMessage.addListener((req, sender, res) => {
       ).singleNodeValue;
 
       if (!element) return;
-      chrome.runtime
-        .sendMessage({ msg: "getGlobalState" })
-        .then(({ state }) => {
-          const globalState = state;
 
-          highlightTrackedData(data, element, {
-            backgroundState: globalState.backgroundState,
-            underlineState: globalState.underlineState,
-          });
-        });
+      // Get the initial position of the target element
+      const targetPosition = (element as HTMLElement).getBoundingClientRect()
+        .top;
+
+      // Define the duration of the scroll animation (in milliseconds)
+      const duration = 1000;
+
+      // Calculate the starting timestamp
+      const startTime = performance.now();
+
+      // Define the animation function
+      function smoothScroll(timestamp) {
+        const currentTime = timestamp - startTime;
+
+        // Calculate the new scroll position using easing function (e.g., easeInOutQuad)
+        const easeInOutQuad = (t) =>
+          t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        const scrollToPosition =
+          easeInOutQuad(Math.min(currentTime / duration, 1)) * targetPosition;
+
+        // Perform the scroll
+        window.scrollTo(0, scrollToPosition);
+
+        if (currentTime < duration) {
+          // Continue the animation
+          requestAnimationFrame(smoothScroll);
+        }
+      }
+
+      // Start the animation
+      requestAnimationFrame(smoothScroll);
       break;
   }
 });
@@ -122,6 +151,7 @@ function styleHighlightedData(
   { id, color, topic, time, highlightedMarkup },
   globalState: { backgroundState: boolean; underlineState: boolean }
 ) {
+  console.log(highlightedMarkup, id);
   // creating a wrapper
   const span = document.createElement("span");
   span.classList.add(`wrapper-highlighter-highlight`);

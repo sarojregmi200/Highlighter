@@ -27,14 +27,7 @@ async function sendGraphQlRequest(requestBody: { query: any }) {
     return data;
   } catch (error) {
     console.log("Error while sending the request", error);
-  }
-}
-
-// fetch the user settings i.e topics and colors
-export async function getUserSettings() {
-  try {
-  } catch (error) {
-    console.log("ErrorOccured", error);
+    return false;
   }
 }
 
@@ -46,10 +39,12 @@ export async function getUser(): Promise<any | boolean> {
         listUsers{
           items{
             settings{
+              id
               colors
               topics
             }
             active{
+              id
               topic
               color
               pen
