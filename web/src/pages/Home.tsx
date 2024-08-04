@@ -190,7 +190,7 @@ function Home() {
                         <div
                             className="support"
                             onClick={() => {
-                                window.open("https://www.buymeacoffee.com/sarojregmi200", "_");
+                                window.open("https://www.buymeacoffee.com/", "_");
                             }}
                         >
                             <svg
@@ -325,7 +325,7 @@ function Home() {
                                         />
                                     </svg>
                                 </div>
-                                Contribute
+                                Contribute To Code
                             </div>
                         </div>
                         <div className={"goodThings"}>
